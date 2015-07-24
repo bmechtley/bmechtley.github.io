@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="Brandon Mechtley">
+        <meta http-equiv "X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <![endif]-->
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
+
+        <title>Brandon Mechtley</title>
+
+        <style type="text/css">
+            body {
+                font-family: 'Open Sans', 'sans-serif';
+                font-weight: 300;
+                text-align: justify;
+            }
+
+            a {
+                text-decoration: none;
+                color: #997F81;/*#AB825C;#556270;*/
+            }
+
+            #container {
+                position: relative;
+                width: 45em;
+                margin: auto;
+            }
+
+            #profile {
+                display: table;
+                width: 100%;
+                margin-bottom: 1em;
+                margin-top: 3em;
+            }
+
+            #profile-one, #profile-two {
+                display: table-cell;
+                margin: 0;
+                vertical-align: top;
+            }
+
+            #profile-two {
+                text-align: right;
+                margin-right: 0;
+            }
+
+            #profile-address, #profile-email, #profile-telephone, #profile-url {
+                display: block;
+                margin: 0;
+            }
+
+            #profile-address {
+                padding: 0;
+                margin-bottom: 0;
+            }
+
+            #profile-address li {
+                list-style-type: none;
+                display: inline-block;
+                padding: 0;
+                margin: 0;
+            }
+
+            #profile h1 {
+                font-family: 'Molengo', 'sans-serif';
+                font-size: 2em;
+                color: #817F99;/*#556270;*/
+                margin: 0;
+            }
+
+            #profile h2 {
+                color: #4ECDC4;
+                text-align: left;
+            }
+
+            #profile a {
+                color: inherit;
+            }
+
+            .listing {
+                position: relative;
+                margin-left: 11.5em;
+                margin-bottom: 2em;
+                padding-top: 0.5em;
+                border-top: 1px dashed gray;
+            }
+
+            .listing h1 {
+                position: absolute;
+                height: 100%;
+                left: -9em;
+                top: -0.75em;
+                margin: 0;
+                width: 8em;
+                text-align: right;
+                font-size: 1.25em;
+                font-weight: 300;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+
+            .listing h1 a {
+                display: block;
+                font-size: 0.7em;
+                color: inherit;
+            }
+
+            .listing h2 {
+                position: relative;
+                font-size: 1em;
+                margin-bottom: 0;
+                color: #7F8199;/* #5C82AB; #C44D58;*/
+                font-weight: 300;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+
+            .listing h3 {
+                position: relative;
+                font-size: 1em;
+                color: #81997F;/*#A6B07B; #FF6B6B;*/
+                font-weight: 300;
+                margin-top: 0em;
+                margin-bottom: 0em;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+
+            .listing p {
+                margin-top: 0em;
+            }
+
+            .time {
+                margin-left: 0.5em;
+                font-weight: 300;
+                color: black;
+                float: left;
+                margin-left: -15.25em;
+                text-align: right;
+                display: block;
+                width: 14em;
+                color: #556270;
+            }
+
+            .listing ul {
+                padding: 0;
+                margin-top: 0.25em;
+            }
+
+            li {
+                list-style: none;
+                margin-bottom: 0.25em;
+            }
+
+            .compact li {
+                display: inline;
+                margin: 0;
+            }
+
+            .compact li:after {
+                content: ", ";
+            }
+
+            .compact li:last-child:before {
+                content: " and ";
+            }
+
+            .compact li:last-child:after {
+                content: "";
+            }
+
+            .pub-name {
+                color: #5C82AB;
+            }
+
+            .my-name {
+                color: #81997F;
+            }
+
+            @media print {
+                #container {
+                    width: 6.5in;
+                    margin-top: none;
+                    padding-top: none;
+                }
+
+                #profile {
+                    margin-top: 0;
+                    padding-top: 0;
+                }
+
+                @page {
+                    margin: 1in;
+                }
+
+                body {
+                    font-size: 0.8em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container" itemscope itemtype="http://schema.org/Person">
+            <header id="profile">
+                <section id='profile-one'>
+                    <h1 itemprop="name">Brandon Mechtley</h1>
+                    <!--h2 itemprop="jobTitle"></h2-->
+                </section>
+                <section id='profile-two'>
+                    <ul id='profile-address' itemprop="address"
+                    itemtype="http://schema.org/PostalAddress">
+                        <!--li itemprop="streetAddress"></li-->
+                        <li itemprop="addressLocality">Lawrence,</li>
+                        <li itemprop="addressRegion">KS</li>
+                        <li itemprop="postalCode">66046</li>
+                    </ul>
+
+                    <!--span id='profile-email' itemprop="email"></span-->
+
+                    <!--span id='profile-telephone' itemprop="telephone"></span-->
+
+                    <a href="http://bmechtley.me/" itemprop="url" id='profile-url'>
+                        bmechtley.me
+                    </a>
+                </section>
+            </header>
+
+            <section class='listing' id="education">
+                <h1>Education</h1>
+                <h2>
+                    <span itemprop="alumniOf">Arizona State University</span><span class='time'>2005 - 2013</span>
+                </h2>
+                <h3>
+                    Ph.D. Computer Science, concentration in Arts, Media, and Engineering
+                    <span class='time'>2007 - 2013</span>
+                </h3>
+                <p>
+                    Dissertation: <em><a href='http://hdl.handle.net/2286/R.I.20991'>Techniques for Soundscape Retrieval and Synthesis</a></em><br/>
+                    Committee:
+                    <a href='http://spanias.faculty.asu.edu/'>Andreas Spanias</a>,
+                    <a href='http://www.cs.princeton.edu/~prc/'>Perry Cook</a>,
+                    <a href='https://cs.illinois.edu/directory/profile/hs1'>Hari Sundaram</a>,
+                    <a href='http://www.public.asu.edu/~bli24/'>Baoxin Li</a>
+                </p>
+                <h3>B.S. Computer Science<span class='time'>2005 - 2007</span></h3>
+            </section>
+
+
+            <!--section class='listing' id="skills" itemscope
+            itemtype="http://schema.org/ItemList">
+                <h1 itemprop="name">Technical Skills</h1>
+                <h2 itemprop="about">Programming languages</h2>
+                <ul class='compact'>
+                    <li itemprop="itemListElement">Python (Numpy/SciPy/Matplotlib, Flask)</li>
+                    <li itemprop="itemListElement">C/C++</li>
+                    <li itemprop="itemListElement">Javascript (node.js, DOM/jQuery)</li>
+                    <li itemprop="itemListElement">Ruby (Rails, Sinatra)</li>
+                    <li itemprop="itemListElement">MATLAB/Octave</li>
+                    <li itemprop="itemListElement">Java</li>
+                    <li itemprop="itemListElement">PHP</li>
+                    <li itemprop="itemListElement">Lisp</li>
+                </ul>
+
+                <h2 itemprop="about">Topics</h2>
+                <ul class='compact'>
+                    <li itemprop='itemListElement'>machine learning</li>
+                    <li itemprop='itemListElement'>statistical signal processing / estimation</li>
+                    <li itemprop='itemListElement'>information visualization / sonification</li>
+                    <li itemprop="itemListElement">web applications</li>
+                    <li itemprop="itemListElement">databases (SQL, MongoDB)</li>
+                    <li itemprop="itemListElement">cloud deployment / databases / storage</li>
+                    <li itemprop="itemListElement">interactive multimedia systems</li>
+                </ul>
+
+                <h2 itemprop="about">Operating systems</h2>
+                <ul class='compact'>
+                    <li itemprop="itemListElement">Mac OSX</li>
+                    <li itemprop="itemListElement">GNU/Linux</li>
+                    <li itemprop="itemListElement">iOS</li>
+                    <li itemprop="itemListElement">Android</li>
+                </ul>
+
+                <h2 itemprop="about">Development tools</h2>
+                <ul class='compact'>
+                    <li itemprop="itemListElement">XCode</li>
+                    <li itemprop="itemListElement">PyCharm</li>
+                    <li itemprop="itemListElement">Eclipse</li>
+                    <li itemprop="itemListElement">Git/Mercurial/SVN</li>
+                </ul>
+
+                <h2 itemprop="about">Media/design</h2>
+                <ul class='compact'>
+                    <li itemprop="itemListElement">HTML5/CSS3</li>
+                    <li itemprop="itemListElement">openFrameworks</li>
+                    <li itemprop="itemListElement">Cinder</li>
+                    <li itemprop="itemListElement">Processing</li>
+                    <li itemprop="itemListElement">Adobe Photoshop / Illustrator / Audition</li>
+                    <li itemprop="itemListElement">Ableton Live</li>
+                    <li itemprop="itemListElement">Max/MSP</li>
+                    <li itemprop="itemListElement">Pd</li>
+                    <li itemprop="itemListElement">ChucK</li>
+                </ul>
+            </section-->
+
+            <section class='listing' id="experience">
+            <h1>Work Experience</h1>
+                <h2>
+                    University of Kansas - Lawrence, KS<span class='time'>2014 - Present</span>
+                </h2>
+                <h3>
+                    Postdoctoral Researcher, Kansas Biological Survey, Department of Ecology and Evolutionary Biology
+                </h3>
+                <ul>
+                    <li>Computational modeling of metapopulation synchrony in host-parasitoid systems.</li>
+                    <li>Analysis of spatial synchrony in acoustic communication of Brood IV 17-year periodic cicadas.</li>
+                </ul>
+
+                <h2>
+                    Queen Mary, University of London - London, UK<span class='time'>2013</span>
+                </h2>
+                <h3>
+                    Postdoctoral Researcher, Centre for Digital Music, School of Electronic Engineering and Computer Science
+                </h3>
+                <ul>
+                    <li>
+                        Auditory retrieval for large environmental audio databases. RESTful jQuery-based frontend and Flask / MongoDB for backend audio analysis and indexing.
+                    </li>
+                    <li>
+                        Cloud deployment through Heroku, database management through MongoHQ, and storage through Amazon S3.
+                    </li>
+                </ul>
+
+                <h2>
+                    Mobia.tv, LLC - Tempe, AZ<span class='time'>2010 - 2011</span>
+                </h2>
+                <h3>Co-founder, lead web application developer</h3>
+                <ul>
+                    <li>
+                        Hyper-local mobile / web application for delivery of geographically tagged videos of music and theater performances. Designed to benefit local sponsors through targeted advertisements and events.
+                    </li>
+                    <li>
+                        Ruby on Rails backend using cloud-based media encoding (Zencoder), storage (Amazon S3), and deployment (Heroku).
+                    </li>
+                    <li>
+                        Funding sources included ASU Graduate Professional Student Association (GPSA), p.a.v.e. (Performing Arts Venture Experience), and Innovation Challenge.
+                    </li>
+                </ul>
+
+                <h2>
+                    Arizona State University - Tempe, AZ<span class='time'>2006 - 2013</span>
+                </h2>
+                <h3>
+                    Graduate Research Fellow, Arts Media and Engineering<span class='time'>2007 - 2013</span>
+                </h3>
+                <ul>
+                    <li>
+                        Geographic, semantic, and example-based retrieval and annotation of environmental sounds.
+                    </li>
+                    <li>
+                        Server backend / open source C++ library for segmentation, indexing, and retrieval of continuous recordings.
+                    </li>
+                    <li>
+                        Re-synthesis and geographic mixing/morphing of recorded soundscapes.
+                    </li>
+                </ul>
+
+                <h3 style='page-break-before: always'>
+                    Undergraduate Researcher, Arts Media and Engineering<span class='time'>2006 - 2007</span>
+                </h3>
+                <ul>
+                    <li>
+                        Interactive visuals, auditory feedback, and complex system models for educational installations (openFrameworks, UDP multicast communications, OSC, Max/MSP).
+                    </li>
+                    <li>
+                        Worked with an interdisciplinary research group including researchers in dance choreography, visual and sonic arts, electrical engineering, computer science, education, and psychology.
+                    </li>
+                </ul>
+
+                <h2>
+                    Honeywell Business Regional and General Aviation - Olathe, KS<span class='time'>2003 - 2004</span>
+                </h2>
+                <h3>Intern, IT/DigitalWorks</h3>
+                <ul>
+                    <li>
+                        Oracle SQL database transactions for inventory and work order tracking.
+                    </li>
+                    <li>
+                        360&deg; evaluation web application for human resources, architectural and usability improvements for Bendix/King website.
+                    </li>
+                </ul>
+            </section>
+
+            <section class='listing' id='awards'>
+                <h1>Activities / Awards</h1>
+                <ul>
+                    <li>Board Member / Web Director,
+                    <span itemprop='memberOf'>American Society for Acoustic Ecology</span></li>
+                    <li>Member, <span itemprop='memberOf'>Association for Computing Machinery</span></li>
+                    <li>Member, <span itemprop='memberOf'>Institute of Electrical and Electronics Engineers</span></li>
+                    <li>National Science Foundation IGERT Award <span class='time'>2009 - 2012</span></li>
+                    <li>Science Foundation Arizona Graduate Fellowship Award <span class='time'>2007 - 2009</span></li>
+                    <li>ASU Fulton Undergraduate Research Initiative grant<span class='time'>2006 - 2007</span></li>
+                    <li>International Game Developers Association GDC Student Scholarship<span class='time'>2007</span></li>
+                </ul>
+            </section>
+
+            <section class='listing' id='projects'>
+                <h1>Software Projects<!--a class='sectionurl'
+                href='http://github.com/plant'>http://github.com/plant</a--></h1>
+                <p><a href='http://github.com/plant/'>http://github.com/plant/</a></p>
+                <p>
+                <!--h2 itemscope itemtype="http://schema.org/SoftwareApplication"-->
+                    <span class='time' itemprop='name'>
+                        <a href='http://github.com/plant/sirens' itemprop="url"
+                        title='sirens'>
+                            sirens
+                        </a>
+                    </span>
+                <!--/h2-->
+                <!--p-->
+                    C++ library / Vamp plugins for segmenting / comparing environmental sounds.
+                </p>
+
+                <p>
+                <!--h2 itemscope itemtype="http://schema.org/SoftwareApplication"-->
+                    <span itemprop='name' class='time'>
+                        <a href='http://github.com/plant/soundwalks'
+                        itemprop='url' title='soundwalks'>
+                            soundwalks
+                        </a>
+                    </span>
+                <!--/h2-->
+                <!--p-->
+                    node.js / Python / HTML5 application for interactive soundscape exploration through real-time mixing of geotagged field recordings.
+                </p>
+
+                <p>
+                <!--h2 itemscope itemtype="http://schema.org/SoftwareApplication"-->
+                    <span itemprop='name' class='time'>
+                        <a href='http://github.com/plant/psgraindb-max'
+                        itemprop='url' title='psgrainmatch~'>
+                            psgrainmatch~
+                        </a>
+                    </span>
+                <!--/h2-->
+                <!--p-->
+                    Max/MSP object written in C++ for granular synthesis. Grains from source sounds are chosen to match certain spectral/textural features of live vocal input.
+                </p>
+
+                <p>
+                <!--h2 itemscope itemtype="http://schema.org/SoftwareApplication"-->
+                    <span itemprop='name' class='time'>
+                        <a href='http://github.com/plant/envmixer'
+                        itemprop='url' title='envmixer'>
+                            resyn / envmixer
+                        </a>
+                    </span>
+                <!--/h2-->
+                <!--p-->
+                    Python tools for synthesizing natural sound textures by example, e.g. figure / ground separation in environmental audio recordings.
+                </p>
+            </section>
+
+            <section class='listing' id='hobbies'>
+                <h1>Hobbies / Motivations</h1>
+                <ul class='compact'>
+                    <li>Interactive media</li>
+                    <li>creative coding</li>
+                    <li>field recording</li>
+                    <li>instrument design</li>
+                    <li>acoustic ecology</li>
+                    <li>hiking</li>
+                    <li>ukulele</li>
+                    <li>my two lovely cats: Nekobasu and Mochi</li>
+                </ul>
+            </section>
+
+            <section class='listing' id='publications'>
+                <h1>Publications</h1>
+                <ul>
+                    <li>
+                        <span class='my-name'>B Mechtley</span>, <a href='http://hdl.handle.net/2286/R.I.20991'>Techniques for Soundscape Retrieval and Synthesis</a>, Ph.D. dissertation, Dept. Comp. Sci., Arizona State University, Tempe, AZ, 2014.
+                    </li>
+                    <li>
+                        <span class='my-name'>B Mechtley</span>, PR Cook, and A Spanias, &quot;Sound Mapping on the Web: Current Solutions and Future Directions,&quot; in <em>Proceedings of the Symposium on Acoustic Ecology</em>, Kent, United Kingdom, 2013.
+                    </li>
+                    <li>
+                        <span class='my-name'>B Mechtley</span>, P Cook, and A Spanias, <a href='http://ismir2012.ismir.net/event/papers/541_ISMIR_2012.pdf'>Shortest Path Techniques for Annotation and Retrieval of Environmental Sounds</a>, in <em>Proceedings of the International Conference on Music Information Retrieval</em>, 2012.
+                    </li>
+                    <li>
+                        D Birchfield, H Thornburg, MC Megowan-Romanowicz, S Hatton, <span class='my-name'>B Mechtley</span>, I Dolgov, W Burleson, G Qian, &quot;Interactive Multimedia Technology in Learning: Integrating Multimodality, Embodiment, and Composition for Mixed-Reality Learning Envirorments,&quot; in <i>Multimedia Image and Video Processing</i>, 2nd ed., L. Guan, Y. He, and S.-Y. Kung, Eds. Boca Raton, FL: CRC Press, 2012, pp. 659-690.
+                    </li>
+                    <li>
+                        A Fink, <span class='my-name'>B Mechtley</span>, G Wichern, J Liu, and H Thornburg, <a href='http://icad.org/Proceedings/2010/Finketal2010.pdf'>Re-sonification of Geographic Sound Activity Using Acoustic, Semantic, and Social Information</a>, in <em>Proceedings of the 16th International Conference on Auditory Display</em>, 2010.
+                    </li>
+                    <li>
+                        <span class='my-name'>B Mechtley</span>, G Wichern, H Thornburg, and A Spanias, <a href='docs/2010-mechtley-icassp-combining.pdf'>Combining semantic, social, and acoustic similarity for retrieval of environmental sounds</a>, in <em>Proceedings of the 2010 IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)</em>, 2010, pp. 2402-2405.
+                    </li>
+                    <li>
+                        G Wichern, <span class='my-name'>B Mechtley</span>, A Fink, H Thornburg, and A Spanias, <a href='http://asmp.eurasipjournals.com/content/2010/1/192363'>An Ontological Framework for Retrieving Environmental Sounds Using Semantics and Acoustic Content</a>, in <em>EURASIP Journal on Audio, Speech, and Music Processing</em>, vol. 2010, pp. 1-11, 2010.
+                    </li>
+                    <li>
+                        G Wichern, J Xue, H Thornburg, <span class='my-name'>B Mechtley</span>, and A Spanias, <a href='http://enpub.fulton.asu.edu/sensip/sensip_papers/environmentalsound_spanias.pdf'>Segmentation, indexing, and retrieval for environmental and natural sounds</a>, in <em>IEEE Transactions on Audio, Speech, and Language Processing</em>, vol. 18, no. 3, pp. 688-707, 2010.
+                    </li>
+                    <li>
+                        D Birchfield, H Thornburg, MC Megowan-Romanowicz, S Hatton, <span class='my-name'>B Mechtley</span>, I Dolgov, W Burleson. <a href='http://downloads.hindawi.com/journals/ahci/2008/874563.pdf'>Embodiment, Multimodality, and Composition: Convergent Themes across HCI and Education for Mixed-Reality Learning Environments</a>, in <em>Advances in Human-Computer Interaction</em>, vol. 2008, pp. 1-20, 2008.
+                    </li>
+                    <li>
+                        D Birchfield, <span class='my-name'>B Mechtley</span>, S Hatton, and H Thornburg. <a href='docs/2008-birchfield-acm-mm-mixed-reality.pdf'>Mixed-reality learning in the art museum context</a>, in <em>Proceedings of the 16th ACM International Conference on Multimedia</em>, 2008. pp. 965-968.
+                    </li>
+                    <li>
+                        G Wichern, H Thornburg, <span class='my-name'>B Mechtley</span>, A Fink, K Tu, and A Spanias, <a href='docs/2007-wichern-cbmi-robust-segmentation.pdf'>Robust Multi-feature Segmentation and Indexing for Natural Sound Environments</a>, in <em>Proceedings of the Fifth International Workshop on Content-Based Multimedia Indexing</em>, 2007, pp. 69-76.
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </body>
+</html>

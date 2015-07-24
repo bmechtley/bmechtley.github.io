@@ -1,0 +1,57 @@
+{
+    "descriptions": {
+        "autoplay": "Sounds automatically play with one click.",
+        "autoplay next": "Sounds automatically advance to a next sound.",
+        "gps traces": "GPS traces are actually visible as paths on the map for mobile recordings.",
+        "live streaming": "Map includes sounds that are streamed live.",
+        "mixing": "Map can play multiple sounds at the same time.",
+        "mobile": "Has an application on a mobile device.",
+        "point-and-click": "Interaction follows the typical point-click-and-listen cycle.",
+        "sequences": "Includes multi-part sound sequences.",
+        "heatmap": "Some sort of heatmap is visible for an additional data layer.",
+        "images": "Images are shown along with the sound.",
+        "spectrogram": "A spectrogram of the sound currently playing is visible.",
+        "videos": "Videos of the place recorded / the recording itself are available.",
+        "additional map layers": "Map layers besides the standard map / satellite / hybrid views are available, such as historical data.",
+        "commercial": "Sound map is a commercial product.",
+        "crowdsourced": "Map includes the ability (even via email) for community contribution.",
+        "field recordings": "Map allows inclusion of field recordings.",
+        "historical data": "Map has some historical intent.",
+        "music only": "Sounds are limited to only what would traditionally be described as music.",
+        "speech only": "Sounds are limited to speech.",
+        "tags": "Sounds contain folksonomy-based tags.",
+        "categories": "Sounds are organized in some sort of discrete categorization or taxonomy.",
+        "descriptions": "Sounds contain some sort of text-based description of their content.",
+        "visualizations": "Other audio feature visualizations besides spectrogram/waveforms.",
+        "platform": "Tool has a primary use of being used as a platform for other users to create their own maps and/or archives."
+    },
+    "tags": {
+        "features": {
+            "catnames": ["features"],
+            "listtags": true,
+            "querytype": "and"
+        },
+        "content": {
+            "catnames": ["content", "metadata"],
+            "listtags": true,
+            "querytype": "and"
+        },
+        "media": {
+            "catnames": ["media"],
+            "listtags": true,
+            "querytype": "and"
+        },
+        "years": {
+            "catnames": ["year"],
+            "listtags": false,
+            "querytype": "or"
+        },
+        "regions": {
+            "catnames": ["region"],
+            "split": ": ",
+            "splitlevel": 2,
+            "listtags": true,
+            "querytype": "and"
+        }
+    }
+}

@@ -1,0 +1,2157 @@
+[
+    {
+        "name": "Lisbon Soundmap",
+        "url": "http://www.lisbonsoundmap.org/",
+        "metadata": [
+            "spectrum",
+            "descriptions"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "features": [
+            "point-and-click"
+        ],
+        "authors": [
+            "Lu\u00eds Cl\u00e1udio Ribeiro",
+            "M\u00e9sicles H\u00e9lin",
+            "Hedisson Mota",
+            "Jorge Bruno",
+            "Jos\u00e9 Gomes Pinto",
+            "Rui Pereira Jorge"
+        ],
+        "region": [
+            "Europe: Portugal: Lisbon"
+        ],
+        "year": "2003"
+    },
+    {
+        "name": "SonicMaps",
+        "url": "http://www.sonicmaps.org/",
+        "metadata": [],
+        "content": [
+            "field recordings",
+            "crowdsourced",
+            "commercial",
+            "descriptions"
+        ],
+        "features": [
+            "autoplay",
+            "autoplay next",
+            "mixing",
+            "mobile"
+        ],
+        "authors": [
+            "Jose Ignacio Pecino Rodriguez"
+        ],
+        "media": ["3D"],
+        "region": [
+            "World"
+        ],
+        "year": "2012"
+    },
+    {
+        "name": "Glasgow 3D Sound Map",
+        "url": "http://www.glasgow3dsoundmap.co.uk",
+        "year": "2013",
+        "authors": [
+            "Adam Craig",
+            "Don Knox",
+            "David Moore",
+            "Gui Yui Tian"
+        ],
+        "region": [
+            "Europe: United Kingdom: Scotland: Glasgow"
+        ],
+        "features": [
+            "autoplay",
+            "mixing"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "metdata": [
+        ],
+        "media": ["3D"]
+    },
+    {
+        "name": "Wisconsin Geotools Project",
+        "url": "http://maps.aqua.wisc.edu/geotools/",
+        "media": [
+            "images",
+            "video"
+        ],
+        "region": [
+            "Green Bay: Wisconsin: United States",
+            "St. Louis River Estuary: Madison: Wisconsin: United States"
+        ],
+        "content": [
+            "mobile",
+            "field recordings",
+            "crowdsourced"
+        ],
+        "metadata": [
+            "descriptions"
+        ],
+        "features": [
+            "point-and-click"
+        ],
+        "authors": [
+            "Janet Silbernagel",
+            "Matthew Axler",
+            "Francis Eanes"
+        ]
+    },
+    {
+        "name": "Parco dei Suoni",
+        "url": "http://www.parcodeisuoni.net/",
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "region": [
+            "Europe: Italy"
+        ],
+        "authors": [
+            "Marcello Liberato"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "description",
+            "categories",
+            "tags"
+        ]
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.soundsurvey.org.uk/",
+        "media": [
+            "images",
+            "additional map layers"
+        ],
+        "region": [
+            "Europe: United Kingdom: London"
+        ],
+        "authors": [
+            "Ian Rawes"
+        ],
+        "content": [
+            "field recordings",
+            "historical data"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "London Sound Survey"
+    },
+    {
+        "name": "Telemeta",
+        "url": "http://telemeta.org/",
+        "features": [
+            "platform",
+            "point-and-click"
+        ],
+        "year": "2013",
+        "metadata": [
+            "tags",
+            "descriptions",
+            "categories",
+            "spectrogram"
+        ],
+        "authors": [
+            "Guillaume Pellerin",
+            "Riccardo Zaccarelli",
+            "Olivier Guilyardi"
+        ]
+    },
+    {
+        "name": "Sound Archives of the CNRS - Musée de l'Homme",
+        "url": "http://archives.crem-cnrs.fr/",
+        "features": [
+            "point-and-click"
+        ],
+        "year": "2013",
+        "metadata": [
+            "tags",
+            "descriptions",
+            "categories",
+            "spectrogram",
+            "visualisations"
+        ],
+        "content": [
+            "music only"
+        ],
+        "regions": [
+            "World"
+        ],
+        "authors": [
+            "Centre de Recherche en Ethnomusicologie"
+        ]
+    },
+    {
+        "features": [
+            "mixing",
+            "sequences",
+            "gps traces",
+            "mobile",
+            "autoplay",
+            "point-and-click",
+            "autoplay next"
+        ],
+        "url": "http://www.aporee.org/maps/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Udo Noll"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced",
+            "platform"
+        ],
+        "year": "2006",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "radio aporee :: maps"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.oontz.ru/karta/",
+        "region": [
+            "Europe: Russia: Sergiev Posad"
+        ],
+        "authors": [
+            "Vladimir Kryutchev"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Sergiev Posad Sounds"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.opensoundneworleans.com/",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "North America: United States: New Orleans"
+        ],
+        "authors": [
+            "Heather Booth",
+            "Jacob Brancasi"
+        ],
+        "content": [
+            "crowdsourced"
+        ],
+        "year": "2009",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Open Sound New Orleans"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.sonicwonders.org/",
+        "media": [
+            "images",
+            "videos"
+        ],
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Trevor Cox"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Sound Tourism"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.soinumapa.net/",
+        "region": [
+            "Europe: Spain"
+        ],
+        "authors": [
+            "Xabier Erkizia",
+            "I\u00f1igo Telletxea",
+            "Txesus Garate",
+            "Myriam Ay\u00e7aguer",
+            "St\u00e9phane Garin",
+            "Mikel R. Nieto",
+            "Aintzane Erkizia",
+            "Oier Iruretagoiena",
+            "Xavier Balderas",
+            "Enrike Hurtado"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2005",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Soinu Mapa"
+    },
+    {
+        "features": [
+            "mixing",
+            "sequences",
+            "autoplay",
+            "point-and-click",
+            "autoplay next"
+        ],
+        "url": "http://favouritesounds.org/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Peter Cusack",
+            "Nigel Currie",
+            "Kirsten Edwards"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Favourite Sounds"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click",
+            "autoplay next"
+        ],
+        "url": "http://www.montrealsoundmap.com/",
+        "region": [
+            "North America: Canada: Montr\u00e9al"
+        ],
+        "authors": [
+            "Maxwell Stein",
+            "Julian Stein"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2008",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Montr\u00e9al Sound Map"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.listentoafrica.com/map/",
+        "media": [
+            "images",
+            "videos"
+        ],
+        "region": [
+            "Africa"
+        ],
+        "authors": [
+            "H. Williams",
+            "R. Summer"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2009",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Listen to Africa"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://soundmap-cologne.de",
+        "region": [
+            "Europe: Germany: Cologne"
+        ],
+        "authors": [
+            "Marco Medkour"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2013",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Soundmap of Cologne"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Wildlife-Recordings",
+        "region": [
+            "Europe"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Wildlife recordings"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Accents-and-Dialects",
+        "region": [
+            "Europe: United Kingdom"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "speech only",
+            "historical data"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Accents & dialects"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://bolognoise.org/",
+        "region": [
+            "Europe: Italy: Bologna"
+        ],
+        "authors": [
+            "Ricardo Dance",
+            "Federico Mascagni",
+            "Salvatore Arangio"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Bolognoise"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.escoitar.org/",
+        "region": [
+            "Europe: Spain"
+        ],
+        "authors": [
+            "Berio Molina",
+            "Chiu Longina",
+            "Horacio Gonz\u00e1lez",
+            "Juan-Gil Rodr\u00efguez",
+            "Julio G\u00f3mez",
+            "Carlos Su\u00e1rez S\u00e1nchez"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2006",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "escoitar"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.madridsoundscape.org/",
+        "region": [
+            "Europe: Spain: Madrid"
+        ],
+        "authors": [
+            "Berio Molina",
+            "Chiu Longina",
+            "Horacio Gonz\u00e1lez",
+            "Juan-Gil Rodr\u00efguez",
+            "Julio G\u00f3mez",
+            "Carlos Su\u00e1rez S\u00e1nchez"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2008",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Madrid Soundscape"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.favoritechicagosounds.com/",
+        "region": [
+            "North America: United States: Chicago"
+        ],
+        "authors": [
+            "Lou Mallozzi",
+            "Teresa Gale",
+            "Sarah Lu",
+            "Andrew Neher"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2008",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Favorite Chicago Sounds"
+    },
+    {
+        "features": [
+            "sequences",
+            "point-and-click"
+        ],
+        "url": "http://torontosoundmap.com",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "North America: Canada: Toronto"
+        ],
+        "authors": [
+            "Frank Russio",
+            "Tristan Loria",
+            "Gabe Nespoli",
+            "Max Stein",
+            "Chris Lachine"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Toronto Sound Map"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.sonicexplorers.org/sound-map.html",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Sonic Explorers"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Sonic Explorers Sound Map"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.soundcities.com/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Stanza"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2000",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Soundcities"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.inukjuaksoundmap.com/",
+        "region": [
+            "North America: Canada: Inukjuak"
+        ],
+        "authors": [
+            "Nimalan Yoganathan",
+            "Maxwell Stein"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2010",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Inukjuak Sound Map"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.xeno-canto.org/",
+        "media": [
+            "spectrogram",
+            "heatmap"
+        ],
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Xeno-canto Foundation"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2005",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "xeno-canto"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://westernsoundscape.org/googleMap.php",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "North America: United States"
+        ],
+        "authors": [
+            "Western Soundscape Archive"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ],
+        "name": "Western Soundscape Archive Sound Maps"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.firenzesoundmap.org/",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "Europe: Italy: Florence"
+        ],
+        "authors": [
+            "Antonella Chicory"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2009",
+        "metadata": [
+            "categories"
+        ],
+        "name": "Firenze Sound Map"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.ecouterparis.net/",
+        "region": [
+            "Europe: France: Paris"
+        ],
+        "authors": [
+            "Monica Fantini",
+            "Michel Cr\u00e9\u00efs",
+            "Ir\u00e8ne Berelowitch",
+            "Xavier Baudoin"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "categories"
+        ],
+        "name": "\u00c9couter Paris"
+    },
+    {
+        "features": [
+            "mobile"
+        ],
+        "url": "http://www.audioboo.com/",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Audioboo Ltd."
+        ],
+        "content": [
+            "commercial",
+            "crowdsourced"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories",
+            "tags"
+        ],
+        "name": "Audioboo"
+    },
+    {
+        "name": "Macaulay Library",
+        "url": "http://macaulaylibrary.org/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "The Cornell Lab of Ornithology"
+        ],
+        "content": [
+            "commercial",
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "categories"
+        ]
+    },
+    {
+        "features": [
+            "gps traces",
+            "point-and-click"
+        ],
+        "url": "http://missionspecialist.net/project/urban-sound-ecology",
+        "region": [
+            "North America: Canada: Toronto",
+            " North America: Canada: Vancouver"
+        ],
+        "authors": [
+            "Urban Sound Ecology"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "tags"
+        ],
+        "name": "Urban Sound Ecology"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.moma.org/moma_studio/soundmap",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "MoMA Studio"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "host": "Soundcloud",
+        "year": "2013",
+        "name": "MoMA Studio Sound Map"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.davosoundscape.ch/",
+        "region": [
+            "Europe: Switzerland: Davos"
+        ],
+        "authors": [
+            "Jan Schacher",
+            "Marcus Maeder"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2007",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Davos Soundscape"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://barcelona.freesound.org/",
+        "region": [
+            "Europe: Spain: Barcelona"
+        ],
+        "authors": [
+            "Music Technology Group of Pampeu Fabra University"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "host": "Freesound",
+        "year": "2008",
+        "metadata": [
+            "descriptions",
+            "tags"
+        ],
+        "name": "Sons de Barcelona"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://soundtrip.org/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "SoundTrips"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions",
+            "tags"
+        ],
+        "name": "SoundTrips"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://soa-te.radiozero.pt/",
+        "region": [
+            "Europe: Portugal: Lisbon"
+        ],
+        "authors": [
+            "R\u00e1dio Zero"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2008",
+        "metadata": [
+            "tags"
+        ],
+        "name": "Soa-te a ISTo"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.abc.net.au/innovation/sidetracks/",
+        "media": [
+            "images",
+            "videos"
+        ],
+        "region": [
+            "Australia: Sydney"
+        ],
+        "authors": [
+            "Australian Broadcasting Corporation"
+        ],
+        "content": [
+            "historical data"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Sydney Sidetracks"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Traditional-Music-In-England",
+        "region": [
+            "Europe: United Kingdom"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "music only",
+            "historical data"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Traditional music in England"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Jewish-Holocaust-Survivors",
+        "region": [
+            "Europe"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "speech only",
+            "historical data"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Jewish survivors of the Holocaust"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Music-From-India",
+        "region": [
+            "Asia: India"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "music only",
+            "historical data"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Music from India"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Soundscapes",
+        "region": [
+            "Europe"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Soundscapes"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Wachsmann",
+        "region": [
+            "Africa: Uganda"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "music only"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Klaus Wachsmann Uganda recordings"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.mapsain.org.uk/",
+        "region": [
+            "Europe: United Kingdom: Wales"
+        ],
+        "authors": [
+            "Community Music Wales"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "host": "Soundcloud",
+        "year": "2013",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "An Interactive Soundmap of Wales"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://soundlandscapes.eu/paris-sound-map",
+        "region": [
+            "Europe: France: Paris"
+        ],
+        "authors": [
+            "Des Coulam"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "host": "Soundcloud",
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Paris Sound Map"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://soundlandscapes.eu/passages-couverts-sound-map",
+        "region": [
+            "Europe: France: Paris"
+        ],
+        "authors": [
+            "Des Coulam"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "host": "Soundcloud",
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Passages Couverts Sound Map"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://earthear.com/soundmap.html",
+        "region": [
+            "World"
+        ],
+        "content": [
+            "commercial",
+            "field recordings"
+        ],
+        "authors": [
+            "David Dunn",
+            "Steve Feld",
+            "Tom Lawrence",
+            "David Monacchi",
+            "Jay Needham",
+            "Doug Quin",
+            "Jason Reinier",
+            "David Rothenberg",
+            "Lisa Walker",
+            "Mariolina Zitta"
+        ],
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Earth Ear Soundmap"
+    },
+    {
+        "features": [
+            "live streaming",
+            "point-and-click"
+        ],
+        "url": "http://www.locusonus.org/soundmap/",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Locus Sonus"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2006",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Locustream Map"
+    },
+    {
+        "features": [
+            "mobile",
+            "point-and-click"
+        ],
+        "url": "http://soundaroundyou.com/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Charlie Mydlarz"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2009",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Sound Around You"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://mapasonoru.com/",
+        "region": [
+            "Europe: Spain: Asturias"
+        ],
+        "authors": [
+            "Juanjo Palacios"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2009",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "mapaSONOU"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://morvan-auxois.ingeos.org/",
+        "region": [
+            "Europe: France: Morvan-Auxois"
+        ],
+        "authors": [
+            "C\u00e9dric Peyronnet"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2008",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Morvan Auxois"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.k146.org/category/cartes-maps/",
+        "region": [
+            "Europe: France: Taurion river"
+        ],
+        "authors": [
+            "C\u00e9dric Peyronnet"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2005",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "k146: cartographie sonore autour du Taurion"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.soundseeker.org/",
+        "region": [
+            "North America: United States: New York"
+        ],
+        "authors": [
+            "Andrea Polli",
+            "Sha Sha Feng"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2004",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Sound-Seeker"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://makesoundhere.com/wp/",
+        "region": [
+            "Europe: United Kingdom"
+        ],
+        "authors": [
+            "James Saunders"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "host": "Audioboo",
+        "year": "2013",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Make Sound Here"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.yorku.ca/caseaces/soundmap/",
+        "region": [
+            "North America: Canada: Mississauga"
+        ],
+        "authors": [
+            "Don Sinclair",
+            "Hector Centeno"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2008",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Mississauga Sound Map"
+    },
+    {
+        "features": [
+            "gps traces",
+            "point-and-click"
+        ],
+        "url": "http://www.softday.ie/wld2011/",
+        "region": [
+            "Europe: United Kingdom: Ireland: Limerick City"
+        ],
+        "authors": [
+            "Softday"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "12 Stations"
+    },
+    {
+        "features": [
+            "gps traces",
+            "point-and-click"
+        ],
+        "url": "http://www.softday.ie/sonicsidewalks/",
+        "region": [
+            "Europe: United Kingdom: Ireland: Limerick City"
+        ],
+        "authors": [
+            "Softday"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2010",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Sonic Sidewalks"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://som.saii.or.kr/campaign",
+        "region": [
+            "Asia: Korea: Seoul"
+        ],
+        "authors": [
+            "Sound@Media"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "SeoulSoundMap"
+    },
+    {
+        "features": [
+            "sequences",
+            "autoplay",
+            "point-and-click",
+            "autoplay next"
+        ],
+        "url": "http://www.bna-bbot.be/brusselssoundmap/",
+        "region": [
+            "Europe: Belgium: Brussels"
+        ],
+        "authors": [
+            "Harry + LVH"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Brussels SoundMap"
+    },
+    {
+        "features": [
+            "sequences",
+            "autoplay",
+            "point-and-click",
+            "autoplay next"
+        ],
+        "url": "http://www.cartophonies.fr/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Gr\u00e9goire Cheikoff",
+            "Fran\u00e7oise Acquier",
+            "Julien Moisans",
+            "Sylvie Laroche",
+            "Gabriel B\u00e9rub\u00e9"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Cartophonies"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://mapasonorodeguayaquil.com",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "South America: Ecuador: Guayaquil"
+        ],
+        "authors": [
+            "Juan Jos\u00e9 Ripalda",
+            "Fernando Alava",
+            "Laura San Andr\u00e9s"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Mapa Sonoro de Guayaquil"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.aldeias-sonoras.org",
+        "region": [
+            "Europe: Portugal: Paiva River"
+        ],
+        "authors": [
+            "Luis Costa",
+            "Manuela Barile"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2013",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Soundmap of the Paiva River"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.aldeias-sonoras.org/mapas-de-sons/s-pedro-do-sul",
+        "region": [
+            "Europe: Portugal: S\u00e3o Pedro do Sul"
+        ],
+        "authors": [
+            "Luis Costa",
+            "Manuela Barile"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2013",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Mapa Sonoro das Aldeias do Concelho de S\u00e3o Pedro do Sul\n\n"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://lavillesonore.fr/blog/?p=174",
+        "region": [
+            "Europe: France: Pamiers"
+        ],
+        "authors": [
+            "Gwladys D\u00e9prez",
+            "Sabine Petit"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2009",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "La Ville S\u2019onore: Carte sonore subjective"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.memoryscape.org.uk",
+        "region": [
+            "Europe: United Kingdom"
+        ],
+        "authors": [
+            "Toby Butler"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2005",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Memoryscape Audio walks"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.suffolkbirds.co.uk/sounds/soundmap/index.html",
+        "region": [
+            "Europe: United Kingdom: Ipswich"
+        ],
+        "authors": [
+            "Enquiring Ear"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2013",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Ipswich Sound Map"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.netaudioberlin.de/berlin-wall-of-sound/",
+        "region": [
+            "Europe: Germany: Berlin"
+        ],
+        "authors": [
+            "Netaudio Berlin"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2009",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Berlin Wall of Sound"
+    },
+    {
+        "features": [
+            "mixing",
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://map.sounding-d.de/map",
+        "region": [
+            "Europe: Germany"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "authors": [
+            "Robin Minard ad Hennig Ludger"
+        ],
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "soundingD SoundMap"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://invisiblevalley.com/map/",
+        "region": [
+            "South America: Colombia: Medell\u00edn"
+        ],
+        "authors": [
+            "Miguel Isaza"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Invisible Valley Sound Map"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/UK-Soundmap/",
+        "region": [
+            "Europe: United Kingdom"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "host": "Audioboo",
+        "year": "2011",
+        "name": "UK Soundmap"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://sounds.bl.uk/Sound-Maps/Your-Accents",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "The British Library"
+        ],
+        "content": [
+            "speech only",
+            "crowdsourced"
+        ],
+        "host": "Audioboo",
+        "year": "2011",
+        "name": "Your accents"
+    },
+    {
+        "features": [
+            "live streaming",
+            "point-and-click"
+        ],
+        "url": "http://orcasound.net/",
+        "region": [
+            "North America: Salish Sea"
+        ],
+        "authors": [
+            "Salish Sea Hydrophone Network"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "name": "Orcasound.net Hydrophone Network"
+    },
+    {
+        "features": [
+            "mixing",
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.tacticalsoundgarden.net/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "M. Shepard",
+            "F. Murphy",
+            "B. Diesel",
+            "A. Flynt",
+            "A. Thomas",
+            "V. Modi",
+            "A. Krishnamurthy"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2007",
+        "name": "Tactical Sound Garden"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.soundandtaiwan.com/soundmap/main.html",
+        "region": [
+            "Asia: Taiwan"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "host": "Radio Aporee, Soundcloud",
+        "authors": [
+            "Tsan-Cheng Wu"
+        ],
+        "name": "Taiwan SoundMap Project"
+    },
+    {
+        "features": [
+            "gps traces",
+            "point-and-click"
+        ],
+        "url": "http://www.dmrlab.org/402/",
+        "region": [
+            "Europe: Portugal: Lisbon"
+        ],
+        "authors": [
+            "Gokce Kinayoglu"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced"
+        ],
+        "year": "2011",
+        "name": "soundtrack"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www3.carleton.ca/clubs/carletonsound/soundmap/",
+        "region": [
+            "Europe: United Kingdom: Carleton University"
+        ],
+        "authors": [
+            "Carleton Sound at Carleton University"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Carleton University Soundmap Project (CUSP)"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.soundsurvey.org.uk/index.php/survey/waterways/",
+        "media": [
+            "images",
+            "additional map layers"
+        ],
+        "region": [
+            "Europe: United Kingdom: London"
+        ],
+        "authors": [
+            "Ian Rawes"
+        ],
+        "content": [
+            "field recordings",
+            "historical data"
+        ],
+        "year": "2012",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Soundmap of London canals and minor rivers"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.soundsurvey.org.uk/index.php/survey/estuary/",
+        "media": [
+            "images",
+            "additional map layers"
+        ],
+        "region": [
+            "Europe: United Kingdom: London"
+        ],
+        "authors": [
+            "Ian Rawes"
+        ],
+        "content": [
+            "field recordings",
+            "historical data"
+        ],
+        "year": "2010",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Thames estuary sound map recordings"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.yorku.ca/dws/tism/",
+        "region": [
+            "North America: Canada: Toronto"
+        ],
+        "authors": [
+            "Don Sinclair",
+            "Diego Philips-Shea",
+            "Darren Copeland"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2004",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Toronto Island Sound Map"
+    },
+    {
+        "features": [
+            "mixing",
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.cincocidades.com/",
+        "region": [
+            "Europe: Portugal"
+        ],
+        "authors": [
+            "Alastair Dant",
+            "Tom Davis",
+            "David Gunn"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2007",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Cinco Cidades Soundmap"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://homepages.abdn.ac.uk/wae006/gordonsoundscape.co.uk/",
+        "region": [
+            "Europe: United Kingdom: Aberdeenshire"
+        ],
+        "authors": [
+            "Pete Stollery",
+            "Phil Marston"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2005",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Gordon Soundscape"
+    },
+    {
+        "features": [
+            "live streaming",
+            "point-and-click"
+        ],
+        "url": "http://www.listentothedeep.net",
+        "media": [
+            "spectrogram"
+        ],
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Michel Andr\u00e9",
+            "Mike van der Schaar",
+            "Serge Zaugg",
+            "Ludwig Hou\u00e9gnigan",
+            "Antionio M. S\u00e1nchez",
+            "Joan Vicent Castell"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2011",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "Listening to the Deep Ocean Environment"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.londonrdsounds.co.uk/map/",
+        "region": [
+            "Europe: United Kingdom: London"
+        ],
+        "authors": [
+            "London Road Sounds"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2010",
+        "name": "Sound Maps of London Road"
+    },
+    {
+        "features": [
+            "gps traces",
+            "point-and-click"
+        ],
+        "url": "http://www.andreacallard.com/audiobus/",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "North America: United States: New York"
+        ],
+        "authors": [
+            "Andrea Callard",
+            "Fred Krughoff"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2006",
+        "name": "AudioBus B61"
+    },
+    {
+        "features": [
+            "autoplay",
+            "point-and-click"
+        ],
+        "url": "http://www.pod-mostom-project.narod.ru/",
+        "media": [
+            "images"
+        ],
+        "region": [
+            "Europe: Russia: Moscow"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "authors": [
+            "Alena Kislitsing",
+            "Vadim Nazarov"
+        ],
+        "name": "Pod Mostom Project"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://www.tenement.org/folksongs/client/",
+        "region": [
+            "North America: United States: New York"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "authors": [
+            "Alastair Dant",
+            "Tom Davis",
+            "David Gunn"
+        ],
+        "name": "Folk Songs for the Five Points"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://12gatestothecity.com/acoustic-map/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Jonathan Prior"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2009",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "12 Gates to the City Acoustic Map"
+    },
+    {
+        "features": [
+            "sequences"
+        ],
+        "url": "http://www.turbulence.org/soundtransit/",
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Derek Holzer",
+            "and Marc Boon"
+        ],
+        "content": [
+            "field recordings"
+        ],
+        "year": "2004",
+        "metadata": [
+            "descriptions"
+        ],
+        "name": "SoundTransit"
+    },
+    {
+        "url": "http://www.bbc.co.uk/worldservice/specialreports/saveoursounds.shtml",
+        "authors": [
+            "BBC World Service"
+        ],
+        "name": "Save Our Sounds",
+        "year": "2011"
+    },
+    {
+        "url": "http://www.geograffiti.com/",
+        "authors": [
+            "Blingpost, LLC."
+        ],
+        "name": "GeoGraffiti",
+        "year": "2011"
+    },
+    {
+        "url": "http://broadcastr.com/",
+        "authors": [
+            "Electric Literature, LLC"
+        ],
+        "name": "Broadcastr",
+        "year": "2010"
+    },
+    {
+        "content": [
+            "field recordings"
+        ],
+        "url": "http://smg.media.mit.edu/projects/HearAndThere/",
+        "authors": [
+            "Joey Rozier",
+            "Karrie Karahalios",
+            "Judith Donath"
+        ],
+        "name": "Hear & There",
+        "year": "1999"
+    },
+    {
+        "content": [
+            "field recordings"
+        ],
+        "url": "http://citygram.calarts.edu/",
+        "authors": [
+            "Tae-Hong Park"
+        ],
+        "name": "Citygram",
+        "year": "2013"
+    },
+    {
+        "url": "http://www.thesmalls.com/StreetSounds/",
+        "authors": [
+            "The Smalls"
+        ],
+        "name": "Street Sounds",
+        "year": "2009"
+    },
+    {
+        "url": " http://www.soundslikestatenisland.com/map/",
+        "region": [
+            "North America: United States: New York: Staten Island"
+        ],
+        "authors": [
+            "Sounds Like Staten Island"
+        ],
+        "name": "Staten Island Sound Map",
+        "year": "2009"
+    },
+    {
+        "url": "http://www.st.nmfs.noaa.gov/cetsound/sound.html",
+        "authors": [
+            "NOAA"
+        ],
+        "name": "NOAA Underwater Sound Field Working Group",
+        "year": "2011"
+    },
+    {
+        "features": [
+            "point-and-click"
+        ],
+        "url": "http://freesound.org/",
+        "media": [
+            "spectrogram"
+        ],
+        "region": [
+            "World"
+        ],
+        "authors": [
+            "Universitat Pampeu Fabra Music Technology Group"
+        ],
+        "content": [
+            "field recordings",
+            "crowdsourced",
+            "platform"
+        ],
+        "year": "2005",
+        "metadata": [
+            "descriptions",
+            "tags"
+        ],
+        "name": "The Freesound Project"
+    }
+]

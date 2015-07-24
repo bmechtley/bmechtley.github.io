@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Brandon Mechtley</title>
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="Brandon Mechtley">
+        <meta http-equiv "X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <![endif]-->
+
+        <style>
+            body {
+                font-family: 'Open Sans', 'sans-serif';
+                font-weight: 300;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            #container {
+                width: 28em;
+                margin: auto;
+                max-width: 100%;
+            }
+
+            /* Header. */
+
+            #profile {
+                margin-top: 5em;
+                margin-bottom: 1em;
+                padding: 0;
+            }
+
+            #lastname {
+                color: white;
+                text-shadow: -1px 0 #556270, 0 1px #556270, 1px 0 #556270, 0 -1px #556270;
+                opacity: 0.75;
+                position: relative;
+                top: -0.98em;
+                left: 1px;
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+
+            #profile h1 {
+                font-family: 'Molengo', 'sans-serif';
+                font-size: 8em;
+                letter-spacing: -0.05em;
+                text-transform: lowercase;
+                /*line-height: 0.25em;*/
+                color: #556270;
+                text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+                height: 1.25em;
+                user-select: none;
+            }
+
+            /* Links navigation bar. */
+
+            #links {
+                padding: 0;
+                margin: 0;
+            }
+
+            #links ul {
+                position: relative;
+                top: -1.5em;
+                padding: 0;
+                margin: 0;
+            }
+
+            #links li {
+                list-style-type: none;
+                display: inline;
+                margin-right: 0.5em;
+                padding: 0;
+                color: #81997F;
+            }
+
+            /* Biography text. */
+
+            #bio {
+                text-align: justify;
+            }
+
+            #bio a {
+                color: #81997F;
+            }
+
+            .page {
+                text-align: right;
+                color: #556270;
+            }
+
+            .page img {
+                position: relative;
+                top: -0.5em;
+                left: 2.25em;
+            }
+
+            /* Responsive things. */
+
+            @media only screen
+            and (min-device-width: 320px)
+            and (max-device-width: 480px) {
+                #links ul {
+                    margin-left: 0 !important;
+                }
+
+                #profile {
+                    margin-top: 1em;
+                }
+            }
+
+
+            @media only screen
+            and (min-device-width : 320px)
+            and (max-device-width : 568px)
+            and (orientation : portrait) {
+                #profile h1 {
+                    font-size: 5.5em !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container" itemscope itemtype="http://schema.org/Person">
+            <header id="profile">
+                <h1><span id='firstname' itemprop='givenName'>Brandon</span> <span id='lastname' itemprop='familyName'>Mechtley</span></h1>
+            </header>
+            <nav id='links'>
+                <ul>
+                    <!--li><a
+                    href='https://plus.google.com/101108413338753004692'>
+                    profile</a></li-->
+                    <li><a href='http://scholar.google.com/citations?user=-HWDLa0AAAAJ'>
+                    papers</a></li>
+                    <li><a href='http://github.com/plant'>code</a></li>
+                    <li><a href='http://soundcloud.com/bmechtley'>sounds</a></li>
+                    <li><a href='http://bmechtley.me/cv.html'>cv</a></li>
+                </ul>
+            </nav>
+
+            <section id='bio'>
+            <p>I study <a href='http://s3.plantseeds.me.s3.amazonaws.com/Alan%20Watts%20-%20Seeing.mp3'>wiggles</a> and like to make and listen to noise and <a href='http://s3.plantseeds.me.s3.amazonaws.com/John%20Cage%20-%20About%20Silence.mp4'>silence</a>.</p>
+                <p>Here's a preview of an ongoing <a href='https://vimeo.com/94695852'>soundscape mapping project</a> that allows users to scrub across a map of GPS paths to dynamically morph between field recordings. For some other sound maps, check out <a href='http://bmechtley.me/websoundmaps.html'>this list</a>. For some information on acoustic ecology, check out the <a href='http://acousticecology.us'>American Society for Acoustic Ecology.</a></p>
+                <p>I'm currently a postdoctoral researcher at the <a href="http://kbs.ku.edu">Kansas Biological Survey</a> at the University of Kansas, where I'm working on computational models of population ecology. I received my Ph.D. in Computer Science with a concentration in <a href="http://ame.asu.edu">Arts, Media, and Engineering</a> from Arizona State University and am recovering from working on a thesis titled "<a href='http://hdl.handle.net/2286/R.I.20991'>Techniques for Soundscape Retrieval and Synthesis</a>." I also worked a bit on interactive tools for search in environmental sound databases alongside some fine folks at the <a href='http://c4dm.eecs.qmul.ac.uk'>Centre for Digital Music</a>.</p>
+                <p class='page'><img src='music.png'/>00001</p>
+            </section>
+        </div>
+    </body>
+</html>

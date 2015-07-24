@@ -1,0 +1,236 @@
+<html>
+    <head>
+        <title>Brandon Mechtley</title>
+        <link rel="shortcut icon" href="/favicon.png"/>
+        <script>
+            invamount = 0;
+            hueamount = 0;
+            timeout = 0;
+
+            function newbackground() {
+                divbg = document.getElementById('bg');
+                divname = document.getElementById('name');
+
+                var i = Math.floor(Math.random() * 11) + 1;
+                document.getElementById('bg').style.backgroundImage =
+                    'url(bgs/' + i + '.png)';
+
+                window.setInterval(function() {
+                    if (timeout > 100) {
+                        invamount = 1 + (invamount * Math.PI) % 100;
+                        hueamount = 1 + (hueamount * Math.PI) % 360;
+                    } else {
+                        timeout += 1;
+
+                        if (invamount < 100) {
+                            invamount += 1;
+                        }
+
+                        if (hueamount < 360) {
+                            hueamount += 1;
+                        }
+                    }
+
+                    divbg.style.filter = "invert(" + invamount + "%)";
+                    divname.style.filter = "hue-rotate(" + hueamount + "deg)";
+                    divbg.style.webkitFilter = "invert(" + invamount + "%)";
+                    divname.style.webkitFilter = "hue-rotate(" + hueamount + "deg)";
+                }, 100)
+            }
+
+            window.onload = newbackground;
+        </script>
+        <style>
+            /*
+            http://www.colourlovers.com/palette/46688/fresh_cut_day
+            tropiteal:		00A8C6 http://www.colourlovers.com/color/00A8C6/tropiteal
+            teal drop:		40C0CB http://www.colourlovers.com/color/40C0CB/teal_drop
+            whitetrash:		F9F2E7 http://www.colourlovers.com/color/F9F2E7/whitetrash
+            atomic bikini:	AEE239 http://www.colourlovers.com/color/AEE239/atomic_bikini
+            feeble week:	8FBE00 http://www.colourlovers.com/color/8FBE00/feeble_week
+            */
+
+            body {
+                text-align: center;
+                color: lightgray;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #bg {
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 0;
+
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+
+                background: #050505 no-repeat center center fixed;
+                 -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                image-rendering:-webkit-optimize-contrast;
+                /*opacity: 0.75;*/
+            }
+
+            #name {
+                background: #AAFF00;
+                padding-right: .2em;
+                margin-top: .5em;
+                margin-bottom: .5em;
+            }
+
+            #centered {
+                position: absolute;
+                top: 0; left: 0; bottom: 0; right: 0;
+                margin: auto;
+                width: 40em;
+                height: 15em;
+                z-index: 100;
+            }
+
+            #bio {
+                position: relative;
+                border: .5em solid #232323;
+                padding: 1em;
+                background: rgba(255,255,255,.9);
+                color: black;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            #what {
+                background: transparent;
+                display: inline-block;
+                color: white;
+                font-size: 8em;
+                vertical-align: middle;
+                padding-left: .125em;
+            }
+
+            #about {
+                display: inline-block;
+                text-align: right;
+                vertical-align: top;
+                margin: auto;
+            }
+
+            #bio img {
+                position: absolute;
+                bottom: 1em;
+                left: 1em;
+                width: 3em;
+                height: 3em;
+            }
+
+            #accounts {
+                display: inline-block;
+                vertical-align: top;
+                text-align: left;
+                margin-left: 1em;
+            }
+
+            ol {
+                margin: 0;
+                padding: 0;
+            }
+
+            li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                line-height: 1.2em;
+            }
+
+            #links {
+                text-align: center;
+                width: 10em;
+                display: block;
+                margin-left: 4.5em;
+                margin-top: 0em;
+                padding: 0.5em;
+                border: .5em solid #232323;
+                border-top: none;
+                background: rgba(0,0,0,0.5);
+            }
+
+            a {
+                color: white;
+                text-decoration: none;
+            }
+
+            li span {
+                padding: .2em;
+            }
+
+            #bio a {
+                color: gray; /* tropiteal */
+                text-decoration: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id='bg'></div>
+        <div id='centered'>
+            <section id='bio'>
+                <article id='about'>
+                <ol>
+                    <li>his holiness</li>
+                    <li id='name'><!--
+                        --><span style='background: #AAFF00'>b</span><!--
+                        --><span style='background: #FFAA00'>r</span><!--
+                        --><span style='background: #FF00AA'>a</span><!--
+                        --><span style='background: #AA00FF'>n</span><!--
+                        --><span style='background: #00AAFF'>d</span><!--
+                        --><span style='background: #AAFF00'>o</span><!--
+                        --><span style='background: #FFAA00'>n</span>
+
+                        <span style='background: #FF00AA'>m</span><!--
+                        --><span style='background: #AA00FF'>e</span><!--
+                        --><span style='background: #00AAFF'>c</span><!--
+                        --><span style='background: #AAFF00'>h</span><!--
+                        --><span style='background: #FFAA00'>t</span><!--
+                        --><span style='background: #FF00AA'>l</span><!--
+                        --><span style='background: #AA00FF'>e</span><!--
+                        --><span style='background: #00AAFF'>y</span>
+                    </li>
+                    <li>(the first)</li>
+                    <li>&nbsp;</li>
+                    <li>licensed pope</li>
+                    <li>disciple of nekobasu</li>
+                </ol>
+                </article>
+
+                <nav id='accounts'>
+                <ol>
+                    <li><a href="https://plus.google.com/101108413338753004692" rel="author" title='profile'>profile</a></li>
+                    <li><a href="http://plantseeds.tumblr.com" target="_blank" title='blog'>prattle</a></li>
+                    <li><a href="http://scholar.google.com/citations?user=-HWDLa0AAAAJ" title='papers' target="_blank">papers</a></li>
+                    <li><a href="http://twitter.com/plantseeds" target="_blank" title='tweets'>tweets</a></li>
+                    <li><a href="http://github.com/plant" title='code' target="_blank">code</a></li>
+                    <li><a href="http://soundcloud.com/bmechtley" title='sounds' target="_blank">sounds</a></li>
+                    <li><a href="http://vimeo.com/plant" title='videos' target="_blank">videos</a></li>
+                    <li><a href='/cv.html'>cv</a></li>
+                </ol>
+                </nav>
+
+                <img src='profile.png'/>
+            </section>
+
+            <section id='what'>
+            &Co.
+            </section>
+
+            <!--ol id='links'>
+                <li><a href="http://acousticecology.us">ASAE</a>, <a href="websoundmaps.html">Sound maps</a></li>
+            </ol-->
+        </div>
+    </body>
+</html>

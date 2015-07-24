@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>List of Web Sound Map Projects</title>
+        <meta charset="utf-8">
+        <!--link
+            href='http://fonts.googleapis.com/css?family=Allerta'
+            rel='stylesheet'
+        -->
+        <link href='maps.css' rel='stylesheet' type='text/css'>
+        <script src='jquery-1.11.1.min.js'></script>
+        <script src='d3.v3.min.js'></script>
+        <script src='maps.js' type='text/javascript'></script>
+    </head>
+    <body>
+        <section id='intro'>
+            <h2>Sound maps on the web</h2>
+            <p>
+                Below is a list of web sound maps. They've been categorized
+                by their interactive features, associated multimedia, intended
+                content, and region. Use the links over to the right to filter
+                the list. You can also <a href='/maps.json'>download the list
+                as JSON</a>.
+            </p>
+            <p>
+                I've done my best to make sure all the data is accurate, but
+                if you have any corrections or would like to suggest a new
+                (especially &quot;your&quot;) sound map, contact me through
+                <a href="http://plantseeds.tumblr.com">Tumblr</a>
+                or <a href="http://twitter.com/plantseeds">Twitter</a>.
+                Some entries are curiously blank, because they are either now
+                defunct or yet to exist (I'll be adding associated
+                publications soon.) I've decided to roll my own little site
+                here as opposed to using a bookmarking site, as I plan to stick
+                some interactive plots in. Usability and prettiness are on the
+                backburner :)
+            </p>
+            <p>
+                2013 <a href='http://bmechtley.me'>Brandon Mechtley</a>.
+            </p>
+        </section>
+
+        <nav>
+            <a id='plot'>Plot with current selection</a>
+            <h2 id='featurestitle'>Features (all)</h2>
+            <ul class='taglist' id='features'></ul>
+            <h2 id='mediatitle'>Other media (all)</h2>
+            <ul class='taglist' id='media'></ul>
+            <h2 id='contenttitle'>Content (all)</h2>
+            <ul class='taglist' id='content'></ul>
+            <h2 id='regionstitle'>Region (all)</h2>
+            <ul class="'taglist" id="regions"></ul>
+            <h2 id='yearstitle'>Year (any)</h2>
+            <ul class='taglist' id='years'></ul>
+        </nav>
+
+        <section>
+            <h2 id='selectedtitle'>Selected maps</h2>
+            <ol id='selected'></ol>
+        </section>
+
+        <section>
+            <h2 id='remainingtitle'>Remaining maps</h2>
+            <ol id='remaining'></ol>
+        </section>
+
+        <div id="hoverboard"></div>
+        <div id="plotview">
+            <div class='contents'>
+                <a class='close'>X (Close)</a>
+
+                <ul class='featurelists'>
+                    <li id='plotfeatures'>Features</li>
+                    <li id='plotmedia'>Other media</li>
+                    <li id='plotcontent'>Content</li>
+                    <!--li id='plotregion'>Region</li-->
+                    <li id='plotyear'>Year</li>
+                </ul>
+
+                <div id="plotviewchart"></div>
+            </div>
+        </div>
+    </body>
+</html>
