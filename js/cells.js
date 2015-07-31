@@ -1,4 +1,4 @@
-var cscale = 5;
+var cscale = 20;
 
 function get_pixel_channel(x, y, channel) {
   var d = window.devicePixelRatio * cscale;
@@ -17,11 +17,12 @@ function set_pixel_channel(x, y, value, channel) {
 }
 
 function setup() {
-  console.log(cscale);
-  var canvas = createCanvas(20 * cscale, 20 * cscale);
 
-  canvas.class("p5");
-  canvas.parent("container");
+  console.log(cscale);
+  var canvas = createCanvas(5 * cscale, 32 * cscale);
+  console.log(width, height);
+  canvas.class("p5c");
+  canvas.parent("p5");
 
   clear();
   loadPixels();
