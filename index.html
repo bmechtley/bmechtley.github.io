@@ -21,8 +21,15 @@
             var xscale;
             var yscale;
 
-            function rgba(val) {
-                return "rgba(0,0,0," + (val / 512.0) + ")";
+            var automata = true;
+
+            function rgba(r, g, b, a) {
+                return "rgba(" +
+                    r + "," +
+                    g + "," +
+                    b + "," +
+                    a +
+                    ")";
             }
 
             function init() {
@@ -44,8 +51,22 @@
                 }
 
                 mainrect = new createjs.Shape();
+                mainrect.addEventListener("pressdown", function(event) {
+                    automata = false;
+                });
+                mainrect.addEventListener("mousedown", function(event) {
+                    automata = false;
+                });
+                mainrect.addEventListener("mouseup", function(event) {
+                    automata = true;
+                });
+                mainrect.addEventListener("pressup", function(event) {
+                    automata = true;
+                });
+
                 stage.addChild(mainrect);
                 stage.update();
+
 
                 xscale = stage.canvas.width / cols;
                 yscale = stage.canvas.height / rows;
@@ -54,7 +75,7 @@
                 createjs.Ticker.setFPS(10);
             }
 
-            function tick() {
+            function iterate_cells(fun) {
                 for (var row = 0; row < rows; row++) {
                     for (var col = 0; col < cols; col++) {
                         u = (rows + row - 1) % rows;
@@ -62,29 +83,65 @@
                         l = (cols + col - 1) % cols;
                         r = (cols + col + 1) % cols;
 
-                        nvals[row][col] =
-                            (
-                                (vals[u][l] + vals[u][col] + vals[u][r])+
-                                (vals[row][l] + vals[row][col] + vals[row][r]) // +
-                                /*(vals[d][l] + vals[d][col] + vals[d][r]) / 3.0*/
-                            ) % 255;
-
-                        console.log(nvals[row][col]);
-
+                        fun(row, col, u, d, l, r);
                     }
+                }
+            }
+
+            function update_cells(row, col, u, d, l, r) {
+                vals[row][col] = nvals[row][col];
+            }
+
+            function tick() {
+                if (Math.random() < 0.1) {
+                    automata = !automata;
+                }
+
+                iterate_cells(function(row, col, u, d, l, r) {
+                    if (row < rows - 1) {
+                        var top = vals[row][col];
+                        var bot = vals[d][col];
+
+                        if (bot < top) {
+                             vals[row][col] = bot;
+                             vals[d][col] = top;
+                        }
+                    }
+                });
+
+                iterate_cells(function(row, col, u, d, l, r) {
+                    if (col < cols - 1) {
+                        var top = vals[row][col];
+                        var bot = vals[row][r];
+
+                        if (bot < top) {
+                             vals[row][col] = bot;
+                             vals[row][r] = top;
+                        }
+                    }
+                });
+
+                 if (automata) {
+                    iterate_cells(function(row, col, u, d, l, r) {
+                        nvals[row][col] = (
+                            (vals[u][l] + vals[u][col] + vals[u][r]) / 2 +
+                            (vals[row][l] + vals[row][col] + vals[row][r]) / 2
+                        ) % 255;
+                    });
+
+                    iterate_cells(update_cells);
                 }
 
                 mainrect.graphics.clear();
 
-                for (var row = 0; row < rows; row++) {
-                    for (var col = 0; col < cols; col++) {
-                        vals[row][col] = nvals[row][col];
+                iterate_cells(function(row, col, u, d, l, r) {
+                    var val = vals[row][col];
+                    var color = rgba(0, 0, 0, val / 512.);
 
-                        mainrect.graphics.beginFill(rgba(vals[row][col])).drawRect(
-                            xscale * col, yscale * row, xscale, yscale
-                        );
-                    }
-                }
+                    mainrect.graphics.beginFill(color).drawRect(
+                        xscale * col, yscale * row, xscale - 5, yscale - 5
+                    );
+                });
 
                 stage.update();
             }
