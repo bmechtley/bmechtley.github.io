@@ -21,15 +21,91 @@
             var xscale;
             var yscale;
 
-            var automata = true;
+            var automata = [1, 1, 1, 1];
+            var sort_horizontal = [1, 1, 1, 1];
+            var sort_vertical = [1, 1, 1, 1];
+
+            var p_automata = [0.1, 0.1, 0.1, 0.1];
+            var p_sort_horizontal = [0.1, 0.1, 0.1, 0.1];
+            var p_sort_vertical = [0.1, 0.1, 0.1, 0.1];
+
+            var p_min = 0.05;
+            var p_max = 0.5;
+
+            var automata = {
+                direction: [-1, -1, -1, -1],
+                p: [0.1, 0.1, 0.1, 0.1],
+                pMin: 0.05,
+                pMax: 0.5,
+                postUpdate: true,
+                update: function (p) {
+                    if (p.effect.direction[p.channel] != 0) {
+                        drow = effect.direction[p.channel] + 1;
+
+                        nvals[p.row][p.col][p.channel] = (
+                            (p.v[1][0] + p.v[1][1] + p.v[1][2]) / 2 +
+                            (p.v[drow][0] + p.v[drow][1] + p.v[drow][2]) / 2
+                        ) % 100
+                    }
+                }
+            };
+
+            var sort_horizontal = {
+                direction: [-1, -1, -1, -1],
+                p: [0.1, 0.1, 0.1, 0.1],
+                pMin: 0.05,
+                pMax: 0.5,
+                postUpdate: true,
+                update: function(p) {
+                    if (p.effect.direction[p.channel] != 0) {
+                        if (p.col < cols - 1) {
+                            swap(
+                                p.row, p.col,
+                                p.row, p.right,
+                                p.effect.direction == -1 ? true : false,
+                                p.channel
+                            );
+                        }
+                    }
+                }
+            };
+
+            var sort_vertical = {
+                direction: [-1, -1, -1, -1],
+                p: [0.1, 0.1, 0.1, 0.1],
+                pMin: 0.05,
+                pMax: 0.5,
+                postUpdate: true,
+                update: function(p) {
+                    if (p.effect.direction[p.channel] != 0) {
+                        if (p.row < rows - 1) {
+                            swap(
+                                p.row, p.col,
+                                p.down, p.col,
+                                p.effect.direction == -1 ? true : false,
+                                p.channel
+                            );
+                        }
+                    }
+                }
+            }
+
+            var effects = [sort_horizontal, sort_vertical, automata];
 
             function rgba(r, g, b, a) {
                 return "rgba(" +
                     r + "," +
                     g + "," +
                     b + "," +
-                    a +
-                    ")";
+                    a + ")";
+            }
+
+            function hsla(h, s, l, a) {
+                return "hsla(" +
+                    h + "," +
+                    s + "%," +
+                    l + "%," +
+                    a + ")"
             }
 
             function init() {
@@ -41,9 +117,17 @@
                     var nvrow = [];
 
                     for (var col = 0; col < cols; col++) {
-                        var val = row == 0 ? Math.floor(Math.random() * 255) : 255;
-                        vrow.push(val);
-                        nvrow.push(val);
+                        var vcol = [];
+                        var nvcol = [];
+
+                        for (var channel = 0; channel < 4; channel ++) {
+                            var val = row == 0 ? Math.floor(Math.random() * 100) : 100;
+                            vcol.push(val);
+                            nvcol.push(val);
+                        }
+
+                        vrow.push(vcol);
+                        nvrow.push(nvcol);
                     }
 
                     vals.push(vrow);
@@ -51,22 +135,8 @@
                 }
 
                 mainrect = new createjs.Shape();
-                mainrect.addEventListener("pressdown", function(event) {
-                    automata = false;
-                });
-                mainrect.addEventListener("mousedown", function(event) {
-                    automata = false;
-                });
-                mainrect.addEventListener("mouseup", function(event) {
-                    automata = true;
-                });
-                mainrect.addEventListener("pressup", function(event) {
-                    automata = true;
-                });
-
                 stage.addChild(mainrect);
                 stage.update();
-
 
                 xscale = stage.canvas.width / cols;
                 yscale = stage.canvas.height / rows;
@@ -75,73 +145,103 @@
                 createjs.Ticker.setFPS(10);
             }
 
-            function iterate_cells(fun) {
+            function iterate_cells(channel, effect, fun) {
                 for (var row = 0; row < rows; row++) {
                     for (var col = 0; col < cols; col++) {
-                        u = (rows + row - 1) % rows;
-                        d = (rows + row + 1) % rows;
-                        l = (cols + col - 1) % cols;
-                        r = (cols + col + 1) % cols;
+                        p = {
+                            row: row,
+                            col: col,
+                            channel: channel,
+                            effect: effect,
+                            up: (rows + row - 1) % rows,
+                            down: (rows + row + 1) % rows,
+                            left: (cols + col - 1) % cols,
+                            right: (cols + col + 1) % cols
+                        }
 
-                        fun(row, col, u, d, l, r);
+                        p.v = [
+                            [
+                                vals[p.up][p.left][channel],
+                                vals[p.up][p.col][channel],
+                                vals[p.up][p.right][channel]
+                            ],
+                            [
+                                vals[p.row][p.left][channel],
+                                vals[p.row][p.col][channel],
+                                vals[p.row][p.right][channel],
+                            ],
+                            [
+                                vals[p.down][p.left][channel],
+                                vals[p.down][p.col][channel],
+                                vals[p.down][p.right][channel]
+                            ]
+                        ]
+
+                        fun(p);
                     }
                 }
             }
 
-            function update_cells(row, col, u, d, l, r) {
-                vals[row][col] = nvals[row][col];
+
+            function swap(row1, col1, row2, col2, lt, channel) {
+                a = vals[row1][col1][channel];
+                b = vals[row2][col2][channel];
+
+                if ((lt && a < b) || (!lt && a > b)) {
+                    vals[row1][col1][channel] = b;
+                    vals[row2][col2][channel] = a;
+                }
             }
 
             function tick() {
-                if (Math.random() < 0.1) {
-                    automata = !automata;
-                }
+                /* Run each effect for each channel. */
+                for (var channel = 0; channel < 4; channel ++) {
+                    for (var e = 0; e < effects.length; e++) {
+                        effect = effects[e];
 
-                iterate_cells(function(row, col, u, d, l, r) {
-                    if (row < rows - 1) {
-                        var top = vals[row][col];
-                        var bot = vals[d][col];
+                        // Randomize direction / transition probabilities.
+                        if (Math.random() < effect.p[channel]) {
+                            effect.direction[channel] = Math.floor(
+                                Math.random() * 3.0
+                            ) - 1;
 
-                        if (bot < top) {
-                             vals[row][col] = bot;
-                             vals[d][col] = top;
+                            effect.p[channel] = Math.random() * (
+                                effect.pMax - effect.pMin
+                            ) + effect.pMin;
+                        }
+
+                        // Run the effect.
+                        iterate_cells(channel, effect, effect.update);
+
+                        // Update values if desired.
+                        if (effect.postUpdate) {
+                            iterate_cells(channel, effect, function(p) {
+                                vals[p.row][p.col][p.channel] =
+                                    nvals[p.row][p.col][p.channel];
+                            })
                         }
                     }
-                });
-
-                iterate_cells(function(row, col, u, d, l, r) {
-                    if (col < cols - 1) {
-                        var top = vals[row][col];
-                        var bot = vals[row][r];
-
-                        if (bot < top) {
-                             vals[row][col] = bot;
-                             vals[row][r] = top;
-                        }
-                    }
-                });
-
-                 if (automata) {
-                    iterate_cells(function(row, col, u, d, l, r) {
-                        nvals[row][col] = (
-                            (vals[u][l] + vals[u][col] + vals[u][r]) / 2 +
-                            (vals[row][l] + vals[row][col] + vals[row][r]) / 2
-                        ) % 255;
-                    });
-
-                    iterate_cells(update_cells);
                 }
 
+                /* Draw this frame. */
                 mainrect.graphics.clear();
 
-                iterate_cells(function(row, col, u, d, l, r) {
-                    var val = vals[row][col];
-                    var color = rgba(0, 0, 0, val / 512.);
+                for (var row = 0; row < rows; row++) {
+                    for (var col = 0; col < cols; col++) {
+                        var color = hsla(
+                            Math.floor(vals[row][col][0] / 100. * 360),
+                            Math.floor(vals[row][col][1] / 3 + 33),
+                            Math.floor(vals[row][col][2] / 3 + 33),
+                            vals[row][col][3] / 200.
+                        );
 
-                    mainrect.graphics.beginFill(color).drawRect(
-                        xscale * col, yscale * row, xscale - 5, yscale - 5
-                    );
-                });
+                        mainrect.graphics.beginFill(color).drawCircle(
+                            xscale * col + (xscale / 2),
+                            yscale * row + (yscale / 2),
+                            Math.min(xscale, yscale) / 3
+                        );
+                    }
+                }
 
                 stage.update();
             }
