@@ -20,108 +20,91 @@
             var cols = 5;
             var xscale;
             var yscale;
+            var effects;
 
-            var automata = [1, 1, 1, 1];
-            var sort_horizontal = [1, 1, 1, 1];
-            var sort_vertical = [1, 1, 1, 1];
+            var hover;
 
-            var p_automata = [0.1, 0.1, 0.1, 0.1];
-            var p_sort_horizontal = [0.1, 0.1, 0.1, 0.1];
-            var p_sort_vertical = [0.1, 0.1, 0.1, 0.1];
+            var rand = Math.random;
 
-            var p_min = 0.05;
-            var p_max = 0.5;
+            function hsl(h, s, l) {
+                return 'hsl(' +
+                    Math.floor(h) + ',' +
+                    Math.floor(s) + '%,' +
+                    Math.floor(l) + '%)'
+            }
 
-            var automata = {
-                direction: [-1, -1, -1, -1],
-                p: [0.1, 0.1, 0.1, 0.1],
-                pMin: 0.05,
-                pMax: 0.5,
-                postUpdate: true,
-                update: function (p) {
-                    if (p.effect.direction[p.channel] != 0) {
-                        drow = effect.direction[p.channel] + 1;
+            function lerp(x, xlo, xhi, ylo, yhi) {
+                return (x - xlo) / (xhi - xlo) * (yhi - ylo) + ylo;
+            }
 
-                        nvals[p.row][p.col][p.channel] = (
-                            (p.v[1][0] + p.v[1][1] + p.v[1][2]) / 2 +
-                            (p.v[drow][0] + p.v[drow][1] + p.v[drow][2]) / 2
-                        ) % 100
-                    }
-                }
-            };
+            function iterate_cells(effect, fun) {
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < cols; c++) {
+                        for (var ch = 0; ch < 3; ch++) {
+                            p = {
+                                r: r, c: c, ch: ch,
+                                effect: effect,
+                                up: (rows + r - 1) % rows,
+                                down: (rows + r + 1) % rows,
+                                left: (cols + c - 1) % cols,
+                                right: (cols + c + 1) % cols
+                            }
 
-            var sort_horizontal = {
-                direction: [-1, -1, -1, -1],
-                p: [0.1, 0.1, 0.1, 0.1],
-                pMin: 0.05,
-                pMax: 0.5,
-                postUpdate: true,
-                update: function(p) {
-                    if (p.effect.direction[p.channel] != 0) {
-                        if (p.col < cols - 1) {
-                            swap(
-                                p.row, p.col,
-                                p.row, p.right,
-                                p.effect.direction == -1 ? true : false,
-                                p.channel
-                            );
-                        }
-                    }
-                }
-            };
+                            p.v = [
+                                [
+                                    vals[p.up][p.left][ch],
+                                    vals[p.up][p.c][ch],
+                                    vals[p.up][p.right][ch]
+                                ],
+                                [
+                                    vals[p.r][p.left][ch],
+                                    vals[p.r][p.c][ch],
+                                    vals[p.r][p.right][ch],
+                                ],
+                                [
+                                    vals[p.down][p.left][ch],
+                                    vals[p.down][p.c][ch],
+                                    vals[p.down][p.right][ch]
+                                ]
+                            ]
 
-            var sort_vertical = {
-                direction: [-1, -1, -1, -1],
-                p: [0.1, 0.1, 0.1, 0.1],
-                pMin: 0.05,
-                pMax: 0.5,
-                postUpdate: true,
-                update: function(p) {
-                    if (p.effect.direction[p.channel] != 0) {
-                        if (p.row < rows - 1) {
-                            swap(
-                                p.row, p.col,
-                                p.down, p.col,
-                                p.effect.direction == -1 ? true : false,
-                                p.channel
-                            );
+                            fun(p);
                         }
                     }
                 }
             }
 
-            var effects = [sort_horizontal, sort_vertical, automata];
-
-            function rgba(r, g, b, a) {
-                return "rgba(" +
-                    r + "," +
-                    g + "," +
-                    b + "," +
-                    a + ")";
+            function copy_pixels() {
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < cols; c++) {
+                        for (var ch = 0; ch < 3; ch++)
+                            vals[r][c][ch] = nvals[r][c][ch];
+                    }
+                }
             }
 
-            function hsla(h, s, l, a) {
-                return "hsla(" +
-                    h + "," +
-                    s + "%," +
-                    l + "%," +
-                    a + ")"
+            function randomize_direction(effect) {
+                var pr = effect.pRange;
+
+                for (var ch = 0; ch < 3; ch++) {
+                  if (rand() < effect.p[ch]) {
+                        effect.direction[ch] = Math.floor(rand() * 3) - 1;
+                        effect.p[ch] = lerp(rand(), 0, 1, pr[0], pr[1]);
+                    }
+                }
             }
 
             function init() {
-                stage = new createjs.Stage("easel");
-                var bounds = stage.getBounds();
-
-                for (var row = 0; row < rows; row++) {
+                for (var r = 0; r < rows; r++) {
                     var vrow = [];
                     var nvrow = [];
 
-                    for (var col = 0; col < cols; col++) {
+                    for (var c = 0; c < cols; c++) {
                         var vcol = [];
                         var nvcol = [];
 
-                        for (var channel = 0; channel < 4; channel ++) {
-                            var val = row == 0 ? Math.floor(Math.random() * 100) : 100;
+                        for (var ch = 0; ch < 3; ch++) {
+                            var val = r == 0 ? rand() * 100 : 100;
                             vcol.push(val);
                             nvcol.push(val);
                         }
@@ -134,6 +117,15 @@
                     nvals.push(nvrow);
                 }
 
+                var sheet = document.styleSheets[document.styleSheets.length - 1];
+                sheet.insertRule('a:hover {color: red;}', 0);
+                var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
+                hover = rules[0];
+                console.log(hover, hover.cssText);
+
+                stage = new createjs.Stage("easel");
+                var bounds = stage.getBounds();
+
                 mainrect = new createjs.Shape();
                 stage.addChild(mainrect);
                 stage.update();
@@ -143,45 +135,85 @@
 
                 createjs.Ticker.addEventListener("tick", tick);
                 createjs.Ticker.setFPS(10);
-            }
 
-            function iterate_cells(channel, effect, fun) {
-                for (var row = 0; row < rows; row++) {
-                    for (var col = 0; col < cols; col++) {
-                        p = {
-                            row: row,
-                            col: col,
-                            channel: channel,
-                            effect: effect,
-                            up: (rows + row - 1) % rows,
-                            down: (rows + row + 1) % rows,
-                            left: (cols + col - 1) % cols,
-                            right: (cols + col + 1) % cols
-                        }
-
-                        p.v = [
-                            [
-                                vals[p.up][p.left][channel],
-                                vals[p.up][p.col][channel],
-                                vals[p.up][p.right][channel]
-                            ],
-                            [
-                                vals[p.row][p.left][channel],
-                                vals[p.row][p.col][channel],
-                                vals[p.row][p.right][channel],
-                            ],
-                            [
-                                vals[p.down][p.left][channel],
-                                vals[p.down][p.col][channel],
-                                vals[p.down][p.right][channel]
-                            ]
-                        ]
-
-                        fun(p);
+                var link_color = {
+                    postUpdate: function(effect) {
+                        hover.style.color = hsl(
+                            lerp(vals[0][0][0], 0, 100, 0, 360),
+                            lerp(vals[0][0][1], 0, 100, 33, 66),
+                            lerp(vals[0][0][2], 0, 100, 66, 100)
+                        );
                     }
                 }
-            }
 
+                var automata = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0) {
+                            drow = p.effect.direction[p.ch] + 1;
+
+                            nvals[p.r][p.c][p.ch] = (
+                                (p.v[1][0] + p.v[1][1] + p.v[1][2]) / 2 +
+                                (p.v[drow][0] + p.v[drow][1] + p.v[drow][2]) / 2
+                            ) % 100
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        copy_pixels();
+                        randomize_direction(effect);
+                    }
+                };
+
+                var sort_horizontal = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0) {
+                           if (p.c < cols - 1) {
+                                swap(
+                                    p.r, p.c,
+                                    p.r, p.right,
+                                    p.effect.direction == -1 ? true : false,
+                                    p.ch
+                                );
+                            }
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        copy_pixels();
+                        randomize_direction(effect);
+                    }
+                };
+
+                var sort_vertical = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0) {
+                            if (p.r < rows - 1) {
+                                swap(
+                                    p.r, p.c,
+                                    p.down, p.c,
+                                    p.effect.direction == -1 ? true : false,
+                                    p.ch
+                                );
+                            }
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        copy_pixels();
+                        randomize_direction(effect);
+                    }
+                }
+
+                effects = [
+                    link_color, automata, sort_horizontal, sort_vertical
+                ];
+            }
 
             function swap(row1, col1, row2, col2, lt, channel) {
                 a = vals[row1][col1][channel];
@@ -195,49 +227,28 @@
 
             function tick() {
                 /* Run each effect for each channel. */
-                for (var channel = 0; channel < 4; channel ++) {
-                    for (var e = 0; e < effects.length; e++) {
-                        effect = effects[e];
+                for (var e = 0; e < effects.length; e++) {
+                    var effect = effects[e];
 
-                        // Randomize direction / transition probabilities.
-                        if (Math.random() < effect.p[channel]) {
-                            effect.direction[channel] = Math.floor(
-                                Math.random() * 3.0
-                            ) - 1;
+                    if (effect.hasOwnProperty('updatePixels'))
+                        iterate_cells(effect, effect.updatePixels);
 
-                            effect.p[channel] = Math.random() * (
-                                effect.pMax - effect.pMin
-                            ) + effect.pMin;
-                        }
-
-                        // Run the effect.
-                        iterate_cells(channel, effect, effect.update);
-
-                        // Update values if desired.
-                        if (effect.postUpdate) {
-                            iterate_cells(channel, effect, function(p) {
-                                vals[p.row][p.col][p.channel] =
-                                    nvals[p.row][p.col][p.channel];
-                            })
-                        }
-                    }
+                    if (effect.hasOwnProperty('postUpdate'))
+                        effect.postUpdate(effect);
                 }
 
                 /* Draw this frame. */
                 mainrect.graphics.clear();
 
-                for (var row = 0; row < rows; row++) {
-                    for (var col = 0; col < cols; col++) {
-                        var color = hsla(
-                            Math.floor(vals[row][col][0] / 100. * 360),
-                            Math.floor(vals[row][col][1] / 3 + 33),
-                            Math.floor(vals[row][col][2] / 3 + 33),
-                            vals[row][col][3] / 200.
-                        );
-
-                        mainrect.graphics.beginFill(color).drawCircle(
-                            xscale * col + (xscale / 2),
-                            yscale * row + (yscale / 2),
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < cols; c++) {
+                        mainrect.graphics.beginFill(hsl(
+                            Math.floor(lerp(vals[r][c][0], 0, 100, 0, 360)),
+                            Math.floor(lerp(vals[r][c][1], 0, 100, 33, 66)),
+                            Math.floor(lerp(vals[r][c][2], 0, 100, 66, 100))
+                        )).drawCircle(
+                            xscale * c + (xscale / 2),
+                            yscale * r + (yscale / 2),
                             Math.min(xscale, yscale) / 3
                         );
                     }
@@ -254,8 +265,8 @@
             }
 
             a {
-                color: inherit;
                 text-decoration: none;
+                color: #81997F;
             }
 
             .container {
@@ -323,10 +334,6 @@
             .bio li {
                 list-style-type: none;
                 margin-top: .5em;
-            }
-
-            .bio a {
-                color: #81997F;
             }
 
             .page {
