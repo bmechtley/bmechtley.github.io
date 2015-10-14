@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sketch 001</title>
+        <script src='three/three.min.js'></script>
+        <script src='dat/dat.gui.min.js'></script>
+    </head>
+    <style type='text/css'>
+        body {
+            margin: 0;
+        }
+    </style>
+
+    <body>
+        <div id='container'></div>
+
+        <script id='vertexShader' type='x-shader/x-vertex'>
+            void main() {
+                gl_Position = vec4(position, 1.0);
+            }
+        </script>
+
+        <script id='fragmentShader' type='x-shader/x-fragment'>
+            #ifdef GS_ES
+                precision mediump float;
+            #endif
+
+            #define PI 3.1415927
+            #define PI2 (PI * 2.0)
+
+            // Environment parameters.
+            uniform vec2 u_resolution;
+            uniform vec2 u_mouse;
+            uniform float u_res_mouse;
+            uniform float u_time;
+
+            // Number of arms/orbits (how many quantization bins).
+            uniform float u_n_arms;
+            uniform float u_n_orbits;
+
+            // Oscillation parameters.
+            uniform float u_res_time_arm;
+            uniform float u_res_time_orbit;
+
+            uniform vec3 u_phase_arm;
+            uniform vec3 u_speed_arm;
+
+            uniform vec3 u_phase_orbit;
+            uniform vec3 u_speed_orbit;
+
+            // Amount of interpolation.
+            uniform float u_interp;
+
+            /*
+                Random noise functions. TODO: Clean up a bit, maybe can
+                simplify where I use noise and delay until the end?
+            */
+
+            float rand(vec2 co) {
+                return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
+            }
+
+            float rand(float co) {
+                return rand(vec2(co, 0.0));
+            }
+
+            vec3 rand(vec3 co) {
+                return vec3(
+                    rand(co.r),
+                    rand(co.g),
+                    rand(co.b)
+                );
+            }
+
+            /*
+                Linear interpolation functions. TODO: Probably builtin? Does
+                GLSL have any sort of template support?
+            */
+
+            float lerp(float x, float x1, float x2, float y1, float y2) {
+                return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
+            }
+
+            vec3 lerp(float x, float x1, float x2, vec3 y1, vec3 y2) {
+                return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
+            }
+
+            vec3 lerp(vec3 x, vec3 x1, vec3 x2, vec3 y1, vec3 y2) {
+                return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
+            }
+
+            vec3 lerp(vec3 x, vec3 x1, vec3 x2, float y1, float y2) {
+                return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
+            }
+
+            /*
+                Quantization functions for values between 0.0 and 1.0. Lo for
+                floor, ceil for high (next bin).
+
+                TODO: Maybe there's a more generalizable way to do this that
+                doesn't require 0-1 and is just as fast.
+            */
+
+            float quantlo(float val, float bins) {
+                return floor(val * bins) / bins;
+            }
+
+            float quanthi(float val, float bins) {
+                return ceil(val * bins) / bins;
+            }
+
+            vec2 quantlo(vec2 val, float bins) {
+                return floor(val * bins) / bins;
+            }
+
+            vec2 quanthi(vec2 val, float bins) {
+                return ceil(val * bins) / bins;
+            }
+
+            vec3 quantlo(vec3 val, float bins) {
+                return floor(val * bins) / bins;
+            }
+
+            vec3 quanthi(vec3 val, float bins) {
+                return ceil(val * bins) / bins;
+            }
+
+            /*
+                Functions for computing per-channel oscillation for arms /
+                orbits based on their per-channel speeds / phases.
+            */
+
+            vec3 timesin(vec3 speed, vec3 phase) {
+                return sin(u_time / speed + phase * PI) + 0.5;
+            }
+
+            vec3 timemod(vec3 speed, vec3 phase) {
+                return mod(u_time / speed + phase * PI, 1.0);
+            }
+
+            void main() {
+                vec2 p = (gl_FragCoord.xy / u_resolution.xy) * 2.0 - 1.0;
+                vec2 m = quantlo(u_mouse, u_res_mouse);
+                vec2 p2m = p.xy - m.xy;
+                vec3 zero3 = vec3(0.0, 0.0, 0.0);
+                vec3 eye3 = vec3(1.0, 1.0, 1.0);
+
+                float l_p2m = length(p2m) / sqrt(2.0);
+
+                float r_p = length(p) / sqrt(2.0);
+                float t_p = (atan(p.y, p.x) + PI) / PI2;
+
+                float r_m = length(p2m) / sqrt(2.0);
+                float t_m = (atan(p2m.y, p2m.x) + PI) / PI2;
+
+                float n_arms = u_n_arms;
+                float n_orbits = u_n_orbits;
+
+                // Calculate per-channel progress for arms/orbits. These should
+                // end up between 1.0 and 0.0 for consistency.
+                vec3 time_arm = timemod(u_speed_arm, u_phase_arm);
+                vec3 time_orbit = timemod(u_speed_orbit, u_phase_orbit);
+
+                vec3 time_arm_q = quantlo(time_arm, u_res_time_arm);
+                vec3 time_orbit_q = quantlo(time_orbit, u_res_time_orbit);
+
+                /*
+                    Each spiral arm and orbit is a value between 0.0 and 1.0,
+                    quantized based on how many of them there are. Colors are
+                    then chosen from a 2D RGB noise map, using orbit/arm for
+                    x/y.
+
+                    *_q means quantized.
+                    *_q_next is the next quantized bin for determining
+                        lerping amounts.
+                    *_q_next_mod is the next quantized bin, modulo 1.0 for
+                        determining colors.
+                */
+
+                // Discrete spiral arms.
+                vec3 arm = mod(t_p + r_p + time_arm_q, 1.0);    // Continuous.
+                vec3 arm_q = quantlo(arm, n_arms);              // Quantized.
+                vec3 arm_q_next = quanthi(arm, n_arms);         // Next bin.
+                vec3 arm_q_next_mod = mod(arm_q_next, 1.0);     // Next arm.
+
+                // Discrete orbits.
+                vec3 orbit = mod(r_p + time_orbit_q, 1.0);      // Continuous.
+                vec3 orbit_q = quantlo(orbit, n_orbits);        // Quantized.
+                vec3 orbit_q_next = quanthi(orbit, n_orbits);   // Next bin.
+                vec3 orbit_q_next_mod = mod(orbit_q_next, 1.0); // Next orbit.
+
+                // 2D interpolation between orbits and arms.
+                vec3 cll = vec3(
+                    rand(vec2(orbit_q.r, arm_q.r)),
+                    rand(vec2(orbit_q.g, arm_q.g)),
+                    rand(vec2(orbit_q.b, arm_q.b))
+                );
+
+                vec3 chh = vec3(
+                    rand(vec2(orbit_q_next_mod.r, arm_q_next_mod.r)),
+                    rand(vec2(orbit_q_next_mod.g, arm_q_next_mod.g)),
+                    rand(vec2(orbit_q_next_mod.b, arm_q_next_mod.b))
+                );
+
+                vec3 clh = vec3(
+                    rand(vec2(orbit_q.r, arm_q_next_mod.r)),
+                    rand(vec2(orbit_q.g, arm_q_next_mod.g)),
+                    rand(vec2(orbit_q.b, arm_q_next_mod.b))
+                );
+
+                vec3 chl = vec3(
+                    rand(vec2(orbit_q_next_mod.r, arm_q.r)),
+                    rand(vec2(orbit_q_next_mod.g, arm_q.g)),
+                    rand(vec2(orbit_q_next_mod.b, arm_q.b))
+                );
+
+                vec3 armp = lerp(arm, arm_q, arm_q_next, 0.0, 1.0);
+                vec3 orbitp = lerp(orbit, orbit_q, orbit_q_next, 0.0, 1.0);
+
+                vec3 cinterp = (
+                    ((1.0 - orbitp) * (1.0 - armp)) * cll +
+                    ((1.0 - orbitp) * armp) * clh +
+                    (orbitp * (1.0 - armp)) * chl +
+                    (armp * orbitp) * chh
+                );
+
+                // Interpolate based on the amount of interpolation desired.
+                gl_FragColor = vec4(
+                    (1.0 - u_interp) * cll + u_interp * cinterp, 1.0
+                );
+            }
+        </script>
+
+        <script>
+            var container;
+            var camera, scene, renderer;
+
+            // Uniforms for fragment shader.
+            var uniforms = {
+                u_time: { type: 'f', value: 1.0, auto: true },
+                u_resolution: { type: 'v2', value: new THREE.Vector2() },
+                u_mouse: { type: 'v2', value: new THREE.Vector2() }
+            };
+
+            // Parameter sliders.
+            var gui;
+            var guiparams = {};
+
+            /*
+                All parameters, used for initializing both gui params and
+                three.js uniforms. Type is three.js uniform type, value is the
+                default value. Range is min, max, step for the gui sliders.
+            */
+
+            var params = {
+                u_res_time_arm: {
+                    type: 'f', value: 1000.0, range: [1, 1000, 1]
+                },
+                u_res_time_orbit: {
+                    type: 'f', value: 1000.0, range: [1, 1000, 1]
+                },
+                u_n_orbits: { type: 'f', value: 10, range: [1, 500, 10] },
+                u_n_arms: { type: 'f', value: 10, range: [1, 500, 10] },
+                u_res_mouse: { type: 'f', value: 10.0, range: [2, 1000, 10]},
+                u_phase_arm: {
+                    type: 'v3', value: [0.1, 0.1, 0.1], range: [0, 1, 0.1]
+                },
+                u_speed_arm: {
+                    type: 'v3', value: [40, 40, 40], range: [0.1, 100, 1]
+                },
+                u_phase_orbit: {
+                    type: 'v3', value: [0.1, 0.1, 0.1], range: [0, 1, 0.1]
+                },
+                u_speed_orbit: {
+                    type: 'v3', value: [40, 40, 40], range: [0.1, 100, 1]
+                },
+                u_interp: { type: 'f', value: 0.1, range: [0.0, 1.0, 0.1] }
+            };
+
+            init();
+            animate();
+
+            // Add all the uniforms from the params variable.
+            function createUniforms() {
+                for (var key in params) {
+                    var p = params[key];
+
+                    uniforms[key] = {
+                        type: p.type,
+                        value: p.type == 'f' ? p.value : new THREE.Vector3(
+                            p.value[0], p.value[1], p.value[2]
+                        )
+                    };
+                }
+            }
+
+            // Lazy method for updating all uniforms whenever any gui slider
+            // changes.
+            function updateUniforms() {
+                for (var key in params) {
+                    if (params[key].type == 'f')
+                        uniforms[key].value = guiparams[key];
+                    else if (params[key].type == 'v3') {
+                        channels = 'rgb';
+                        components = 'xyz';
+
+                        for (var c = 0; c < channels.length; c++) {
+                            uniforms[key].value[components[c]] = guiparams[key + '_' + channels[c]];
+                        }
+                    }
+                }
+            }
+
+            // Create all the parameter sliders, three for multi-channel.
+            function createGUI() {
+                gui = new dat.GUI({height: 13 * 32 - 1});
+
+                for (var key in params) {
+                    var p = params[key];
+
+                    if (p.type == 'f') {
+                        guiparams[key] = p.value;
+                        gui.add(guiparams, key)
+                            .min(p.range[0]).max(p.range[1]).step(p.range[2])
+                            .onFinishChange(updateUniforms);
+                    } else if (p.type == 'v3') {
+                        var channels = 'rgb';
+
+                        for (var c = 0; c < channels.length; c++) {
+                            guiparams[key + '_' + channels[c]] = p.value[c];
+
+                            gui.add(guiparams, key + '_' + channels[c])
+                                .min(p.range[0]).max(p.range[1]).step(p.range[2])
+                                .onFinishChange(updateUniforms);
+                        }
+                    }
+                }
+
+                gui.height = guiparams.length * 32 - 1;
+            }
+
+            // Make everything go.
+            function init() {
+                container = document.getElementById('container');
+                camera = new THREE.Camera();
+                camera.position.z = 1;
+
+                createUniforms();
+                createGUI();
+
+                scene = new THREE.Scene();
+                var geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+                // TODO: Don't need the vertexShader?
+                var material = new THREE.ShaderMaterial({
+                    uniforms: uniforms,
+                    vertexShader: document.getElementById('vertexShader').textContent,
+                    fragmentShader: document.getElementById('fragmentShader').textContent
+                });
+
+                // TODO: Maybe compositing is a better idea than putting both
+                // spirals and arms in one shader?
+                var mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                renderer = new THREE.WebGLRenderer();
+                renderer.setPixelRatio(window.devicePixelRatio);
+                container.appendChild(renderer.domElement);
+
+                onWindowResize();
+                window.addEventListener('resize', onWindowResize, false);
+                window.addEventListener('mousemove', onMouseMove, false);
+            }
+
+            function onMouseMove(event) {
+                uniforms.u_mouse.value.x = (event.clientX / window.innerWidth) * 2 - 1;
+                uniforms.u_mouse.value.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            }
+
+            function onWindowResize(event) {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+                uniforms.u_resolution.value.x = renderer.domElement.width;
+                uniforms.u_resolution.value.y = renderer.domElement.height;
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                render();
+            }
+
+            function render() {
+                uniforms.u_time.value += 0.05;
+                renderer.render(scene, camera);
+            }
+        </script>
+    </body>
+</html>

@@ -21,7 +21,7 @@
             var xscale;
             var yscale;
             var effects;
-
+            var mousedown = false;
             var hover;
 
             var rand = Math.random;
@@ -74,6 +74,16 @@
                 }
             }
 
+            function swap(row1, col1, row2, col2, lt, channel) {
+                a = vals[row1][col1][channel];
+                b = vals[row2][col2][channel];
+
+                if ((lt && a < b) || (!lt && a > b)) {
+                    nvals[row1][col1][channel] = b;
+                    nvals[row2][col2][channel] = a;
+                }
+            }
+
             function copy_pixels() {
                 for (var r = 0; r < rows; r++) {
                     for (var c = 0; c < cols; c++) {
@@ -121,7 +131,6 @@
                 sheet.insertRule('a:hover {color: red;}', 0);
                 var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
                 hover = rules[0];
-                console.log(hover, hover.cssText);
 
                 stage = new createjs.Stage("easel");
                 var bounds = stage.getBounds();
@@ -135,6 +144,8 @@
 
                 createjs.Ticker.addEventListener("tick", tick);
                 createjs.Ticker.setFPS(10);
+                stage.addEventListener("mousedown", function() {mousedown=true;});
+                stage.addEventListener("mouseup", function() {mousedown=false;});
 
                 var link_color = {
                     postUpdate: function(effect) {
@@ -151,18 +162,20 @@
                     p: [0.1, 0.1, 0.1],
                     pRange: [0.05, 0.5],
                     updatePixels: function(p) {
-                        if (p.effect.direction[p.ch] != 0) {
+                        if (p.effect.direction[p.ch] != 0 && !mousedown) {
                             drow = p.effect.direction[p.ch] + 1;
 
                             nvals[p.r][p.c][p.ch] = (
                                 (p.v[1][0] + p.v[1][1] + p.v[1][2]) / 2 +
                                 (p.v[drow][0] + p.v[drow][1] + p.v[drow][2]) / 2
-                            ) % 100
+                            ) % 100;
                         }
                     },
                     postUpdate: function(effect) {
-                        copy_pixels();
-                        randomize_direction(effect);
+                        if (!mousedown) {
+                            copy_pixels();
+                            randomize_direction(effect);
+                        }
                     }
                 };
 
@@ -213,16 +226,6 @@
                 effects = [
                     link_color, automata, sort_horizontal, sort_vertical
                 ];
-            }
-
-            function swap(row1, col1, row2, col2, lt, channel) {
-                a = vals[row1][col1][channel];
-                b = vals[row2][col2][channel];
-
-                if ((lt && a < b) || (!lt && a > b)) {
-                    vals[row1][col1][channel] = b;
-                    vals[row2][col2][channel] = a;
-                }
             }
 
             function tick() {
