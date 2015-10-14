@@ -379,7 +379,7 @@
                     if (p.type == 'f')
                         uniforms[key].value = guiparams[key];
                     else if (p.type == 'v3') {
-                        channels = ['h', 's', 'v'];
+                        channels = 'rgb';
                         components = 'xyz';
 
                         for (var c = 0; c < channels.length; c++) {
@@ -412,7 +412,7 @@
                             .name(p.label)
                             .onFinishChange(updateUniforms);
                     } else if (p.type == 'v3') {
-                        var channels = ['h', 's', 'v'];
+                        var channels = 'rgb';
 
                         for (var c = 0; c < channels.length; c++) {
                             guiparams[key + '_' + channels[c]] = p.value[c];
