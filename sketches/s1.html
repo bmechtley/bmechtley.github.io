@@ -43,10 +43,10 @@
             uniform float u_res_time_orbit;
 
             uniform vec3 u_phase_arm;
-            uniform vec3 u_speed_arm;
+            uniform vec3 u_freq_arm;
 
             uniform vec3 u_phase_orbit;
-            uniform vec3 u_speed_orbit;
+            uniform vec3 u_freq_orbit;
 
             // Amount of interpolation.
             uniform float u_interp;
@@ -60,16 +60,28 @@
                 return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
             }
 
-            float rand(float co) {
-                return rand(vec2(co, 0.0));
+            float rand(vec3 co) {
+                return fract(sin(dot(co.xyz, vec3(12.9898,78.233,54.9430))) * 43758.5453);
             }
 
-            vec3 rand(vec3 co) {
-                return vec3(
-                    rand(co.r),
-                    rand(co.g),
-                    rand(co.b)
-                );
+            /*
+                Color space.
+            */
+
+            vec3 rgb2hsv(vec3 c) {
+                vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+                vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+                vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+
+                float d = q.x - min(q.w, q.y);
+                float e = 1.0e-10;
+                return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+            }
+
+            vec3 hsv2rgb(vec3 c) {
+                vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+                vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+                return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
             }
 
             /*
@@ -91,6 +103,14 @@
 
             vec3 lerp(vec3 x, vec3 x1, vec3 x2, float y1, float y2) {
                 return (x - x1) / (x2 - x1) * (y2 - y1) + y1;
+            }
+
+            vec3 remap(vec3 x, vec3 xmin, vec3 xmax) {
+                return (x - xmin) / (xmax - xmin);
+            }
+
+            float remap(float x, float xmin, float xmax) {
+                return (x - xmin) / (xmax - xmin);
             }
 
             /*
@@ -131,35 +151,39 @@
             */
 
             vec3 timesin(vec3 speed, vec3 phase) {
-                return sin(u_time / speed + phase * PI) + 0.5;
-            }
-
-            vec3 timemod(vec3 speed, vec3 phase) {
-                return mod(u_time / speed + phase * PI, 1.0);
+                return sin(u_time * speed + phase * PI);
             }
 
             void main() {
                 vec2 p = (gl_FragCoord.xy / u_resolution.xy) * 2.0 - 1.0;
                 vec2 m = quantlo(u_mouse, u_res_mouse);
                 vec2 p2m = p.xy - m.xy;
-                vec3 zero3 = vec3(0.0, 0.0, 0.0);
-                vec3 eye3 = vec3(1.0, 1.0, 1.0);
 
-                float l_p2m = length(p2m) / sqrt(2.0);
+                vec2 p2b = p.xy - vec2(0.0, -0.5);
+                vec2 p2i1 = p.xy - vec2(-0.5, 0.5);
+                vec2 p2i2 = p.xy - vec2(0.5, 0.5);
 
+                float r_b = length(p2b) / sqrt(2.0);
                 float r_p = length(p) / sqrt(2.0);
                 float t_p = (atan(p.y, p.x) + PI) / PI2;
+
+                float r_p_i1 = length(p2i1) / sqrt(2.0);
+                float r_p_i2 = length(p2i2) / sqrt(2.0);
 
                 float r_m = length(p2m) / sqrt(2.0);
                 float t_m = (atan(p2m.y, p2m.x) + PI) / PI2;
 
+                float t_i1 = (atan(p2i1.y, p2i1.x) + PI) / PI2;
+                float t_i2 = (atan(p2i2.y, p2i2.x) + PI) / PI2;
+                float t_b_i1 = (atan(p2b.y, p2b.x) + PI) / PI2;
+                float t_b_i2 = 1.0 - (atan(p2b.y, p2b.x) + PI) / PI2;
                 float n_arms = u_n_arms;
                 float n_orbits = u_n_orbits;
 
                 // Calculate per-channel progress for arms/orbits. These should
                 // end up between 1.0 and 0.0 for consistency.
-                vec3 time_arm = timemod(u_speed_arm, u_phase_arm);
-                vec3 time_orbit = timemod(u_speed_orbit, u_phase_orbit);
+                vec3 time_arm = timesin(u_freq_arm, u_phase_arm);
+                vec3 time_orbit = timesin(u_freq_orbit, u_phase_orbit);
 
                 vec3 time_arm_q = quantlo(time_arm, u_res_time_arm);
                 vec3 time_orbit_q = quantlo(time_orbit, u_res_time_orbit);
@@ -178,18 +202,29 @@
                 */
 
                 // Discrete spiral arms.
-                vec3 arm = mod(t_p + r_p + time_arm_q, 1.0);    // Continuous.
+                vec3 arm = mod(t_m + r_p + time_arm_q, 1.0);    // Continuous.
                 vec3 arm_q = quantlo(arm, n_arms);              // Quantized.
                 vec3 arm_q_next = quanthi(arm, n_arms);         // Next bin.
                 vec3 arm_q_next_mod = mod(arm_q_next, 1.0);     // Next arm.
 
+                vec3 arm_i1 = mod(t_b_i2 + r_p_i1 + time_arm_q, 1.0);    // Continuous.
+                vec3 arm_i1_q = quantlo(arm_i1, n_arms);              // Quantized.
+                vec3 arm_i1_q_next = quanthi(arm_i1, n_arms);         // Next bin.
+                vec3 arm_i1_q_next_mod = mod(arm_i1_q_next, 1.0);     // Next arm.
+
+                vec3 arm_i2 = mod(t_b_i1 + r_p_i2 + time_arm_q, 1.0);    // Continuous.
+                vec3 arm_i2_q = quantlo(arm_i2, n_arms);              // Quantized.
+                vec3 arm_i2_q_next = quanthi(arm_i2, n_arms);         // Next bin.
+                vec3 arm_i2_q_next_mod = mod(arm_i2_q_next, 1.0);     // Next arm.
+
                 // Discrete orbits.
-                vec3 orbit = mod(r_p + time_orbit_q, 1.0);      // Continuous.
+                vec3 orbit = mod(r_b + time_orbit_q, 1.0);      // Continuous.
                 vec3 orbit_q = quantlo(orbit, n_orbits);        // Quantized.
                 vec3 orbit_q_next = quanthi(orbit, n_orbits);   // Next bin.
                 vec3 orbit_q_next_mod = mod(orbit_q_next, 1.0); // Next orbit.
 
                 // 2D interpolation between orbits and arms.
+                /*
                 vec3 cll = vec3(
                     rand(vec2(orbit_q.r, arm_q.r)),
                     rand(vec2(orbit_q.g, arm_q.g)),
@@ -214,25 +249,47 @@
                     rand(vec2(orbit_q_next_mod.b, arm_q.b))
                 );
 
-                vec3 armp = lerp(arm, arm_q, arm_q_next, 0.0, 1.0);
+
+                vec3 armp = remap(arm, arm_q, arm_q_next); //lerp(arm, arm_q, arm_q_next, 0.0, 1.0);
                 vec3 orbitp = lerp(orbit, orbit_q, orbit_q_next, 0.0, 1.0);
 
-                vec3 cinterp = (
+                vec3 cinterp =
                     ((1.0 - orbitp) * (1.0 - armp)) * cll +
                     ((1.0 - orbitp) * armp) * clh +
                     (orbitp * (1.0 - armp)) * chl +
-                    (armp * orbitp) * chh
+                    (armp * orbitp) * chh;
+                */
+
+                vec3 cll = vec3(
+                    rand(vec3(orbit_q.r, arm_i1_q.r, arm_i2_q.r)),
+                    rand(vec3(orbit_q.g, arm_i1_q.g, arm_i2_q.g)),
+                    rand(vec3(orbit_q.b, arm_i1_q.b, arm_i2_q.b))
                 );
+                /*
+                float clh = rand(vec3(orbit_q.b, arm_i1_q_next_mod.b, arm_i2_q_next_mod.b));
+                float chl = rand(vec3(orbit_q_next_mod.b, arm_i1_q.b, arm_i2_q.b));
+                float chh = rand(vec3(orbit_q_next_mod.b, arm_i1_q_next_mod.b, arm_i2_q_next_mod.b));
+                */
+                /*
+                float armp = remap(arm.b, arm_q.b, arm_q_next.b);
+                float orbitp = remap(orbit.b, orbit_q.b, orbit_q_next.b);
+                float vinterp =
+                    ((1.0 - orbitp) * (1.0 - armp)) * cll.b +
+                    ((1.0 - orbitp) * armp) * clh +
+                    (orbitp * (1.0 - armp)) * chl +
+                    (armp * orbitp) * chh;
+                */
+                //vec3 cinterp = vec3(cll.r, cll.g, vinterp);
 
                 // Interpolate based on the amount of interpolation desired.
-                gl_FragColor = vec4(
-                    (1.0 - u_interp) * cll + u_interp * cinterp, 1.0
-                );
+                //gl_FragColor = vec4(hsv2rgb(mix(cll, cinterp, u_interp)), 1.0);
+                gl_FragColor = vec4(cll, 1.0);
             }
         </script>
 
         <script>
             var container;
+            var clock;
             var camera, scene, renderer;
 
             // Uniforms for fragment shader.
@@ -245,6 +302,7 @@
             // Parameter sliders.
             var gui;
             var guiparams = {};
+            var guifolders = {};
 
             /*
                 All parameters, used for initializing both gui params and
@@ -253,28 +311,46 @@
             */
 
             var params = {
-                u_res_time_arm: {
-                    type: 'f', value: 1000.0, range: [1, 1000, 1]
+                u_res_mouse: {
+                    type: 'f', value: 1000, range: [2, 1000, 10],
+                    label: 'mouse res.', folder: 'global'
                 },
-                u_res_time_orbit: {
-                    type: 'f', value: 1000.0, range: [1, 1000, 1]
+                u_interp: {
+                    type: 'f', value: 0.5, range: [0.0, 1.0, 0.1],
+                    label: 'interpolation', folder: 'global'
                 },
-                u_n_orbits: { type: 'f', value: 10, range: [1, 500, 10] },
-                u_n_arms: { type: 'f', value: 10, range: [1, 500, 10] },
-                u_res_mouse: { type: 'f', value: 10.0, range: [2, 1000, 10]},
-                u_phase_arm: {
-                    type: 'v3', value: [0.1, 0.1, 0.1], range: [0, 1, 0.1]
-                },
-                u_speed_arm: {
-                    type: 'v3', value: [40, 40, 40], range: [0.1, 100, 1]
+                u_n_orbits: {
+                    type: 'f', value: 1, range: [1, 500, 10],
+                    label: 'count', folder: 'orbits'
                 },
                 u_phase_orbit: {
-                    type: 'v3', value: [0.1, 0.1, 0.1], range: [0, 1, 0.1]
+                    type: 'v3', value: [0.1, 0.1, 0.1], range: [0, 1, 0.1],
+                    label: 'phase', folder: 'orbits'
                 },
-                u_speed_orbit: {
-                    type: 'v3', value: [40, 40, 40], range: [0.1, 100, 1]
+                u_freq_orbit: {
+                    type: 'v3', value: [0.5, 1.1, 2.1], range: [0.01, 10, 0.01],
+                    label: 'freq', folder: 'orbits'
                 },
-                u_interp: { type: 'f', value: 0.1, range: [0.0, 1.0, 0.1] }
+                u_res_time_orbit: {
+                    type: 'f', value: 1000.0, range: [1, 1000, 1],
+                    label: 'time res.', folder: 'orbits'
+                },
+                u_n_arms: {
+                    type: 'f', value: 10, range: [1, 500, 10],
+                    label: 'count', folder: 'arms'
+                },
+                u_phase_arm: {
+                    type: 'v3', value: [0.1, 0.1, 0.1], range: [0, 1, 0.1],
+                    label: 'phase', folder: 'arms'
+                },
+                u_freq_arm: {
+                    type: 'v3', value: [2.1, 1.1, 0.5], range: [0.01, 10, 0.01],
+                    label: 'freq', folder: 'arms'
+                },
+                u_res_time_arm: {
+                    type: 'f', value: 1000.0, range: [1, 1000, 1],
+                    label: 'time res.', folder: 'arms'
+                }
             };
 
             init();
@@ -298,14 +374,18 @@
             // changes.
             function updateUniforms() {
                 for (var key in params) {
-                    if (params[key].type == 'f')
+                    var p = params[key];
+
+                    if (p.type == 'f')
                         uniforms[key].value = guiparams[key];
-                    else if (params[key].type == 'v3') {
-                        channels = 'rgb';
+                    else if (p.type == 'v3') {
+                        channels = ['h', 's', 'v'];
                         components = 'xyz';
 
                         for (var c = 0; c < channels.length; c++) {
-                            uniforms[key].value[components[c]] = guiparams[key + '_' + channels[c]];
+                            uniforms[key].value[components[c]] = guiparams[
+                                key + '_' + channels[c]
+                            ];
                         }
                     }
                 }
@@ -314,29 +394,43 @@
             // Create all the parameter sliders, three for multi-channel.
             function createGUI() {
                 gui = new dat.GUI({height: 13 * 32 - 1});
+                gui.remember(guiparams);
 
                 for (var key in params) {
                     var p = params[key];
 
+                    if (!(p.folder in guifolders)) {
+                        guifolders[p.folder] = gui.addFolder(p.folder);
+                    }
+
                     if (p.type == 'f') {
                         guiparams[key] = p.value;
-                        gui.add(guiparams, key)
-                            .min(p.range[0]).max(p.range[1]).step(p.range[2])
+                        guifolders[p.folder].add(guiparams, key)
+                            .min(p.range[0])
+                            .max(p.range[1])
+                            .step(p.range[2])
+                            .name(p.label)
                             .onFinishChange(updateUniforms);
                     } else if (p.type == 'v3') {
-                        var channels = 'rgb';
+                        var channels = ['h', 's', 'v'];
 
                         for (var c = 0; c < channels.length; c++) {
                             guiparams[key + '_' + channels[c]] = p.value[c];
 
-                            gui.add(guiparams, key + '_' + channels[c])
-                                .min(p.range[0]).max(p.range[1]).step(p.range[2])
+                            guifolders[p.folder]
+                                .add(guiparams, key + '_' + channels[c])
+                                .min(p.range[0])
+                                .max(p.range[1])
+                                .step(p.range[2])
+                                .name(p.label + ' (' + channels[c] + ')')
                                 .onFinishChange(updateUniforms);
                         }
                     }
                 }
 
-                gui.height = guiparams.length * 32 - 1;
+                for (var folder in guifolders) {
+                    guifolders[folder].open();
+                }
             }
 
             // Make everything go.
@@ -344,6 +438,9 @@
                 container = document.getElementById('container');
                 camera = new THREE.Camera();
                 camera.position.z = 1;
+
+                clock = new THREE.Clock();
+                clock.start();
 
                 createUniforms();
                 createGUI();
@@ -390,7 +487,7 @@
             }
 
             function render() {
-                uniforms.u_time.value += 0.05;
+                uniforms.u_time.value = clock.getElapsedTime();
                 renderer.render(scene, camera);
             }
         </script>
