@@ -18,7 +18,7 @@
         "field recordings": "Map allows inclusion of field recordings.",
         "historical data": "Map has some historical intent.",
         "music only": "Sounds are limited to only what would traditionally be described as music.",
-        "speech only": "Sounds are limited to speech.",
+        "speech": "Speech content, including descriptions, poetry, etc.",
         "tags": "Sounds contain folksonomy-based tags.",
         "categories": "Sounds are organized in some sort of discrete categorization or taxonomy.",
         "descriptions": "Sounds contain some sort of text-based description of their content.",
