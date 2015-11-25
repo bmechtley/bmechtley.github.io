@@ -1,10 +1,54 @@
 [
     {
+        "name": "Stereopublic",
+        "url": "http://www.stereopublic.net/",
+        "metadata": [
+        ],
+        "content": [
+            "crowdsourced",
+            "field recordings"
+        ],
+        "features": [
+            "point-and-click"
+        ],
+        "authors": [
+            "Jason Sweeney",
+            "Nick Crowther",
+            "Amy Milhinch"
+        ],
+        "region": [
+            "World"
+        ],
+        "year": "2012"
+    },
+    {
+        "name": "Cities and Memory"
+        "url": "http://citiesandmemory.com/"
+        "metadata": [
+            "description"
+        ],
+        "content": [
+            "crowdsourced",
+            "field recordings",
+            "speech"
+        ],
+        "features": [
+            "point-and-click"
+        ],
+        "authors": [
+            "Stuart Fowkes"
+        ],
+        "region": [
+            "World"
+        ],
+        "year": "2014"
+    },
+    {
         "name": "Lisbon Soundmap",
         "url": "http://www.lisbonsoundmap.org/",
         "metadata": [
             "spectrum",
-            "descriptions"
+            "description"
         ],
         "content": [
             "field recordings",
@@ -29,12 +73,13 @@
     {
         "name": "SonicMaps",
         "url": "http://www.sonicmaps.org/",
-        "metadata": [],
+        "metadata": [
+            "description"
+        ],
         "content": [
             "field recordings",
             "crowdsourced",
-            "commercial",
-            "descriptions"
+            "commercial"
         ],
         "features": [
             "autoplay",
@@ -92,7 +137,7 @@
             "crowdsourced"
         ],
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "features": [
             "point-and-click"
@@ -147,7 +192,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "London Sound Survey"
@@ -162,7 +207,7 @@
         "year": "2013",
         "metadata": [
             "tags",
-            "descriptions",
+            "description",
             "categories",
             "spectrogram"
         ],
@@ -181,7 +226,7 @@
         "year": "2013",
         "metadata": [
             "tags",
-            "descriptions",
+            "description",
             "categories",
             "spectrogram",
             "visualisations"
@@ -204,7 +249,8 @@
             "mobile",
             "autoplay",
             "point-and-click",
-            "autoplay next"
+            "autoplay next",
+            "platform"
         ],
         "url": "http://www.aporee.org/maps/",
         "region": [
@@ -215,12 +261,11 @@
         ],
         "content": [
             "field recordings",
-            "crowdsourced",
-            "platform"
+            "crowdsourced"
         ],
         "year": "2006",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "radio aporee :: maps"
@@ -241,7 +286,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Sergiev Posad Sounds"
@@ -266,7 +311,7 @@
         ],
         "year": "2009",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -279,7 +324,7 @@
         "url": "http://www.sonicwonders.org/",
         "media": [
             "images",
-            "videos"
+            "video"
         ],
         "region": [
             "World"
@@ -292,7 +337,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -324,7 +369,7 @@
         ],
         "year": "2005",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -352,7 +397,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -378,7 +423,7 @@
         ],
         "year": "2008",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -391,7 +436,7 @@
         "url": "http://www.listentoafrica.com/map/",
         "media": [
             "images",
-            "videos"
+            "video"
         ],
         "region": [
             "Africa"
@@ -405,7 +450,7 @@
         ],
         "year": "2009",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -427,7 +472,7 @@
         ],
         "year": "2013",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -449,7 +494,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Wildlife recordings"
@@ -471,7 +516,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Accents & dialects"
@@ -496,7 +541,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Bolognoise"
@@ -524,7 +569,7 @@
         ],
         "year": "2006",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "escoitar"
@@ -552,7 +597,7 @@
         ],
         "year": "2008",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Madrid Soundscape"
@@ -576,7 +621,7 @@
         ],
         "year": "2008",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Favorite Chicago Sounds"
@@ -605,7 +650,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Toronto Sound Map"
@@ -630,7 +675,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Sonic Explorers Sound Map"
@@ -653,7 +698,7 @@
         ],
         "year": "2000",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Soundcities"
@@ -676,7 +721,7 @@
         ],
         "year": "2010",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Inukjuak Sound Map"
@@ -702,7 +747,7 @@
         ],
         "year": "2005",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "xeno-canto"
@@ -726,7 +771,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ],
         "name": "Western Soundscape Archive Sound Maps"
@@ -798,7 +843,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories",
             "tags"
         ],
@@ -819,7 +864,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "categories"
         ]
     },
@@ -882,7 +927,7 @@
         ],
         "year": "2007",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Davos Soundscape"
     },
@@ -903,7 +948,7 @@
         "host": "Freesound",
         "year": "2008",
         "metadata": [
-            "descriptions",
+            "description",
             "tags"
         ],
         "name": "Sons de Barcelona"
@@ -924,7 +969,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions",
+            "description",
             "tags"
         ],
         "name": "SoundTrips"
@@ -956,7 +1001,7 @@
         "url": "http://www.abc.net.au/innovation/sidetracks/",
         "media": [
             "images",
-            "videos"
+            "video"
         ],
         "region": [
             "Australia: Sydney"
@@ -969,7 +1014,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Sydney Sidetracks"
     },
@@ -990,7 +1035,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Traditional music in England"
     },
@@ -1011,7 +1056,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Jewish survivors of the Holocaust"
     },
@@ -1032,7 +1077,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Music from India"
     },
@@ -1052,7 +1097,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Soundscapes"
     },
@@ -1072,7 +1117,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Klaus Wachsmann Uganda recordings"
     },
@@ -1094,7 +1139,7 @@
         "host": "Soundcloud",
         "year": "2013",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "An Interactive Soundmap of Wales"
     },
@@ -1116,7 +1161,7 @@
         "host": "Soundcloud",
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Paris Sound Map"
     },
@@ -1138,7 +1183,7 @@
         "host": "Soundcloud",
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Passages Couverts Sound Map"
     },
@@ -1167,7 +1212,7 @@
             "Mariolina Zitta"
         ],
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Earth Ear Soundmap"
     },
@@ -1192,7 +1237,7 @@
         ],
         "year": "2006",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Locustream Map"
     },
@@ -1214,7 +1259,7 @@
         ],
         "year": "2009",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Sound Around You"
     },
@@ -1235,7 +1280,7 @@
         ],
         "year": "2009",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "mapaSONOU"
     },
@@ -1255,7 +1300,7 @@
         ],
         "year": "2008",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Morvan Auxois"
     },
@@ -1275,7 +1320,7 @@
         ],
         "year": "2005",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "k146: cartographie sonore autour du Taurion"
     },
@@ -1297,7 +1342,7 @@
         ],
         "year": "2004",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Sound-Seeker"
     },
@@ -1318,7 +1363,7 @@
         "host": "Audioboo",
         "year": "2013",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Make Sound Here"
     },
@@ -1339,7 +1384,7 @@
         ],
         "year": "2008",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Mississauga Sound Map"
     },
@@ -1360,7 +1405,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "12 Stations"
     },
@@ -1381,7 +1426,7 @@
         ],
         "year": "2010",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Sonic Sidewalks"
     },
@@ -1403,7 +1448,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "SeoulSoundMap"
     },
@@ -1427,7 +1472,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Brussels SoundMap"
     },
@@ -1455,7 +1500,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Cartophonies"
     },
@@ -1481,7 +1526,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Mapa Sonoro de Guayaquil"
     },
@@ -1502,7 +1547,7 @@
         ],
         "year": "2013",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Soundmap of the Paiva River"
     },
@@ -1523,7 +1568,7 @@
         ],
         "year": "2013",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Mapa Sonoro das Aldeias do Concelho de S\u00e3o Pedro do Sul\n\n"
     },
@@ -1544,7 +1589,7 @@
         ],
         "year": "2009",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "La Ville S\u2019onore: Carte sonore subjective"
     },
@@ -1564,7 +1609,7 @@
         ],
         "year": "2005",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Memoryscape Audio walks"
     },
@@ -1584,7 +1629,7 @@
         ],
         "year": "2013",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Ipswich Sound Map"
     },
@@ -1604,7 +1649,7 @@
         ],
         "year": "2009",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Berlin Wall of Sound"
     },
@@ -1625,7 +1670,7 @@
             "Robin Minard ad Hennig Ludger"
         ],
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "soundingD SoundMap"
     },
@@ -1645,7 +1690,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Invisible Valley Sound Map"
     },
@@ -1782,7 +1827,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Carleton University Soundmap Project (CUSP)"
     },
@@ -1807,7 +1852,7 @@
         ],
         "year": "2012",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Soundmap of London canals and minor rivers"
     },
@@ -1832,7 +1877,7 @@
         ],
         "year": "2010",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Thames estuary sound map recordings"
     },
@@ -1855,7 +1900,7 @@
         ],
         "year": "2004",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Toronto Island Sound Map"
     },
@@ -1879,7 +1924,7 @@
         ],
         "year": "2007",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Cinco Cidades Soundmap"
     },
@@ -1900,7 +1945,7 @@
         ],
         "year": "2005",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Gordon Soundscape"
     },
@@ -1929,7 +1974,7 @@
         ],
         "year": "2011",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "Listening to the Deep Ocean Environment"
     },
@@ -2028,7 +2073,7 @@
         ],
         "year": "2009",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "12 Gates to the City Acoustic Map"
     },
@@ -2049,7 +2094,7 @@
         ],
         "year": "2004",
         "metadata": [
-            "descriptions"
+            "description"
         ],
         "name": "SoundTransit"
     },
@@ -2130,7 +2175,8 @@
     },
     {
         "features": [
-            "point-and-click"
+            "point-and-click",
+            "platform"
         ],
         "url": "http://freesound.org/",
         "media": [
@@ -2144,12 +2190,11 @@
         ],
         "content": [
             "field recordings",
-            "crowdsourced",
-            "platform"
+            "crowdsourced"
         ],
         "year": "2005",
         "metadata": [
-            "descriptions",
+            "description",
             "tags"
         ],
         "name": "The Freesound Project"
