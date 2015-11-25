@@ -6,39 +6,27 @@
             "crowdsourced",
             "field recordings"
         ],
-        "features": [
-            "point-and-click"
-        ],
+        "features": ["point-and-click"],
         "authors": [
             "Jason Sweeney",
             "Nick Crowther",
             "Amy Milhinch"
         ],
-        "region": [
-            "World"
-        ],
+        "region": ["World"],
         "year": "2012"
     },
     {
         "name": "Cities and Memory",
         "url": "http://citiesandmemory.com/",
-        "metadata": [
-            "description"
-        ],
+        "metadata": ["description"],
         "content": [
             "crowdsourced",
             "field recordings",
             "speech"
         ],
-        "features": [
-            "point-and-click"
-        ],
-        "authors": [
-            "Stuart Fowkes"
-        ],
-        "region": [
-            "World"
-        ],
+        "features": ["point-and-click"],
+        "authors": ["Stuart Fowkes"],
+        "region": ["World"],
         "year": "2014"
     },
     {
@@ -52,9 +40,7 @@
             "field recordings",
             "crowdsourced"
         ],
-        "features": [
-            "point-and-click"
-        ],
+        "features": ["point-and-click"],
         "authors": [
             "Lu\u00eds Cl\u00e1udio Ribeiro",
             "M\u00e9sicles H\u00e9lin",
@@ -63,17 +49,13 @@
             "Jos\u00e9 Gomes Pinto",
             "Rui Pereira Jorge"
         ],
-        "region": [
-            "Europe: Portugal: Lisbon"
-        ],
+        "region": ["Europe: Portugal: Lisbon"],
         "year": "2003"
     },
     {
         "name": "SonicMaps",
         "url": "http://www.sonicmaps.org/",
-        "metadata": [
-            "description"
-        ],
+        "metadata": ["description"],
         "content": [
             "field recordings",
             "crowdsourced",
@@ -85,13 +67,9 @@
             "mixing",
             "mobile"
         ],
-        "authors": [
-            "Jose Ignacio Pecino Rodriguez"
-        ],
+        "authors": ["Jose Ignacio Pecino Rodriguez"],
         "media": ["3D"],
-        "region": [
-            "World"
-        ],
+        "region": ["World"],
         "year": "2012"
     },
     {
