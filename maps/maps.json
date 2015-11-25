@@ -33,7 +33,7 @@
         "name": "Lisbon Soundmap",
         "url": "http://www.lisbonsoundmap.org/",
         "metadata": [
-            "spectrum",
+            "spectrogram",
             "description"
         ],
         "content": [
