@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>EXPERIENTIAL COMPLEX SYSTEMS</title>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width">
+
+    <meta name="description" content="">
+
+    <meta name="author" content="Synthesis Center, Arizona State University // website by garrett laroy johnson">
+
+    <!-- Bootstrap Core CSS -->
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+
+    <link href="css/ECS.css" rel="stylesheet">
+
+    <!-- Google fonts -->
+
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <script src="js/processing-1.4.8.min.js"></script>
+
+    <!-- jQuery Version 1.11.1 -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Smooth Scroll-->
+
+    <script src="js/jquery.smooth-scroll.min.js"></script>
+
+    <script src="js/jquery.ba-bbq.js"></script>
+
+    <script src="js/jquery.ba-bbq.js"></script>
+
+    <script>
+      $(document)
+      .on('click', 'a[href*="#"]', function() {
+        if ( this.hash && this.pathname === location.pathname ) {
+          $.bbq.pushState( '#/' + this.hash.slice(1) );
+          return false;
+        }
+      })
+      .ready(function() {
+        $(window).bind('hashchange', function(event) {
+          var tgt = location.hash.replace(/^#\/?/,'');
+          if ( document.getElementById(tgt) ) {
+            $.smoothScroll({scrollTarget: '#' + tgt});
+          }
+        });
+
+        $(window).trigger('hashchange');
+      });
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color:white;opacity:1">
+
+      <div class="container-fluid">
+
+        <div class="navbar-header">
+
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+
+            <span class="sr-only">Toggle navigation</span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+
+          </button>
+
+          <a class="navbar-brand" href="#">ECS</a>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar">
+
+          <ul class="nav navbar-nav">
+
+            <li><a href="#overview">OVERVIEW</a></li>
+
+            <li class="dropdown">
+
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">EXPERIENTIAL MODELS<span class="caret"></span></a>
+
+              <ul class="dropdown-menu">
+
+                <li><a href="#wind">Who Has Been The Wind?</a></li>
+
+                <li class="dropdown-header">more</li>
+
+                <li><a href="#u">EM:U?</a></li>
+
+              </ul>
+
+            </li>
+
+            <li><a href="#ppl">PEOPLE</a></li>
+
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+
+            <li><a href = "http://www.synthesiscenter.net"><img class="img-responsive" src="img/banner/synth.png"></a></li>
+
+          </ul>
+
+        </div><!--/.nav-collapse -->
+
+    </div><!--/.container-fluid -->
+
+  </nav>
+
+
+<!--
+start
+container
+-->
+
+<div class="container">
+
+  <div class="row"><!-- start MACRO row -->
+
+    <div class="col-xs-12 col-md-8 col-md-offset-1"><!-- start MACRO col -->
+
+<!--
+page
+heading
+-->
+
+      <div class="row"><!-- start row -->
+
+        <div class="col-xs-12">
+
+          <h1 class="stretch_it" style="padding-top:100px;text-align:justify-all">E X P E R I E N T I A L <span style="color:#A239CA">C O M P L E X</span> S Y S T E M S</h1>
+
+        </div>
+
+      </div><!-- close row -->
+
+      <hr><!-- DIVIDER-->
+
+
+<!--
+Photos
+-->
+
+<div class="row"><!-- start row -->
+
+  <div class="col-xs-4 col-md-4">
+
+    <img class="img-responsive" src="IMG/banner/1.jpg">
+
+  </div>
+
+  <div class="col-xs-4 col-md-4">
+
+    <img class="img-responsive" src="IMG/banner/2.jpg">
+
+  </div>
+
+  <div class="col-xs-4 col-md-4">
+
+    <img class="img-responsive" src="IMG/banner/3.jpg">
+
+  </div>
+
+</div><!-- close row -->
+
+
+
+
+
+<hr><!-- DIVIDER-->
+
+<!--
+OVERVIEW
+-->
+
+      <a class = "smoothScroll" id ="overview"></a>
+
+      <div class="row"><!-- start row -->
+
+        <div class="col-xs-12"><!-- start col -->
+
+          <h2>OVERVIEW</h2>
+
+          <p>The Experiential Complex Systems (ECS) group develops interactive experiential media systems to assist in exploring the dynamics of complex systems from a wide range of scientific disciplines. Through interacting in real-time with the computational models they use in their research, investigators can employ creative, breadth-oriented approaches to exploring complex systems, such as by moving between regions of chaotic behavior, equilibria, or phase changes. Additionally, real-time interaction can facilitate the development of new approaches to steering complex system dynamics, such as through adaptive policymaking.</p>
+
+          <p>For each system, we seek to answer the following questions:
+
+          <ol>
+
+            <li>What are the core dynamics of the system, and how can these be developed into a fast, real-time computational model?</li>
+
+            <li>What relationships between variables are important to communicate, and what is the best feedback modality (such as visualization, sonification, or haptic feedback) to do so? </li>
+
+            <li>What variables are most important to manipulate, and what is the best interaction modality (such as full-body motion, nuanced control with the fingertips, manipulation of physical objects, or traditional screen-based interfaces) for doing so?</li>
+
+            <li>What combination of feedback and interaction modalities best facilitate intuitive navigation of the system's state space?</li>
+
+          </ol>
+
+          </p>
+
+        </div><!-- close col -->
+
+      </div><!-- close row -->
+
+      <div class="row"><!-- start row -->
+
+        <div class="col-xs-12"><!-- start col -->
+
+        <h3>A Computational Challenge</h3>
+
+        <p>Many computational analyses of complex systems, such as those used in studying atmospheric dynamics, climate, ecology, earth and space science, economics, and urban planning employ simulations requiring on the order of hundreds of thousands of CPU hours on large-scale high performance computing (HPC) clusters. This process can make the task of computational modeling quite expensive, requiring great care in experimental methodology. Oftentimes, this can lead to a very serial, depth-oriented approach to research: hypotheses are formed, models are developed, simulations are run, and results are evaluated through statistical analyses and immutable visualizations, such as plots, images, video, or 3D meshes. ECS systems approach this problem by providing interactive dynamical systems where researchers can see how system dynamics react to manipulation of system variables in real-time, providing an immediate, responsive feedback loop between the parameterization of a model and its analysis.</p>
+
+        <p>By necessity of limited computational resources, these systems will be highly idealized, but our hypothesis is that our tools can provide an intermediate, explorative layer that can help researchers develop hypotheses on which they can devote more intensive computational resources later. In atmospheric sciences for example, idealized models of atmospheric dynamics are already used to study the properties of specific, isolated phenomena (e.g. gravity waves as air moves over a mountain, microbursts, or tropical cyclones), results of which can then be used to inform simulations of more complex earth system models used for weather forecasts and climate predictions. Many idealized models can also benefit from parallel execution on modern graphics processor units (GPUs), such as those found in personal computers and modern HPC systems.</p>
+
+        </div><!-- close col -->
+
+      </div><!-- close row -->
+
+      <div class="row"><!-- start row -->
+
+        <div class="col-xs-12"><!-- start col -->
+
+          <h3>A Methodological Challenge</h3>
+
+          <p>ECS has both a qualitative, ethnographic component in terms of understanding how experiential media might assist stakeholders (for example, if existing weather and climate models could operate at responsive speeds, how might it change how researchers develop and pursue hypotheses?) and a quantitative component in terms of evaluating the ability of our developed media systems to allow users to discover new phenomena and phase changes in the models through controlled user studies. For example, in the case of an atmospheric model, what types of user interaction and variable mappings to sensory feedback best help a user produce a specific set of observable phenomena, such as cyclones, jets, or vortex sheets? Or in the case of phase changes, can users create the lift necessary to condense moisture or manipulate pressure systems to create storm fronts?</p>
+
+        </div><!-- close col -->
+
+      </div><!-- close row -->
+
+<!--
+EXPERIENTIAL MODELS
+-->
+      <a class = "smoothScroll" id ="em"></a>
+
+      <div class="row"><!-- start row -->
+
+        <div class="col-xs-12"><!-- start col -->
+
+          <h2>EXPERIENTIAL MODELS: ATMOSPHERES</h2>
+
+          <p>Our team is collaborating with researchers from the Computational Information Systems Laboratory (CISL) at the National Center for Atmospheric Research (NCAR) to adapt existing idealized models of atmosheric dynamics for use in real-time media systems. In addition to creating a dynamical core that can operate at high resolutions at responsive framerates, we are developing novel interaction and feedback to allow users to manipulate dynamic, spatial variables such as wind flow velocity, pressure, temperature, and moisture content.</p>
+
+          <p>In addition to creating an interactive educational exhibit, "Who Has Been the Wind?" we are working with research staff at NCAR to develop a system that can be used as a research tool to manipulate idealized phenomena.</p>
+
+        </div><!-- close col -->
+
+      </div><!-- close row -->
+
+      <div class="row"><!-- start row -->
+
+        <div class="col-xs-12"><!-- start col -->
+
+            <a class = "smoothScroll" id ="wind"></a>
+
+            <h3>PILOT PROJECT: WHO HAS BEEN THE WIND?</h3>
+
+          </div><!-- close col -->
+
+        </div><!-- close row -->
+
+        <div class="row"><!-- start row -->
+
+          <div class="col-xs-12"><!-- start col -->
+
+            <p>Who has been the wind?, an immersive, embodied multimedia environment will allow visitors to experience what it is like to “be” a weather front crossing the landscape. It will be driven by an accurate scientific model of atmospheric dynamics in real-time, which it will communicate to a viewer through a combination of visual, auditory, and haptic feedback. The goal of the installation is to explore how innovative forms of representation can improve the communication of complex scientific concepts to students and the general public.</p>
+
+            <p>The representation of complex phenomena, such as the atmospheric dynamics underlying the weather, provides a unique challenge to both artists and scientists. We suggest that a major component of this challenge is a need to employ independent static media formats to represent concepts that are dynamic and multidimensional in nature (Casti and Karlqvist 2003, Frigg and Hunter 2010). A similar representational challenge was once posed to both artists and scientists by phenomena that happened too quickly to perceive. Evolving camera technology allowed new insights into and communications of previously inaccessible natural phenomena (Muybridge 1882). We propose that interactive media systems now have the power to create new means of interacting with complex systems that require neither static nor unidimensional media, and our long term goal is to explore how these technologies could be used to create a new state of art for the purpose of communicating scientific knowledge. This means of interaction could have significant impacts in bridging the current gap that exists between expert and general opinions on climate and weather science (see below).</p>
+
+            </div><!-- close col -->
+
+          </div><!-- close row -->
+
+
+          <!--
+          EXPERIENTIAL MODELS
+          -->
+          <a class = "smoothScroll" id ="u"></a>
+
+          <div class="row"><!-- start row -->
+
+            <div class="col-xs-12"><!-- start col -->
+
+              <h2>EXPERIENTIAL MODELS: U?</h2>
+
+              <p>Do <strong>you</strong> have a complex model you would like to experience? <a href="mailto:chris.m.roberts@asu.edu?Subject=Lets%20talk%20about%20complexity" target="_top">Start a conversation with the Synthesis Center</a>!</p>
+
+            </div><!-- close col -->
+
+          </div><!-- close row -->
+
+
+<!--
+PEOPLE
+-->
+
+      <a class = "smoothScroll" id ="ppl"></a>
+
+      <div class="row"><!-- start row -->
+
+        <div class="col-xs-12"><!-- start col -->
+
+          <h2>PEOPLE</h2>
+
+
+
+              <h3>CORE FACULTY</h3>
+
+                <div class="col-xs-4"><!-- start col -->
+
+
+                  <a href = "http://herbergerinstitute.asu.edu/faculty/selectone.php?ID=97">
+
+                    <div class ="overlay">
+
+                      <img class="img-responsive " src='IMG/ppl/sxw.jpeg'>
+
+                    </div>
+
+                    <div class ="caption">
+
+                      <p>Sha Xin Wei</p>
+
+                    </div>
+
+                  </a>
+
+                </div>
+
+                <div class="col-xs-4"><!-- start col -->
+
+                  <a href = "https://www.linkedin.com/in/brandon-mechtley-892b1987">
+
+                    <div class ="overlay">
+
+                      <img class="img-responsive " src='IMG/ppl/bm.jpeg'>
+
+                    </div>
+
+                    <div class ="caption">
+
+                      <p>Brandon Mechtley</p>
+
+                    </div>
+
+                  </a>
+
+                </div>
+
+                <div class="col-xs-4"><!-- start col -->
+
+                    <a href = "https://webapp4.asu.edu/directory/person/800596">
+
+                      <div class ="overlay">
+
+                        <img class="img-responsive " src='IMG/ppl/chris.jpg'>
+
+                      </div>
+
+                      <div class ="caption">
+
+                        <p>Chris Roberts</p>
+
+                      </div>
+
+                    </a>
+
+                  </div>
+
+            </div><!-- close col -->
+
+          </div><!-- close row -->
+
+
+
+          <div class="row"><!-- start row -->
+
+            <div class="col-xs-4"><!-- start col -->
+
+              <h3>AFFILIATES</h3>
+
+                    <a href = "http://www.dehliahannah.com">
+
+                      <div class ="overlay">
+
+                        <img class="img-responsive " src='IMG/ppl/dh.jpg'>
+
+                      </div>
+
+                      <div class ="caption">
+
+                        <p>Dehlia Hannah</p>
+
+                      </div>
+
+                    </a>
+
+
+
+              </div><!-- close col -->
+
+            <div class="col-xs-8"><!-- start col -->
+
+              <h3>CORE STUDENTS</h3>
+
+                <div class="col-xs-6"><!-- start col -->
+
+                    <a href = "https://webapp4.asu.edu/directory/person/1929821">
+
+                      <div class ="overlay">
+
+                        <img class="img-responsive " src='IMG/ppl/glj.jpg'>
+
+                      </div>
+
+                      <div class ="caption">
+
+                        <p>Garrett Laroy Johnson</p>
+
+                      </div>
+
+                    </a>
+
+                  </div>
+
+                  <div class="col-xs-6"><!-- start col -->
+
+                    <a href = "https://webapp4.asu.edu/directory/person/1500074">
+
+                    <div class ="overlay">
+
+                      <img class="img-responsive " src='IMG/ppl/cnr.jpg'>
+
+                    </div>
+
+                    <div class ="caption">
+
+                      <p>Connor Rawls</p>
+
+                    </div>
+
+                    </a>
+
+                </div><!-- close col -->
+
+              </div><!-- close col -->
+
+            </div><!-- close row -->
+
+
+
+      <!--
+      Footer
+     -->
+
+      <footer>
+
+        <div class="row">
+
+          <div class="col-xs-12">
+
+            <p>Copyright &copy; <a href = "http://www.synthesiscenter.net">Synthesis Center</a>, 2016</p>
+
+          </div><!-- close col -->
+
+        </div><!-- close row -->
+
+      </footer>
+
+    </div><!-- close MACRO col -->
+
+  </div><!-- close MACRO row -->
+
+</div><!-- close container -->
+
+</body>
+
+</html>
