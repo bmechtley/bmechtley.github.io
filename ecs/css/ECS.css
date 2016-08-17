@@ -106,3 +106,21 @@ stretch justify
 .justify{
     text-align:justify;
 }
+
+ul.nav {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#navbar {
+  height: 3em;
+}
+
+.navbar-brand {
+  margin-top: .5em;
+}
+#navbar .litop {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: .75em;
+}
