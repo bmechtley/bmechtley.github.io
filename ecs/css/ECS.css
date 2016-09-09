@@ -27,6 +27,14 @@ p {
   width: 100%;
 }
 
+li {
+  text-align: justify;
+}
+
+.caption p {
+  text-align: center;
+}
+
 .content { background-color: white; }
 
 h1, h2, h3, h4, h5 {
