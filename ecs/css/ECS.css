@@ -27,8 +27,19 @@ p {
   width: 100%;
 }
 
-li {
+.container li {
   text-align: justify;
+  line-height: 175%;
+  font-family: "Lato", serif;
+  font-size: 20px;
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+em {
+  font-style: normal;
+  border-bottom: 1px dotted #A239CA;
 }
 
 .caption p {
@@ -90,7 +101,7 @@ h1 {
   height: 100%;
   top: 0; 
   left: 0;
-  background: rgba(162,57,202,0.8);
+  background: rgba(162, 57, 202, 0.8);
   opacity: 0;
   transition: all 1s;
   -webkit-transition: all 1s;
