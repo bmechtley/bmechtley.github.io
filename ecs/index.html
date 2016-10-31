@@ -1,121 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang='en'>
   <head>
+    <title>EXPERIENTIAL COMPLEX SYSTEMS</title>
 
-      <title>EXPERIENTIAL COMPLEX SYSTEMS</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width'>
+    <meta name='description' content=''>
+    <meta name='author' content='Synthesis Center, Arizona State University // website by garrett laroy johnson'>
 
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width">
-      <meta name="description" content="">
-      <meta name="author" content="Synthesis Center, Arizona State University // website by garrett laroy johnson">
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link href='css/ECS.css' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel='icon' href='favicon.png' type='image/x-png'>
+    <link rel='shortcut icon' href='favicon.png' type='image/x-png'>
+    
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+    <script src='js/jquery.smooth-scroll.min.js'></script>
+    <script src='js/jquery.ba-bbq.js'></script>
 
-      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-      <link href="css/ECS.css" rel="stylesheet">
-      <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-      <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-      <link rel='icon' href='favicon.png' type='image/x-png'>
-      <link rel=' shortcut icon' href='favicon.png' type='image/x-png'>
-      
-      <script src="js/processing-1.4.8.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-      <script src="js/jquery.smooth-scroll.min.js"></script>
-      <script src="js/jquery.ba-bbq.js"></script>
-      <script src="js/jquery.ba-bbq.js"></script>
-
-      <script>
-        $(document)
-        .on('click', 'a[href*="#"]', function() {
-          if ( this.hash && this.pathname === location.pathname ) {
-            $.bbq.pushState( '#/' + this.hash.slice(1) );
-            return false;
+    <script>
+      $(document)
+      .on('click', 'a[href*="#"]', function() {
+        if ( this.hash && this.pathname === location.pathname ) {
+          $.bbq.pushState( '#/' + this.hash.slice(1) );
+          return false;
+        }
+      })
+      .ready(function() {
+        $(window).bind('hashchange', function(event) {
+          var tgt = location.hash.replace(/^#\/?/,'');
+          if ( document.getElementById(tgt) ) {
+            $.smoothScroll({scrollTarget: '#' + tgt});
           }
-        })
-        .ready(function() {
-          $(window).bind('hashchange', function(event) {
-            var tgt = location.hash.replace(/^#\/?/,'');
-            if ( document.getElementById(tgt) ) {
-              $.smoothScroll({scrollTarget: '#' + tgt});
-            }
-          });
-
-          $(window).trigger('hashchange');
         });
-      </script>
+
+        $(window).trigger('hashchange');
+      });
+    </script>
   </head>
 
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: white; opacity: 1">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+    <nav class='navbar navbar-default navbar-fixed-top' style='background-color: white; opacity: 1'>
+      <div class='container-fluid'>
+        <div class='navbar-header'>
+          <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
           </button>
 
-          <a class="navbar-brand litop" href="#">ECS</a>
+          <a class='navbar-brand litop' href='#'>ECS</a>
         </div>
 
-        <div class="collapse navbar-collapse" id="navbar">
-          <ul class="nav navbar-nav">
-            <li class='litop'><a href="#overview">OVERVIEW</a></li>
+        <div class='collapse navbar-collapse' id='navbar'>
+          <ul class='nav navbar-nav'>
+            <li class='litop'><a href='#overview'>OVERVIEW</a></li>
 
-            <li class="dropdown litop">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">EXPERIENTIAL MODELS<span class="caret"></span></a>
+            <li class='dropdown litop'>
+              <a class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>EXPERIENTIAL MODELS<span class='caret'></span></a>
 
               <ul class="dropdown-menu">
-                <li><a href="#em">EM: Atmospheres</a></li>
-                <li><a href="#wind">Who Has Been The Wind?</a></li>
-                <li class="dropdown-header">more</li>
-                <li><a href="#u">EM: ?</a></li>
+                <li><a href='#em'>EM: Atmospheres</a></li>
+                <li><a href='#wind'>Who Has Been The Wind?</a></li>
+                <li class='dropdown-header'>more</li>
+                <li><a href='#u'>EM: ?</a></li>
               </ul>
             </li>
 
-            <li class='litop'><a href="#ppl">PEOPLE</a></li>
+            <li class='litop'><a href='#ppl'>PEOPLE</a></li>
           </ul>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href = "http://www.synthesiscenter.net"><img class="img-responsive" src="img/banner/synth.png" style="height: 3em"></a></li>
+          <ul class='nav navbar-nav navbar-right'>
+            <li><a href='http://www.synthesiscenter.net'><img class='img-responsive' src='img/banner/synth.png' style='height: 3em'></a></li>
           </ul>
-        </div><!--/.nav-collapse -->
-      </div><!--/.container-fluid -->
+        </div>
+      </div>
     </nav>
 
-    <div class="container">
-      <div class="row"><!-- start MACRO row -->
-        <div class="col-xs-12 col-md-8 col-md-offset-1"><!-- start MACRO col -->
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12">
-              <h1 class="stretch_it" style="padding-top:100px;text-align:justify-all">E X P E R I E N T I A L <span style="color:#A239CA">C O M P L E X</span> S Y S T E M S</h1>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-xs-12 col-md-8 col-md-offset-1'>
+          <div class='row'>
+            <div class='col-xs-12'>
+              <h1 class='stretch_it' style='padding-top:100px;text-align:justify-all'>E X P E R I E N T I A L <span style='color:#A239CA'>C O M P L E X</span> S Y S T E M S</h1>
             </div>
-          </div><!-- close row -->
+          </div>
           
-          <hr><!-- DIVIDER-->
+          <hr>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-4 col-md-4">
-              <img class="img-responsive" src="img/banner/1.jpg">
+          <div class='row'>
+            <div class='col-xs-4 col-md-4'>
+              <img class='img-responsive' src='img/banner/1.jpg'>
             </div>
-
-            <div class="col-xs-4 col-md-4">
-              <img class="img-responsive" src="img/banner/2.jpg">
+            <div class='col-xs-4 col-md-4'>
+              <img class='img-responsive' src='img/banner/2.jpg'>
             </div>
-
-            <div class="col-xs-4 col-md-4">
-              <img class="img-responsive" src="img/banner/3.jpg">
+            <div class='col-xs-4 col-md-4'>
+              <img class='img-responsive' src='img/banner/3.jpg'>
             </div>
-          </div><!-- close row -->
+          </div>
 
-          <hr><!-- DIVIDER-->
+          <hr>
 
-          <a class = "smoothScroll" id ="overview"></a>
+          <a class='smoothScroll' id='overview'></a>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <h2>OVERVIEW</h2>
 
               <p>
@@ -132,11 +126,11 @@
                 <li>What variables are most important to <em>manipulate</em>, and what is the best <em>interaction modality</em> (such as full-body motion, nuanced control with the fingertips, manipulation of physical objects, or traditional screen-based interfaces) for doing so?</li>
                 <li>What combination of feedback and interaction modalities best facilitate <em>intuitive navigation</em> of the system's state space?</li>
               </ol>
-            </div><!-- close col -->
-          </div><!-- close row -->
+            </div>
+          </div>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <h3>A Computational Challenge</h3>
 
               <p>
@@ -146,23 +140,23 @@
               <p>
                 By necessity of limited computational resources, these systems will be highly idealized, but our hypothesis is that our tools can provide an intermediate, explorative layer that can help researchers develop hypotheses on which they can devote more intensive computational resources later. In atmospheric sciences for example, idealized models of atmospheric dynamics are already used to study the properties of specific, isolated phenomena (e.g. gravity waves as air moves over a mountain, microbursts, or tropical cyclones), results of which can then be used to inform simulations of more complex earth system models used for weather forecasts and climate predictions. Many idealized models can also benefit from parallel execution on modern graphics processor units (GPUs), such as those found in personal computers and modern HPC systems.
               </p>
-            </div><!-- close col -->
-          </div><!-- close row -->
+            </div>
+          </div>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <h3>A Methodological Challenge</h3>
 
               <p>
                 ECS additionally has a qualitative, ethnographic component in terms of understanding how experiential media might assist stakeholders. For example, if existing weather and climate models could operate at responsive speeds, how might it change how researchers develop and pursue hypotheses? Additionally, we wish to quantitatively evaluate the ability of our developed media systems to allow users to discover new phenomena and phase changes in the models through controlled user studies. For example, in the case of an atmospheric model, what types of user interaction and variable mappings to sensory feedback best help a user produce a specific set of observable phenomena, such as cyclones, jets, or vortex sheets? Or in the case of phase changes, can users create the lift necessary to condense moisture or manipulate pressure systems to create storm fronts?
               </p>
-            </div><!-- close col -->
-          </div><!-- close row -->
+            </div>
+          </div>
 
-          <a class = "smoothScroll" id ="em"></a>
+          <a class='smoothScroll' id='em'></a>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <h2>EXPERIENTIAL MODELS: ATMOSPHERES</h2>
 
               <p>
@@ -172,131 +166,154 @@
               <p>
                 The EM:A project consists of both an educational exhibit, "Who Has Been the Wind?", and an interactive research tool that can be used to manipulate idealized phenomena.
               </p>
-            </div><!-- close col -->
-          </div><!-- close row -->
+            </div>
+          </div>
 
-          <a class = "smoothScroll" id ="wind"></a>
+          <a class='smoothScroll' id='wind'></a>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <h3>PILOT PROJECT: WHO HAS BEEN THE WIND?</h3>
-            </div><!-- close col -->
-          </div><!-- close row -->
+            </div>
+          </div>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <p>
-                "Who Has Been the Wind?", an immersive, embodied multimedia environment will allow visitors to experience what it is like to &quot;be&quot; a weather front crossing the landscape. It will be driven by  physical model of atmospheric dynamics in real-time, which it will communicate to a viewer through a combination of visual, auditory, and haptic feedback. The goal of the installation is to explore how innovative forms of representation can improve the communication of complex scientific concepts to students and the general public.
+                &quot;Who Has Been the Wind?&quot;, an immersive, embodied multimedia environment will allow visitors to experience what it is like to &quot;be&quot; a weather front crossing the landscape. It will be driven by  physical model of atmospheric dynamics in real-time, which it will communicate to a viewer through a combination of visual, auditory, and haptic feedback. The goal of the installation is to explore how innovative forms of representation can improve the communication of complex scientific concepts to students and the general public.
               </p>
 
               <p>
-                The representation of complex phenomena, such as the atmospheric dynamics underlying the weather, provides a unique challenge to both artists and scientists. We suggest that a major component of this challenge is a need to employ independent static media formats to represent concepts that are dynamic and multidimensional in nature.<!-- (Casti and Karlqvist 2003, Frigg and Hunter 2010).--> A similar representational challenge was once posed to both artists and scientists by phenomena that happened too quickly to perceive, as evolving camera technology allowed new insights into and communications of previously inaccessible natural phenomena<!-- (Muybridge 1882)-->. We propose that interactive media systems now have the power to create new means of interacting with complex systems that require neither static nor unidimensional media, and our long-term goal is to explore how these technologies can be used to create a new state of art for the purpose of communicating scientific knowledge. This means of interaction could have significant impacts in bridging the current gap that exists between expert and general opinions on climate and weather science.
+                The representation of complex phenomena, such as the atmospheric dynamics underlying the weather, provides a unique challenge to both artists and scientists. We suggest that a major component of this challenge is a need to employ independent static media formats to represent concepts that are dynamic and multidimensional in nature. A similar representational challenge was once posed to both artists and scientists by phenomena that happened too quickly to perceive, as evolving camera technology allowed new insights into and communications of previously inaccessible natural phenomena. We propose that interactive media systems now have the power to create new means of interacting with complex systems that require neither static nor unidimensional media, and our long-term goal is to explore how these technologies can be used to create a new state of art for the purpose of communicating scientific knowledge. This means of interaction could have significant impacts in bridging the current gap that exists between expert and general opinions on climate and weather science.
               </p>
-            </div><!-- close col -->
-          </div><!-- close row -->
+            </div>
+          </div>
 
-          <a class = "smoothScroll" id ="u"></a>
+          <a class='smoothScroll' id='u'></a>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <h2>EXPERIENTIAL MODELS: ?</h2>
 
               <p>
-                Do <strong>you</strong> have a complex model you would like to experience? <a href="mailto:chris.m.roberts@asu.edu?Subject=Lets%20talk%20about%20complexity" target="_top">Start a conversation with the Synthesis Center</a>!
+                Do <strong>you</strong> have a complex model you would like to experience? <a href='mailto:chris.m.roberts@asu.edu?Subject=Lets%20talk%20about%20complexity' target='_top'>Start a conversation with the Synthesis Center</a>!
               </p>
-            </div><!-- close col -->
-          </div><!-- close row -->
-                              <a class = "smoothScroll" id ="ppl"></a>
+            </div>
+          </div>
+          
+          <a class='smoothScroll' id='ppl'></a>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-12"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-12'>
               <h2>PEOPLE</h2>
               <h3>CORE FACULTY</h3>
-              <div class="col-xs-4"><!-- start col -->
-                <a href = "http://bmechtley.me">
-                  <div class ="overlay">
-                    <img class="img-responsive " src='img/ppl/bm.jpeg'>
+              <div class='col-xs-4'>
+                <a href='http://bmechtley.me'>
+                  <div class='overlay'>
+                    <img class='img-responsive' src='img/ppl/bm.jpeg'>
                   </div>
 
-                  <div class ="caption"><p>Brandon Mechtley</p></div>
+                  <p class='caption'>Brandon Mechtley</p>
                 </a>
+                <p class='title'>
+                  Postdoctoral Researcher<br/>
+                  School of Arts, Media, and Engineering
+                </p>
               </div>
 
-              <div class="col-xs-4"><!-- start col -->
-                <a href = "https://webapp4.asu.edu/directory/person/800596">
-                  <div class ="overlay">
-                    <img class="img-responsive " src='img/ppl/chris.jpg'>
+              <div class='col-xs-4'>
+                <a href='https://webapp4.asu.edu/directory/person/800596'>
+                  <div class='overlay'>
+                    <img class='img-responsive' src='img/ppl/chris.jpg'>
                   </div>
 
-                  <div class ="caption"><p>Chris Roberts</p></div>
+                  <p class='caption'>Chris Roberts</p>
                 </a>
+                <p class='title'>
+                  Research Director<br/>
+                  Assistant Research Professor<br />
+                  School of Arts, Media, and Engineering
+                </p>
               </div>
               
-
-              <div class="col-xs-4"><!-- start col -->
-                <a href = "http://herbergerinstitute.asu.edu/faculty/selectone.php?ID=97">
-                  <div class ="overlay">
-                    <img class="img-responsive " src='img/ppl/sxw.jpeg'>
+              <div class='col-xs-4'>
+                <a href='http://herbergerinstitute.asu.edu/faculty/selectone.php?ID=97'>
+                  <div class='overlay'>
+                    <img class='img-responsive' src='img/ppl/sxw.jpeg'>
                   </div>
 
-                  <div class ="caption"><p>Sha Xin Wei</p></div>
+                  <p class='caption'>Sha Xin Wei</p>
                 </a>
+                <p class='title'>
+                  Director<br/>
+                  School of Arts, Media, and Engineering
+                </p>
               </div>
-            </div><!-- close col -->
-          </div><!-- close row -->
+            </div>
+          </div>
 
-          <div class="row"><!-- start row -->
-            <div class="col-xs-8"><!-- start col -->
+          <div class='row'>
+            <div class='col-xs-4'>
               <h3>AFFILIATES</h3>
-
-              <div class="col-xs-6"><!-- start col -->
-
-              <a href = "http://www.dehliahannah.com">
-                <div class ="overlay">
-                  <img class="img-responsive " src='img/ppl/dh.jpg'>
-                </div>
-
-                <div class ="caption"><p>Dehlia Hannah</p></div>
-              </a>
+              <div class='col-xs-12'>
+                <a href='http://www.dehliahannah.com'>
+                  <div class='overlay'>
+                    <img class='img-responsive' src='img/ppl/dh.jpg'>
+                  </div>
+                  <p class='caption'>Dehlia Hannah</p>
+                </a>
+                <p class='title'>
+                  Research Curator<br/>
+                  Visiting Assistant Professor, Art-Science Collaboration<br/>
+                  School for the Future of Innovation in Society
+                </p>
               </div>
-            </div><!-- close col -->
+            </div>
 
-            <div class="col-xs-8"><!-- start col -->
+            <div class='col-xs-8'>
               <h3>CORE STUDENTS</h3>
-              <div class="col-xs-6"><!-- start col -->
-                <a href = "https://webapp4.asu.edu/directory/person/1929821">
+              <div class='col-xs-6'>
+                <a href='https://webapp4.asu.edu/directory/person/1929821'>
                   <div class ="overlay">
-                    <img class="img-responsive " src='img/ppl/glj.jpg'>
+                    <img class='img-responsive' src='img/ppl/glj.jpg'>
                   </div>
 
-                  <div class ="caption"><p>Garrett Laroy Johnson</p></div>
+                  <p class='caption'>Garrett Laroy Johnson</p>
                 </a>
+                <p class='title'>
+                  PhD Student, Media Arts and Sciences<br/>
+                </p>
               </div>
 
-              <div class="col-xs-6"><!-- start col -->
-                <a href = "https://webapp4.asu.edu/directory/person/1500074">
-                  <div class ="overlay">
-                    <img class="img-responsive " src='img/ppl/cnr.jpg'>
+              <div class='col-xs-6'>
+                <a href='https://webapp4.asu.edu/directory/person/1500074'>
+                  <div class="overlay">
+                    <img class='img-responsive' src='img/ppl/cnr.jpg'>
                   </div>
 
-                  <div class ="caption"><p>Connor Rawls</p></div>
+                  <p class='caption'>
+                    Connor Rawls
+                  </p>
                 </a>
-              </div><!-- close col -->
-            </div><!-- close col -->
-          </div><!-- close row -->
+                <p class='title'>
+                  Undergraduate Student Worker, Digital Culture
+                </p>
+              </div>
+            </div>
+          </div>
 
           <footer>
-            <div class="row">
-              <div class="col-xs-12">
+            <div class='row'>
+              <div class='col-xs-12'>
                 <p>
-                  Copyright &copy; <a href = "http://www.synthesiscenter.net">Synthesis Center</a>, 2016. Design by <a href='http://garrettlaroyjohnson.com'>Garrett Laroy Johnson</a>.
+                  Copyright &copy; <a href='http://www.synthesiscenter.net'>Synthesis Center</a>, 2016. Design by <a href='http://garrettlaroyjohnson.com'>Garrett Laroy Johnson</a>.
                 </p>
-              </div><!-- close col -->
-            </div><!-- close row -->
+              </div>
+            </div>
           </footer>
 
-        </div><!-- close MACRO col -->
-      </div><!-- close MACRO row -->
-    </div><!-- close container -->
+        </div>
+      </div>
+    </div>
   </body>
 </html>

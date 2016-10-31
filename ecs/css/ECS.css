@@ -42,7 +42,13 @@ em {
   border-bottom: 1px dotted #A239CA;
 }
 
-.caption p {
+p.caption {
+  text-align: center;
+}
+
+p.title {
+  font-size: .9em;
+  margin-top: -2em;
   text-align: center;
 }
 
@@ -138,4 +144,3 @@ ul.nav {
   vertical-align: middle;
   margin-top: .75em;
 }
-
