@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Brandon Mechtley</title>
+
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="Brandon Mechtley">
+
+        <script src="https://code.createjs.com/createjs-2015.05.21.min.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            var vals = [];
+            var nvals = [];
+
+            var mainrect;
+            var rows = 30;
+            var cols = 5;
+            var xscale;
+            var yscale;
+            var effects;
+            var mousedown = false;
+            var hover;
+
+            var rand = Math.random;
+
+            function hsl(h, s, l) {
+                return 'hsl(' +
+                    Math.floor(h) + ',' +
+                    Math.floor(s) + '%,' +
+                    Math.floor(l) + '%)'
+            }
+
+            function lerp(x, xlo, xhi, ylo, yhi) {
+                return (x - xlo) / (xhi - xlo) * (yhi - ylo) + ylo;
+            }
+
+            function iterate_cells(effect, fun) {
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < cols; c++) {
+                        for (var ch = 0; ch < 3; ch++) {
+                            p = {
+                                r: r, c: c, ch: ch,
+                                effect: effect,
+                                up: (rows + r - 1) % rows,
+                                down: (rows + r + 1) % rows,
+                                left: (cols + c - 1) % cols,
+                                right: (cols + c + 1) % cols
+                            }
+
+                            p.v = [
+                                [
+                                    vals[p.up][p.left][ch],
+                                    vals[p.up][p.c][ch],
+                                    vals[p.up][p.right][ch]
+                                ],
+                                [
+                                    vals[p.r][p.left][ch],
+                                    vals[p.r][p.c][ch],
+                                    vals[p.r][p.right][ch],
+                                ],
+                                [
+                                    vals[p.down][p.left][ch],
+                                    vals[p.down][p.c][ch],
+                                    vals[p.down][p.right][ch]
+                                ]
+                            ]
+
+                            fun(p);
+                        }
+                    }
+                }
+            }
+
+            function swap(row1, col1, row2, col2, lt, channel) {
+                a = vals[row1][col1][channel];
+                b = vals[row2][col2][channel];
+
+                if ((lt && a < b) || (!lt && a > b)) {
+                    nvals[row1][col1][channel] = b;
+                    nvals[row2][col2][channel] = a;
+                }
+            }
+
+            function copy_pixels() {
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < cols; c++) {
+                        for (var ch = 0; ch < 3; ch++)
+                            vals[r][c][ch] = nvals[r][c][ch];
+                    }
+                }
+            }
+
+            function randomize_direction(effect) {
+                var pr = effect.pRange;
+
+                for (var ch = 0; ch < 3; ch++) {
+                  if (rand() < effect.p[ch]) {
+                        effect.direction[ch] = Math.floor(rand() * 3) - 1;
+                        effect.p[ch] = lerp(rand(), 0, 1, pr[0], pr[1]);
+                    }
+                }
+            }
+
+            function init() {
+                for (var r = 0; r < rows; r++) {
+                    var vrow = [];
+                    var nvrow = [];
+
+                    for (var c = 0; c < cols; c++) {
+                        var vcol = [];
+                        var nvcol = [];
+
+                        for (var ch = 0; ch < 3; ch++) {
+                            var val = r == 0 ? rand() * 100 : 100;
+                            vcol.push(val);
+                            nvcol.push(val);
+                        }
+
+                        vrow.push(vcol);
+                        nvrow.push(nvcol);
+                    }
+
+                    vals.push(vrow);
+                    nvals.push(nvrow);
+                }
+
+                var sheet = document.styleSheets[document.styleSheets.length - 1];
+                sheet.insertRule('a:hover {color: red;}', 0);
+                var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
+                hover = rules[0];
+
+                stage = new createjs.Stage("easel");
+                var bounds = stage.getBounds();
+
+                mainrect = new createjs.Shape();
+                stage.addChild(mainrect);
+                stage.update();
+
+                xscale = stage.canvas.width / cols;
+                yscale = stage.canvas.height / rows;
+
+                createjs.Ticker.addEventListener("tick", tick);
+                createjs.Ticker.setFPS(10);
+                stage.addEventListener("mousedown", function() {mousedown=true;});
+                stage.addEventListener("mouseup", function() {mousedown=false;});
+
+                var link_color = {
+                    postUpdate: function(effect) {
+                        hover.style.color = hsl(
+                            lerp(vals[0][0][0], 0, 100, 0, 360),
+                            lerp(vals[0][0][1], 0, 100, 33, 66),
+                            lerp(vals[0][0][2], 0, 100, 66, 100)
+                        );
+                    }
+                }
+
+                var automata = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0 && !mousedown) {
+                            drow = p.effect.direction[p.ch] + 1;
+
+                            nvals[p.r][p.c][p.ch] = (
+                                (p.v[1][0] + p.v[1][1] + p.v[1][2]) / 2 +
+                                (p.v[drow][0] + p.v[drow][1] + p.v[drow][2]) / 2
+                            ) % 100;
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        if (!mousedown) {
+                            copy_pixels();
+                            randomize_direction(effect);
+                        }
+                    }
+                };
+
+                var sort_horizontal = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0) {
+                           if (p.c < cols - 1) {
+                                swap(
+                                    p.r, p.c,
+                                    p.r, p.right,
+                                    p.effect.direction == -1 ? true : false,
+                                    p.ch
+                                );
+                            }
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        copy_pixels();
+                        randomize_direction(effect);
+                    }
+                };
+
+                var sort_vertical = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0) {
+                            if (p.r < rows - 1) {
+                                swap(
+                                    p.r, p.c,
+                                    p.down, p.c,
+                                    p.effect.direction == -1 ? true : false,
+                                    p.ch
+                                );
+                            }
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        copy_pixels();
+                        randomize_direction(effect);
+                    }
+                }
+
+                effects = [
+                    link_color, automata, sort_horizontal, sort_vertical
+                ];
+            }
+
+            function tick() {
+                /* Run each effect for each channel. */
+                for (var e = 0; e < effects.length; e++) {
+                    var effect = effects[e];
+
+                    if (effect.hasOwnProperty('updatePixels'))
+                        iterate_cells(effect, effect.updatePixels);
+
+                    if (effect.hasOwnProperty('postUpdate'))
+                        effect.postUpdate(effect);
+                }
+
+                /* Draw this frame. */
+                mainrect.graphics.clear();
+
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < cols; c++) {
+                        mainrect.graphics.beginFill(hsl(
+                            Math.floor(lerp(vals[r][c][0], 0, 100, 0, 360)),
+                            Math.floor(lerp(vals[r][c][1], 0, 100, 33, 66)),
+                            Math.floor(lerp(vals[r][c][2], 0, 100, 66, 100))
+                        )).drawCircle(
+                            xscale * c + (xscale / 2),
+                            yscale * r + (yscale / 2),
+                            Math.min(xscale, yscale) / 3
+                        );
+                    }
+                }
+
+                stage.update();
+            }
+        </script>
+
+        <style>
+            body {
+                font-family: 'Open Sans', 'sans-serif';
+                font-weight: 300;
+            }
+
+            a {
+                text-decoration: none;
+                color: #81997F;
+            }
+
+            .container {
+                width: 38em;
+                margin: auto;
+                height: 28em;
+                margin-top: 5em;
+            }
+
+            .easel {
+                display: inline-block;
+
+                width: 5em;
+                margin-right: 1em;
+                background: white;
+                height: 30em;
+                vertical-align: top;
+            }
+
+            .content {
+                display: inline-block;
+                width: 28em;
+                vertical-align: top;
+             }
+
+            /* Header. */
+
+            .profile {
+                margin: 0;
+                padding: 0;
+            }
+
+            .profile h1 {
+                font-family: 'Molengo', 'sans-serif';
+                font-size: 2em;
+                letter-spacing: 0.37em;
+                text-transform: lowercase;
+                /*line-height: 0.25em;*/
+                color: #556270;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                height: 0.65em;
+                line-height: 0.4em;
+                text-align: center;
+            }
+
+            /* Biography text. */
+
+            .bio {
+                text-align: justify;
+                margin: 0;
+                margin-top: 2em;
+            }
+
+            .bio ul {
+                padding: 0;
+                margin: 0;
+            }
+
+            .bio ul ul {
+                padding: 1em;
+            }
+
+            .bio li {
+                list-style-type: none;
+                margin-top: .5em;
+            }
+
+            .page {
+                float: right;
+                vertical-align: bottom;
+                text-align: right;
+                color: #556270;
+            }
+
+            .page img {
+                position: relative;
+                top: -0.5em;
+                left: 2.25em;
+            }
+        </style>
+    </head>
+    <body onload="init();">
+        <div class='container'>
+            <canvas class='easel' id='easel' width="50" height="320"></canvas>
+            <div class='content'>
+                <section class='profile'>
+                    <h1>Brandon <span class='lastname'>Mechtley</span></h1>
+                </section>
+                <section class='bio'>
+                    <ul>
+                        <li>&quot;is&quot;
+                            <ul>
+                                <li>inspired by <a href='media/alan-watts-seeing.mp3'>wiggles</a>, <a href='https://soundcloud.com/bmechtley/noise'>noise</a>, and <a href='https://www.youtube.com/watch?v=pcHnL7aS64Y'>silence</a>.</li>
+                                <li>working on real-time, interactive models of complex systems at the <a href='http://synthesis.ame.asu.edu'>Synthesis Center</a> in <a href='http://ame.asu.edu'>AME</a> at <a href='http://asu.edu'>ASU</a>.</li>
+                            </ul>
+                        </li>
+
+                        <li>&quot;has&quot;
+                            <ul>
+                                <li>an ongoing <a href='https://vimeo.com/94695852'>soundscape mapping project</a>.</li>
+                                <li>a <a href='maps/index.html'>list of sound maps on the web</a>.</li>
+                                <li>some <a href='http://www.mendeley.com/profiles/brandon-mechtley/'>papers</a>.</li>
+                                <li>some <a href='https://soundcloud.com/bmechtley'>sounds</a>.</li>
+                                <li>a <a href='cv.html'>cv</a>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class='page'><img src='images/music.png'/>00001</p>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>
+
