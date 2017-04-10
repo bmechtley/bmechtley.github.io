@@ -19,9 +19,11 @@
         	}
         </style>
         <script>
-        	var max_columns = 50;
-        	var min_columns = 10;
-        	var oldcolumns = 10;
+        	var max_nbasecells = 50;
+        	var min_nbasecells = 10;
+        	var old_nbasecells = 10;
+        	var nbasecells = 10;
+
         	var columns = 10;
         	var rows = 20;
         	
@@ -57,11 +59,20 @@
         	function rearrange(event) {
         		w = window.innerWidth;
         		h = window.innerHeight;
+        		
+        		if (h < w) {
+	            	ratio = h / w;
+	        		cwidth = Math.floor(w / nbasecells);
+	        		rows = Math.floor(ratio * nbasecells);
+	        		columns = nbasecells;
+	        	} else {
+	        		ratio = w / h;
+	        		cwidth = Math.floor(h / nbasecells)
+	        		columns = Math.floor(ratio * nbasecells);
+	        		rows = nbasecells;
+	        	}
 
-        		ratio = h / w;
-        		cwidth = Math.floor(w / columns);
-        		rows = Math.floor(ratio * columns);
-        		margin = Math.ceil(cwidth * 0.1);
+	        	margin = Math.ceil(cwidth * 0.1);
 
         		var cellidx = 0;
 
@@ -231,8 +242,8 @@
                 		//copy_pixels();
                 		randomize_direction(effect);
                 		if (effect.direction[0] == -1 && !mousedown) {
-                			oldcolumns = columns;
-                			columns = Math.floor(rand() * (max_columns - min_columns) + min_columns);
+                			old_nbasecells = nbasecells;
+                			nbasecells = Math.floor(rand() * (max_nbasecells - min_nbasecells) + min_nbasecells);
                 			rearrange();
                 		}
                 	}
