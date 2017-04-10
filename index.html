@@ -34,8 +34,7 @@
             var mousedown = false;
 
             var rand = Math.random;
-
-
+            
             // Helpers.
             function cellnum(c, r) {
             	return r * columns + c;
@@ -142,10 +141,12 @@
                 var pr = effect.pRange;
 
                 for (var ch = 0; ch < 3; ch++) {
-                  if (rand() < effect.p[ch]) {
+                	randval = rand();
+
+                  	if (randval < effect.p[ch]) {
                         effect.direction[ch] = Math.floor(rand() * 3) - 1;
-                        effect.p[ch] = lerp(rand(), 0, 1, pr[0], pr[1]);
-                    }
+                       	effect.p[ch] = lerp(rand(), 0, 1, pr[0], pr[1]);
+                   	}
                 }
             }
 
@@ -169,6 +170,16 @@
                 svg.addEventListener("mousedown", function() {mousedown=true;});
                 svg.addEventListener("mouseup", function() {mousedown=false;});
 
+                var clear = {
+                	direction: [-1, -1, -1],
+                	p: [0.01, 0.01, 0.01],
+                	pRange: [0.05, 0.5],
+                	updatePixels: function(p) {
+            			if (!mousedown && ((p.effect.direction[p.ch] == -1 && p.r == 0) || (p.effect.direction[p.ch == 1] && p.c == 0))) {
+            				nvals[cellnum(p.r,p.c)][p.ch] = nvals[0][p.ch];
+            			}
+                	}
+                }
                 var automata = {
                     direction: [-1, -1, -1],
                     p: [0.1, 0.1, 0.1],
@@ -193,14 +204,19 @@
 
                 var invert = {
                 	direction: [-1, -1, -1],
-                	p: [0.8, 0.05, 0.05],
-                	pRange: [0.05, 0.5],
+                	p: [0.1, 0.1, 0.1],
+                	pRange: [0.05, 0.2],
                 	updatePixels: function(p) {},
                 	postUpdate: function(effect) {
                 		randomize_direction(effect);
-                		if (effect.direction[0] == -1) {
-                			inverted = !inverted;
+                		if (effect.direction[0] == -1 && !mousedown) {
+                			inverted = true;
+                		} else if (effect.direction[0] == 1 && !mousedown) {
+                			inverted = false;
+                		} else if (!mousedown) {
+                			inverted = Math.round(rand());
                 		}
+
                 	}
                 }
 
@@ -212,7 +228,7 @@
                 	postUpdate: function(effect) {
                 		//copy_pixels();
                 		randomize_direction(effect);
-                		if (effect.direction[0] == -1) {
+                		if (effect.direction[0] == -1 && !mousedown) {
                 			oldcolumns = columns;
                 			columns = Math.floor(rand() * (max_columns - min_columns) + min_columns);
                 			rearrange();
@@ -265,7 +281,7 @@
                 }
 
                 effects = [
-                    invert, resize, automata, sort_horizontal, sort_vertical
+                    clear, invert, resize, automata, sort_horizontal, sort_vertical
                 ];
             }
 
