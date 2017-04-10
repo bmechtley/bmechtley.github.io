@@ -2,7 +2,324 @@
 <html>
     <head>
         <title></title>
+        <script src="https://code.createjs.com/createjs-2015.05.21.min.js" type="text/javascript"></script>
+        <style>
+        	.cell {
+        		stroke-width: 10;
+        		stroke-linecap: round;
+        	}
+
+        	svg {
+        		background-color: white;
+        		position: absolute;;
+        		top: 0; 
+        		left: 0;
+        		width: 100vw;
+        		height: 100vh;
+        	}
+        </style>
+        <script>
+        	var max_columns = 50;
+        	var min_columns = 10;
+        	var oldcolumns = 10;
+        	var columns = 10;
+        	var rows = 20;
+        	var svg;
+        	var cells = [];
+        	var inverted = false;
+        	var vals = [];
+            var nvals = [];
+
+            var effects = [];
+            var mousedown = false;
+
+            var rand = Math.random;
+
+
+            // Helpers.
+            function cellnum(c, r) {
+            	return r * columns + c;
+            }
+
+            function hsl(h, s, l) {
+                return 'hsl(' +
+                    Math.floor(h) + ',' +
+                    Math.floor(s) + '%,' +
+                    Math.floor(l) + '%)'
+            }
+
+            function lerp(x, xlo, xhi, ylo, yhi) {
+                return (x - xlo) / (xhi - xlo) * (yhi - ylo) + ylo;
+            }
+
+
+        	function rearrange(event) {
+        		w = window.innerWidth;
+        		h = window.innerHeight;
+
+        		ratio = h / w;
+        		cwidth = Math.floor(w / columns);
+        		rows = Math.floor(ratio * columns);
+        		margin = Math.ceil(cwidth * 0.1);
+
+        		var cellidx = 0;
+
+        		for (var c = 0; c < columns; c++) {
+        			for (var r = 0; r < rows; r++) {
+        				cellidx = r * columns + c;
+        				cell = cells[cellidx];
+        				cell.setAttribute('x1', c * (cwidth + margin));
+        				cell.setAttribute('x2', c * (cwidth + margin));
+        				cell.setAttribute('y1', r * (cwidth + margin));
+        				cell.setAttribute('y2', r * (cwidth + margin));
+        				cell.style['stroke-width'] = cwidth;
+        			}
+        		}
+
+        		for (var i = cellidx + 1; i < cells.length; i++) {
+        			cell = cells[i];
+        			cell.style['stroke-width'] = 0;
+        		}
+        	}
+
+            function iterate_cells(effect, fun) {
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < columns; c++) {
+                        for (var ch = 0; ch < 3; ch++) {
+                            p = {
+                                r: r, c: c, ch: ch,
+                                effect: effect,
+                                up: (rows + r - 1) % rows,
+                                down: (rows + r + 1) % rows,
+                                left: (columns + c - 1) % columns,
+                                right: (columns + c + 1) % columns
+                            }
+
+                            p.v = [
+                                [
+                                    vals[cellnum(p.up, p.left)][ch],
+                                    vals[cellnum(p.up, p.c)][ch],
+                                    vals[cellnum(p.up, p.right)][ch]
+                                ],
+                                [
+                                    vals[cellnum(p.r, p.left)][ch],
+                                    vals[cellnum(p.r, p.c)][ch],
+                                    vals[cellnum(p.r, p.right)][ch],
+                                ],
+                                [
+                                    vals[cellnum(p.down, p.left)][ch],
+                                    vals[cellnum(p.down, p.c)][ch],
+                                    vals[cellnum(p.down, p.right)][ch]
+                                ]
+                            ]
+
+                            fun(p);
+                        }
+                    }
+                }
+            }
+
+            function swap(row1, col1, row2, col2, lt, channel) {
+                a = vals[cellnum(row1, col1)][channel];
+                b = vals[cellnum(row2, col2)][channel];
+
+                if ((lt && a < b) || (!lt && a > b)) {
+                    nvals[cellnum(row1, col1)][channel] = b;
+                    nvals[cellnum(row2, col2)][channel] = a;
+                }
+            }
+
+            function copy_pixels() {
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < columns; c++) {
+                        for (var ch = 0; ch < 3; ch++)
+                            vals[cellnum(r,c)][ch] = nvals[cellnum(r,c)][ch];
+                    }
+                }
+            }
+
+            function randomize_direction(effect) {
+                var pr = effect.pRange;
+
+                for (var ch = 0; ch < 3; ch++) {
+                  if (rand() < effect.p[ch]) {
+                        effect.direction[ch] = Math.floor(rand() * 3) - 1;
+                        effect.p[ch] = lerp(rand(), 0, 1, pr[0], pr[1]);
+                    }
+                }
+            }
+
+            function init() {
+            	svg = document.getElementsByTagName('svg')[0];
+
+	        	for (var i = 0; i < max_columns * (max_columns * 2); i++) {
+	        		cell = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+	        		cell.className = 'cell';
+	        		cell.style['stroke-width'] = 'none';
+	        		cell.style['stroke-linecap'] = 'round';
+	        		cell.id = 'cell_' + i;
+	        		svg.appendChild(cell);
+	        		cells.push(cell);
+	        		vals.push([0, 0, 0]);
+	        		nvals.push([0, 0, 0])
+	        	}
+
+                createjs.Ticker.addEventListener("tick", tick);
+                createjs.Ticker.setFPS(10);
+                svg.addEventListener("mousedown", function() {mousedown=true;});
+                svg.addEventListener("mouseup", function() {mousedown=false;});
+
+                var automata = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0 && !mousedown) {
+                            drow = p.effect.direction[p.ch] + 1;
+
+                            nvals[cellnum(p.r,p.c)][p.ch] = (
+                                (p.v[1][0] + p.v[1][1] + p.v[1][2]) / 2 +
+                                (p.v[drow][0] + p.v[drow][1] + p.v[drow][2]) / 2
+                            ) % 100;
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        if (!mousedown) {
+                            copy_pixels();
+                            randomize_direction(effect);
+                        }
+                    }
+                };
+
+                var invert = {
+                	direction: [-1, -1, -1],
+                	p: [0.8, 0.05, 0.05],
+                	pRange: [0.05, 0.5],
+                	updatePixels: function(p) {},
+                	postUpdate: function(effect) {
+                		randomize_direction(effect);
+                		if (effect.direction[0] == -1) {
+                			inverted = !inverted;
+                		}
+                	}
+                }
+
+                var resize = {
+                	direction: [-1, -1, -1],
+                	p: [0.1, 0.1, 0.1],
+                	pRange: [0.05, 0.5],
+                	updatePixels: function(p) {},
+                	postUpdate: function(effect) {
+                		//copy_pixels();
+                		randomize_direction(effect);
+                		if (effect.direction[0] == -1) {
+                			oldcolumns = columns;
+                			columns = Math.floor(rand() * (max_columns - min_columns) + min_columns);
+                			rearrange();
+                		}
+                	}
+                }
+
+                var sort_horizontal = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0) {
+                           if (p.c < columns - 1) {
+                                swap(
+                                    p.r, p.c,
+                                    p.r, p.right,
+                                    p.effect.direction == -1 ? true : false,
+                                    p.ch
+                                );
+                            }
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        copy_pixels();
+                        randomize_direction(effect);
+                    }
+                };
+
+                var sort_vertical = {
+                    direction: [-1, -1, -1],
+                    p: [0.1, 0.1, 0.1],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (p.effect.direction[p.ch] != 0) {
+                            if (p.r < rows - 1) {
+                                swap(
+                                    p.r, p.c,
+                                    p.down, p.c,
+                                    p.effect.direction == -1 ? true : false,
+                                    p.ch
+                                );
+                            }
+                        }
+                    },
+                    postUpdate: function(effect) {
+                        copy_pixels();
+                        randomize_direction(effect);
+                    }
+                }
+
+                effects = [
+                    invert, resize, automata, sort_horizontal, sort_vertical
+                ];
+            }
+
+            function tick() {
+                /* Run each effect for each channel. */
+                for (var e = 0; e < effects.length; e++) {
+                    var effect = effects[e];
+
+                    if (effect.hasOwnProperty('updatePixels'))
+                        iterate_cells(effect, effect.updatePixels);
+
+                    if (effect.hasOwnProperty('postUpdate'))
+                        effect.postUpdate(effect);
+                }
+
+                /* Draw this frame. */
+                for (var r = 0; r < rows; r++) {
+                    for (var c = 0; c < columns; c++) {
+                    	cell = cells[r * columns + c];
+
+                    	if (!inverted) {
+	                        cell.style.stroke = hsl(
+	                            Math.floor(lerp(vals[cellnum(r,c)][0], 0, 100, 0, 360)),
+	                            Math.floor(lerp(vals[cellnum(r,c)][1], 0, 100, 33, 66)),
+	                            Math.floor(lerp(vals[cellnum(r,c)][2], 0, 100, 66, 100))
+	                        );
+	                        svg.style['background-color'] = 'white';
+	                    } else {
+	                    	cell.style.stroke = hsl(
+	                            Math.floor(lerp(vals[cellnum(r,c)][0], 0, 100, 360, 0)),
+	                            Math.floor(lerp(vals[cellnum(r,c)][1], 0, 100, 66, 33)),
+	                            Math.floor(lerp(vals[cellnum(r,c)][2], 0, 100, 66, 0))
+	                        );
+
+	                        svg.style['background-color'] = 'black';
+	                    }
+                    }
+                }
+            }
+
+            window.onload = function(event) {
+	        	init();
+	        	rearrange();
+
+	        	for (var i = 0; i < columns; i++) {
+	        		vals[cellnum(0, i)] = [rand() * 100, rand() * 100, rand() * 100];
+	        	}
+	        }
+
+        	window.onresize = rearrange;
+        </script>
     </head>
-    <body></body>
+    <body>
+    	 <svg></svg>
+    </body>
 </html>
 
