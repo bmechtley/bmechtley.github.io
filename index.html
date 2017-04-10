@@ -19,9 +19,9 @@
         	}
         </style>
         <script>
-        	var max_nbasecells = 50;
-        	var min_nbasecells = 10;
-        	var old_nbasecells = 10;
+        	var max_nbasecells = 20;
+        	var min_nbasecells = 5;
+        	var old_nbasecells = 5;
         	var nbasecells = 10;
 
         	var columns = 10;
@@ -59,15 +59,17 @@
         	function rearrange(event) {
         		w = window.innerWidth;
         		h = window.innerHeight;
-        		
-        		if (h < w) {
+        		console.log(w / h, h / w)
+        		if (w < h) {
+        			console.log('horizontal')
 	            	ratio = h / w;
 	        		cwidth = Math.floor(w / nbasecells);
 	        		rows = Math.floor(ratio * nbasecells);
 	        		columns = nbasecells;
 	        	} else {
+	        		console.log('vertical');
 	        		ratio = w / h;
-	        		cwidth = Math.floor(h / nbasecells)
+	        		cwidth = Math.floor(h / nbasecells);
 	        		columns = Math.floor(ratio * nbasecells);
 	        		rows = nbasecells;
 	        	}
@@ -166,7 +168,7 @@
             function init() {
             	svg = document.getElementsByTagName('svg')[0];
 
-	        	for (var i = 0; i < max_columns * (max_columns * 2); i++) {
+	        	for (var i = 0; i < max_nbasecells * (max_nbasecells * 100); i++) {
 	        		cell = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 	        		cell.className = 'cell';
 	        		cell.style['stroke-width'] = 'none';
