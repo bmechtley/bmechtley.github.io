@@ -321,14 +321,14 @@
 	                        cell.style.stroke = hsl(
 	                            Math.floor(lerp(vals[cellnum(r,c)][0], 0, 100, 0, 360)),
 	                            Math.floor(lerp(vals[cellnum(r,c)][1], 0, 100, 33, 66)),
-	                            Math.floor(lerp(vals[cellnum(r,c)][2], 0, 100, 66, 100))
+	                            Math.floor(lerp(vals[cellnum(r,c)][2], 0, 100, 90, 100))
 	                        );
 	                        svg.style['background-color'] = 'white';
 	                    } else {
 	                    	cell.style.stroke = hsl(
 	                            Math.floor(lerp(vals[cellnum(r,c)][0], 0, 100, 360, 0)),
 	                            Math.floor(lerp(vals[cellnum(r,c)][1], 0, 100, 66, 33)),
-	                            Math.floor(lerp(vals[cellnum(r,c)][2], 0, 100, 66, 0))
+	                            Math.floor(lerp(vals[cellnum(r,c)][2], 0, 100, 10, 0))
 	                        );
 
 	                        svg.style['background-color'] = 'black';
