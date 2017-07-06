@@ -22,6 +22,10 @@
         		width: 100vw;
         		height: 100vh;
         	}
+
+            body {
+                overflow: hidden;
+            }
         </style>
         <script>
         	var max_nbasecells = 20;
@@ -68,13 +72,13 @@
         		h = window.innerHeight;
         		if (w < h) {
 	            	ratio = h / w;
-	        		cwidth = Math.floor(w / nbasecells);
-	        		rows = Math.floor(ratio * nbasecells);
+	        		cwidth = Math.ceil(w / nbasecells);
+	        		rows = Math.ceil(ratio * nbasecells);
 	        		columns = nbasecells;
 	        	} else {
 	        		ratio = w / h;
-	        		cwidth = Math.floor(h / nbasecells);
-	        		columns = Math.floor(ratio * nbasecells);
+	        		cwidth = Math.ceil(h / nbasecells);
+	        		columns = Math.ceil(ratio * nbasecells);
 	        		rows = nbasecells;
 	        	}
 
