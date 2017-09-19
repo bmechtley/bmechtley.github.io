@@ -181,6 +181,11 @@
                 svg.addEventListener("mousedown", function() {mousedown=true;});
                 svg.addEventListener("mouseup", function() {mousedown=false;});
 
+                var sheet = document.styleSheets[document.styleSheets.length - 1];
+                sheet.insertRule('a:hover {color: red;}', 0);
+                var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
+                hover = rules[0];
+
                 var clear = {
                     direction: [-1, -1, -1, -1],
                     p: [0.01, 0.01, 0.01, 0.01],
@@ -257,8 +262,18 @@
                     }
                 }
 
+                var link_color = {
+                    postUpdate: function(effect) {
+                        hover.style.color = hsl(
+                            lerp(vals[0][0], 0, 100, 0, 360),
+                            lerp(vals[0][1], 0, 100, 33, 66),
+                            lerp(vals[0][2], 0, 100, 66, 100)
+                        );
+                    }
+                }
+
                 effects = [
-                    clear, automata, sort_horizontal, sort_vertical
+                    clear, automata, sort_horizontal, sort_vertical, link_color
                 ];
             }
 
