@@ -12,19 +12,30 @@
         <script src="https://code.createjs.com/createjs-2015.05.21.min.js" type="text/javascript"></script>
 
         <script type="text/javascript">
+            var max_nbasecells = 20;
+            var min_nbasecells = 5;
+            var old_nbasecells = 5;
+            var nbasecells = 5;
+
+            var channels = 3;
+            var columns = 10;
+            var rows = 20;
+            
+            var svg;
+
+            var cells = [];
             var vals = [];
             var nvals = [];
 
-            var mainrect;
-            var rows = 30;
-            var cols = 5;
-            var xscale;
-            var yscale;
-            var effects;
+            var effects = [];
             var mousedown = false;
-            var hover;
 
             var rand = Math.random;
+
+            // Helpers.
+            function cellnum(r, c) {
+                return r * columns + c;
+            }
 
             function hsl(h, s, l) {
                 return 'hsl(' +
@@ -37,34 +48,76 @@
                 return (x - xlo) / (xhi - xlo) * (yhi - ylo) + ylo;
             }
 
+
+            function rearrange(event) {
+                w = document.getElementsByTagName('svg')[0].clientWidth;
+                h = document.getElementsByTagName('svg')[0].clientHeight;
+
+                console.log(w, h);
+
+                if (w < h) {
+                    ratio = h / w;
+                    cwidth = Math.ceil(w / nbasecells);
+                    rows = Math.ceil(ratio * nbasecells);
+                    columns = nbasecells;
+                } else {
+                    ratio = w / h;
+                    cwidth = Math.ceil(h / nbasecells);
+                    columns = Math.ceil(ratio * nbasecells);
+                    rows = nbasecells;
+                }
+
+                margin = Math.ceil(cwidth * 0.1);
+
+                var cellidx = 0;
+
+                for (var c = 0; c < columns; c++) {
+                    for (var r = 0; r < rows; r++) {
+                        cellidx = cellnum(r, c);
+
+                        cell = cells[cellidx];
+                        cell.setAttribute('x1', c * cwidth + cwidth/2);
+                        cell.setAttribute('x2', c * cwidth + cwidth/2);
+                        cell.setAttribute('y1', r * cwidth + cwidth/2);
+                        cell.setAttribute('y2', r * cwidth + cwidth/2);
+                        cell.style['stroke-width'] = cwidth - margin;
+                    }
+                }
+
+                for (var i = cellidx + 1; i < cells.length; i++) {
+                    cell = cells[i];
+                    cell.style['stroke-width'] = 0;
+                }
+            }
+
             function iterate_cells(effect, fun) {
                 for (var r = 0; r < rows; r++) {
-                    for (var c = 0; c < cols; c++) {
-                        for (var ch = 0; ch < 3; ch++) {
+                    for (var c = 0; c < columns; c++) {
+                        for (var ch = 0; ch < channels; ch++) {
                             p = {
                                 r: r, c: c, ch: ch,
                                 effect: effect,
                                 up: (rows + r - 1) % rows,
                                 down: (rows + r + 1) % rows,
-                                left: (cols + c - 1) % cols,
-                                right: (cols + c + 1) % cols
+                                left: (columns + c - 1) % columns,
+                                right: (columns + c + 1) % columns
                             }
 
                             p.v = [
                                 [
-                                    vals[p.up][p.left][ch],
-                                    vals[p.up][p.c][ch],
-                                    vals[p.up][p.right][ch]
+                                    vals[cellnum(p.up, p.left)][ch],
+                                    vals[cellnum(p.up, p.c)][ch],
+                                    vals[cellnum(p.up, p.right)][ch]
                                 ],
                                 [
-                                    vals[p.r][p.left][ch],
-                                    vals[p.r][p.c][ch],
-                                    vals[p.r][p.right][ch],
+                                    vals[cellnum(p.r, p.left)][ch],
+                                    vals[cellnum(p.r, p.c)][ch],
+                                    vals[cellnum(p.r, p.right)][ch],
                                 ],
                                 [
-                                    vals[p.down][p.left][ch],
-                                    vals[p.down][p.c][ch],
-                                    vals[p.down][p.right][ch]
+                                    vals[cellnum(p.down, p.left)][ch],
+                                    vals[cellnum(p.down, p.c)][ch],
+                                    vals[cellnum(p.down, p.right)][ch]
                                 ]
                             ]
 
@@ -75,20 +128,20 @@
             }
 
             function swap(row1, col1, row2, col2, lt, channel) {
-                a = vals[row1][col1][channel];
-                b = vals[row2][col2][channel];
+                a = vals[cellnum(row1, col1)][channel];
+                b = vals[cellnum(row2, col2)][channel];
 
                 if ((lt && a < b) || (!lt && a > b)) {
-                    nvals[row1][col1][channel] = b;
-                    nvals[row2][col2][channel] = a;
+                    nvals[cellnum(row1, col1)][channel] = b;
+                    nvals[cellnum(row2, col2)][channel] = a;
                 }
             }
 
             function copy_pixels() {
                 for (var r = 0; r < rows; r++) {
-                    for (var c = 0; c < cols; c++) {
-                        for (var ch = 0; ch < 3; ch++)
-                            vals[r][c][ch] = nvals[r][c][ch];
+                    for (var c = 0; c < columns; c++) {
+                        for (var ch = 0; ch < channels; ch++)
+                            vals[cellnum(r,c)][ch] = nvals[cellnum(r,c)][ch];
                     }
                 }
             }
@@ -96,8 +149,10 @@
             function randomize_direction(effect) {
                 var pr = effect.pRange;
 
-                for (var ch = 0; ch < 3; ch++) {
-                  if (rand() < effect.p[ch]) {
+                for (var ch = 0; ch < channels; ch++) {
+                    randval = rand();
+
+                    if (randval < effect.p[ch]) {
                         effect.direction[ch] = Math.floor(rand() * 3) - 1;
                         effect.p[ch] = lerp(rand(), 0, 1, pr[0], pr[1]);
                     }
@@ -105,67 +160,51 @@
             }
 
             function init() {
-                for (var r = 0; r < rows; r++) {
-                    var vrow = [];
-                    var nvrow = [];
+                svg = document.getElementsByTagName('svg')[0];
+                console.log(max_nbasecells)
+                
+                for (var i = 0; i < max_nbasecells * (max_nbasecells * 10); i++) {
+                    cell = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    cell.className = 'cell';
+                    cell.style['stroke-width'] = 'none';
+                    cell.style['stroke-linecap'] = 'round';
+                    cell.id = 'cell_' + i;
+                    svg.appendChild(cell);
+                    cells.push(cell);
 
-                    for (var c = 0; c < cols; c++) {
-                        var vcol = [];
-                        var nvcol = [];
-
-                        for (var ch = 0; ch < 3; ch++) {
-                            var val = r == 0 ? rand() * 100 : 100;
-                            vcol.push(val);
-                            nvcol.push(val);
-                        }
-
-                        vrow.push(vcol);
-                        nvrow.push(nvcol);
-                    }
-
-                    vals.push(vrow);
-                    nvals.push(nvrow);
+                    vals.push([0, 0, 0, 0]);
+                    nvals.push([0, 0, 0, 0])
                 }
+                
+                createjs.Ticker.addEventListener("tick", tick);
+                createjs.Ticker.setFPS(10);
+                svg.addEventListener("mousedown", function() {mousedown=true;});
+                svg.addEventListener("mouseup", function() {mousedown=false;});
 
                 var sheet = document.styleSheets[document.styleSheets.length - 1];
                 sheet.insertRule('a:hover {color: red;}', 0);
                 var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
                 hover = rules[0];
 
-                stage = new createjs.Stage("easel");
-                var bounds = stage.getBounds();
-
-                mainrect = new createjs.Shape();
-                stage.addChild(mainrect);
-                stage.update();
-
-                xscale = stage.canvas.width / cols;
-                yscale = stage.canvas.height / rows;
-
-                createjs.Ticker.addEventListener("tick", tick);
-                createjs.Ticker.setFPS(10);
-                stage.addEventListener("mousedown", function() {mousedown=true;});
-                stage.addEventListener("mouseup", function() {mousedown=false;});
-
-                var link_color = {
-                    postUpdate: function(effect) {
-                        hover.style.color = hsl(
-                            lerp(vals[0][0][0], 0, 100, 0, 360),
-                            lerp(vals[0][0][1], 0, 100, 33, 66),
-                            lerp(vals[0][0][2], 0, 100, 66, 100)
-                        );
+                var clear = {
+                    direction: [-1, -1, -1, -1],
+                    p: [0.01, 0.01, 0.01, 0.01],
+                    pRange: [0.05, 0.5],
+                    updatePixels: function(p) {
+                        if (!mousedown && ((p.effect.direction[p.ch] == -1 && p.r == 0) || (p.effect.direction[p.ch == 1] && p.c == 0))) {
+                            nvals[cellnum(p.r,p.c)][p.ch] = nvals[0][p.ch];
+                        }
                     }
                 }
-
                 var automata = {
-                    direction: [-1, -1, -1],
-                    p: [0.1, 0.1, 0.1],
+                    direction: [-1, -1, -1, -1],
+                    p: [0.1, 0.1, 0.1, 0.1],
                     pRange: [0.05, 0.5],
                     updatePixels: function(p) {
                         if (p.effect.direction[p.ch] != 0 && !mousedown) {
                             drow = p.effect.direction[p.ch] + 1;
 
-                            nvals[p.r][p.c][p.ch] = (
+                            nvals[cellnum(p.r,p.c)][p.ch] = (
                                 (p.v[1][0] + p.v[1][1] + p.v[1][2]) / 2 +
                                 (p.v[drow][0] + p.v[drow][1] + p.v[drow][2]) / 2
                             ) % 100;
@@ -180,12 +219,12 @@
                 };
 
                 var sort_horizontal = {
-                    direction: [-1, -1, -1],
-                    p: [0.1, 0.1, 0.1],
+                    direction: [-1, -1, -1, -1],
+                    p: [0.1, 0.1, 0.1, 0.1],
                     pRange: [0.05, 0.5],
                     updatePixels: function(p) {
                         if (p.effect.direction[p.ch] != 0) {
-                           if (p.c < cols - 1) {
+                           if (p.c < columns - 1) {
                                 swap(
                                     p.r, p.c,
                                     p.r, p.right,
@@ -202,8 +241,8 @@
                 };
 
                 var sort_vertical = {
-                    direction: [-1, -1, -1],
-                    p: [0.1, 0.1, 0.1],
+                    direction: [-1, -1, -1, -1],
+                    p: [0.1, 0.1, 0.1, 0.1],
                     pRange: [0.05, 0.5],
                     updatePixels: function(p) {
                         if (p.effect.direction[p.ch] != 0) {
@@ -223,8 +262,18 @@
                     }
                 }
 
+                var link_color = {
+                    postUpdate: function(effect) {
+                        hover.style.color = hsl(
+                            lerp(vals[0][0], 0, 100, 0, 360),
+                            lerp(vals[0][1], 0, 100, 33, 66),
+                            lerp(vals[0][2], 0, 100, 66, 100)
+                        );
+                    }
+                }
+
                 effects = [
-                    link_color, automata, sort_horizontal, sort_vertical
+                    clear, automata, sort_horizontal, sort_vertical, link_color
                 ];
             }
 
@@ -241,24 +290,31 @@
                 }
 
                 /* Draw this frame. */
-                mainrect.graphics.clear();
-
                 for (var r = 0; r < rows; r++) {
-                    for (var c = 0; c < cols; c++) {
-                        mainrect.graphics.beginFill(hsl(
-                            Math.floor(lerp(vals[r][c][0], 0, 100, 0, 360)),
-                            Math.floor(lerp(vals[r][c][1], 0, 100, 33, 66)),
-                            Math.floor(lerp(vals[r][c][2], 0, 100, 66, 100))
-                        )).drawCircle(
-                            xscale * c + (xscale / 2),
-                            yscale * r + (yscale / 2),
-                            Math.min(xscale, yscale) / 3
+                    for (var c = 0; c < columns; c++) {
+                        cellno = cellnum(r, c);
+                        cell = cells[cellno];
+                        val = vals[cellno];
+
+                        cell.style.stroke = hsl(
+                            Math.floor(lerp(val[0], 0, 100, 0, 360)),
+                            Math.floor(lerp(val[1], 0, 100, 33, 66)),
+                            Math.floor(lerp(val[2], 0, 100, 75, 100))
                         );
                     }
                 }
-
-                stage.update();
             }
+            
+            window.onload = function(event) {
+                init();
+                rearrange();
+
+                for (var i = 0; i < columns; i++) {
+                    vals[cellnum(0, i)] = [rand() * 100, rand() * 100, rand() * 100, rand() * 100];
+                }
+            }
+            
+           window.onresize = rearrange;
         </script>
 
         <style>
@@ -266,29 +322,173 @@
                 font-family: 'Open Sans', 'sans-serif';
                 font-weight: 300;
             }
-
-            .container {
-                width: 100%;
-                height: 100%;
-                margin: none;
-                border: none;
+            a {
+                text-decoration: none;
+                color: #81997F;
             }
-
+            .container {
+                width: 38em;
+                margin: auto;
+                height: 26em;
+                margin-top: 5em;
+            }
             .easel {
                 display: inline-block;
-
                 width: 5em;
                 margin-right: 1em;
                 background: white;
-                height: 30em;
+                height: 24em;
                 vertical-align: top;
+            }
+            .content {
+                display: inline-block;
+                width: 28em;
+                vertical-align: top;
+             }
+            /* Header. */
+            .profile {
+                margin: 0;
+                margin-top: -1.5em;
+                padding: 0;
+                display: inline-block;
+                max-width: 28em;
+                overflow: wrap;
+            }
+
+            .lastname {
+                color: white;
+                text-shadow: -1px 0 #556270, 0 1px #556270, 1px 0 #556270, 0 -1px #556270;
+                opacity: 0.75;
+                position: relative;
+                top: -0.97em;
+                left: 0px;
+                letter-spacing: -0.0465em;
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+
+            .profile h1 {
+                font-family: 'Molengo', 'sans-serif';
+                font-size: 8em;
+                letter-spacing: -0.05em;
+                text-transform: lowercase;
+                /*line-height: 0.25em;*/
+                color: #556270;
+                text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+                height: 1.25em;
+                user-select: none;
+                display: inline-block;
+            }
+
+            /* Biography text. */
+            .bio {
+                text-align: justify;
+                margin: 0;
+                margin-top: -7.5em;
+            }
+            .bio ul {
+                padding: 0;
+                margin: 0;
+            }
+            .bio ul ul {
+                padding: 1em;
+            }
+            .bio li {
+                list-style-type: none;
+                margin-top: .5em;
+            }
+            .page {
+                float: right;
+                vertical-align: bottom;
+                text-align: right;
+                color: #556270;
+                margin-top: -4.75em;
+            }
+            .page img {
+                position: relative;
+                top: -0.5em;
+                left: 2.25em;
+            }
+
+
+            @media screen and (max-width: 560px) {
+                .easel {
+                    display: block !important;
+                    width: 100% !important;
+                    margin-right: 0 !important;
+                    background: white;
+                    height: 5em !important;
+                }
+                .content {
+                    width: 100%;
+                    margin: auto;
+                }
+
+                .container {
+                    width: 100%;
+                    margin-top: 0;
+                }
+
+                .profile {
+                    max-width: 90%;
+                    display: block;
+                    margin: auto;
+                }
+                .profile h1 {
+                    font-size: 25vmin;
+                    max-width: 100%;
+                }
+
+                .lastname {
+                    top: -0.98em;
+                    left: 1px;
+                }
+
+                .bio {
+                    margin-top: -20vmin;
+                }
+            }
+
+            @media screen and (max-height: 450px) {
+                .container {
+                    margin-top: 0 !important;
+                }
             }
         </style>
     </head>
-    <body onload="init();">
+    <body>
         <div class='container'>
-            <canvas class='easel' id='easel' width="50" height="320"></canvas>
+            <svg class='easel' id='easel'></svg>
+            <div class='content'>
+                <section class='profile'>
+                    <h1><span class='firstname'>Brandon</span> <span class='lastname'>Mechtley</span></h1>
+                </section>
+                <section class='bio'>
+                    <ul>
+                        <li>&quot;is&quot;
+                            <ul>
+                                <!--li>inspired by <a href='media/alan-watts-seeing.mp3'>wiggles</a>, <a href='https://soundcloud.com/bmechtley/noise'>noise</a>, and <a href='https://www.youtube.com/watch?v=pcHnL7aS64Y'>silence</a>.</li-->
+                                <li>working on <a href='http://synthesiscenter.net/projects/ema/'>steerable complex systems</a> for <a href='https://vimeo.com/201885194'>responsive environments</a> at the <a href='http://synthesis.ame.asu.edu'>Synthesis Center</a> in <a href='http://ame.asu.edu'>AME</a> at <a href='http://asu.edu'>ASU</a>.</li>
+                            </ul>
+                        </li>
+
+                        <li>&quot;has&quot;
+                            <ul>
+                                <!--li>an ongoing <a href='https://vimeo.com/94695852'>soundscape mapping project</a>,</li>
+                                <li>a <a href='maps/index.html'>list of sound maps on the web</a>,</li-->
+                                <li><a href='http://www.mendeley.com/profiles/brandon-mechtley/'>papers</a>,</li>
+                                <li><a href='https://soundcloud.com/bmechtley'>sounds</a>, and</li>
+                                <li><a href='https://github.com/plant'>code</a>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class='page'><img src='images/music.png'/>00001</p>
+                </section>
+            </div>
         </div>
     </body>
 </html>
-
