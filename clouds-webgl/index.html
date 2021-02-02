@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <script src='./js/stats.min.js' language='javascript'></script>
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      #c {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="c"></canvas>
+    <video id="video" style="display:none" autoplay playsinline></video>
+  </body>
+
+  <script type="module">
+    import * as THREE from './js/three.module.js';
+    import {add_shaders} from './js/clouds.js';
+    import {uniforms, guiparams, controllers, stats} from './js/parameters.js';
+
+    const canvas = document.querySelector('#c');
+    const renderer = new THREE.WebGLRenderer({canvas});
+    renderer.autoClearColor = false;
+    const shaders = {};
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -1, 1);
+    add_shaders(shaders, uniforms, renderer, camera);
+
+    const mouse = shaders.add_mouse_to_density.uniforms.mouse.value;
+    console.log(controllers, controllers.simulation)
+    controllers.simulation.pressure_iterations.onFinishChange((p, v) => {
+      shaders.set_velocity.bind(
+        'source', v > 0 ? shaders.subtract_gradient : shaders.buoyancy
+      );
+    });
+
+    controllers.simulation.viscosity_iterations.onFinishChange((p, v) => {
+      shaders.add_additional_forces_to_velocity.bind(
+        'two', v > 0 ? shaders.set_viscosity_velocity : shaders.advect_velocity
+      );
+    });
+
+    controllers.dynamics.vorticity_confinement.onFinishChange((p, v) => {
+      shaders.add_additional_forces_to_velocity.bind(
+        'one', v > 0 ? shaders.add_buoyancy_and_vorticity : shaders.buoyancy
+      );
+    });
+
+    var mousedown = false;
+
+    canvas.addEventListener('mousedown', e => {
+      if (!mousedown) {
+        mouse.z = 1;
+        mousedown = true;
+      }
+    }, false);
+
+    function update_mouse(x, y) {
+      var dim = uniforms.simulation.dim.value;
+      var new_mouse = new THREE.Vector3(x / dim.x, 1 - y / dim.y, 1);
+
+      var velocity = new_mouse.clone();
+      velocity.sub(mouse);
+      velocity.multiplyScalar(uniforms.external.mouse_velocity.value);
+      velocity = new THREE.Vector2(velocity.x, velocity.y);
+      mouse.set(new_mouse.x, new_mouse.y, mouse.z);
+
+      var velocity_multiplier = shaders.add_mouse_to_velocity.uniforms.multiplier.value;
+      velocity_multiplier.set(velocity.x, velocity.y, 0, 0);
+      console.log(velocity_multiplier)
+      var density_multiplier = shaders.add_mouse_to_density.uniforms.multiplier.value;
+      density_multiplier.copy(uniforms.external.mouse_density.value);
+      density_multiplier.multiplyScalar(velocity.length());
+    };
+
+    canvas.addEventListener('mousemove', e => {
+      if (mousedown) update_mouse(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener('mouseup', e => {
+      if (mousedown) {
+        mouse.z = 0;
+        mousedown = false;
+      }
+    }, false);
+
+    canvas.addEventListener('touchstart', e => {
+      if (!mousedown) {
+        mouse.z = 1;
+        mousedown = true;
+      }
+    });
+
+    canvas.addEventListener('touchmove', e => {
+      update_mouse(e.touches[0].clientX, e.touches[0].clientY);
+    });
+
+    canvas.addEventListener('touchend', e => {
+      if (mousedown) {
+        mouse.z = 0;
+        mousedown = false;
+      }
+    });
+
+    var first_frame = true;
+
+    function resizeRendererToDisplaySize() {
+      const canvas = renderer.domElement;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+
+      if (canvas.width !== width || canvas.height !== height) {
+        renderer.setSize(width, height, false);
+        guiparams.simulation.dim.set(width, height);
+        console.log(width,height);
+        Object.keys(shaders).map(k => shaders[k].resize(width, height));
+      }
+    }
+
+    function render(time) {
+        time *= 0.001;  // convert to seconds
+        resizeRendererToDisplaySize();
+
+        const canvas = renderer.domElement;
+        uniforms.simulation.time.value = time;
+
+        if (guiparams.render) {
+          // Initial density and velocity, "constants".
+          if (first_frame)
+            shaders.black.render(); // Velocity.
+
+          shaders.noise.render(); // Randomize noise every frame.
+          shaders.env_pressure.render(); // Environment updates with parameters.
+
+          // External sources.
+          //shaders.add_watertemp.render();
+
+          shaders.add_wind.render();
+          shaders.add_mouse_to_density.render();
+          shaders.add_mouse_to_velocity.render();
+
+          // Advection.
+          shaders.advect_density.render();
+          shaders.advect_velocity.render();
+
+          // Viscous diffusion.
+          shaders.jacobi_diffusion.bind('velocity_texture', shaders.advect_velocity);
+          if ((guiparams.external.viscosity_gain > 0 || guiparams.dynamics.viscosity > 0) && guiparams.simulation.viscosity_iterations > 0) {
+            for (var i = 0; i < guiparams.simulation.viscosity_iterations; i++) {
+              shaders.jacobi_diffusion.render();
+
+              if (i == 0)
+                shaders.jacobi_diffusion.bind('velocity_texture', shaders.set_viscosity_velocity);
+
+              shaders.set_viscosity_velocity.render();
+            }
+          }
+
+          // Additional forces.
+          shaders.buoyancy.render();
+
+          if (guiparams.dynamics.vorticity_confinement > 0) {
+            shaders.vorticity_magnitude.render();
+            shaders.vorticity_confinement.render();
+            shaders.add_buoyancy_and_vorticity.render();
+          }
+
+          shaders.add_additional_forces_to_velocity.render();
+
+          // Water continuity and thermodynamics.
+          shaders.water_continuity.render();
+          shaders.thermodynamics.render();
+          shaders.set_density.render();
+
+          // Incompressibility: calculate pressure and fix velocity.
+          // If pressure_iterations = 0, skip and set final velocity directly from buoyancy.
+          if (guiparams.simulation.pressure_iterations > 0) {
+            shaders.divergence.render();
+            shaders.jacobi_pressure.bind('pressure', shaders.black);
+            for (var i = 0; i < guiparams.simulation.pressure_iterations; i++) {
+              shaders.jacobi_pressure.render();
+
+              if (i == 0)
+                shaders.jacobi_pressure.bind('pressure', shaders.set_pressure);
+
+              shaders.set_pressure.render();
+            }
+
+            shaders.subtract_gradient.render();
+          }
+
+          shaders.set_velocity.render();
+
+          // Set up feedback.
+          if (first_frame) {
+            shaders.add_mouse_to_density.bind('source', shaders.set_density);
+            shaders.add_wind.bind('source', shaders.set_velocity);
+            first_frame = false;
+          }
+
+          // Render density to canvas.
+          //shaders.add_mouse.render(null);
+          if (guiparams.visualization == 'density')
+            shaders.colormap_watertemp.render(null);
+          else if (guiparams.visualization == 'velocity')
+            shaders.colormap_velocity.render(null);
+
+        }
+
+        requestAnimationFrame(render);
+        stats.update();
+      }
+
+      requestAnimationFrame(render);
+  </script>
+</html>
