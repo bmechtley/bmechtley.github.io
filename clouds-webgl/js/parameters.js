@@ -136,7 +136,7 @@ function build_gui_params_and_uniforms(paramset = parameters, uniformset = unifo
   });
 }
 
-function build_gui_controllers(paramset = parameters, guiparamset = guiparams, controllerset = controllers, folder = gui) {
+function build_gui_controllers(paramset = parameters, guiparamset = guiparams, uniformset = uniforms, controllerset = controllers, folder = gui) {
   gui.remember(guiparamset);
 
   Object.keys(paramset).map(key => {
@@ -156,12 +156,16 @@ function build_gui_controllers(paramset = parameters, guiparamset = guiparams, c
             vfolder.add(gui_param, d, param.min[i], param.max[i], param.step[i]) :
             vfolder.add(gui_param, d);
         });
-      } else if (is_slider) controllerset[key] = folder.add(guiparamset, key, param.min, param.max, param.step);
-      else if (param.hasOwnProperty('options')) controllerset[key] = folder.add(guiparamset, key, param.options);
-      else controllerset[key] = folder.add(guiparamset, key);
+      } else {
+        if (is_slider) controllerset[key] = folder.add(guiparamset, key, param.min, param.max, param.step);
+        else if (param.hasOwnProperty('options')) controllerset[key] = folder.add(guiparamset, key, param.options);
+        else controllerset[key] = folder.add(guiparamset, key);
+
+        controllerset[key].onChange(v => uniformset[key].value = v);
+      }
     } else if (typeof param === 'object') {
       controllerset[key] = {};
-      build_gui_controllers(param, gui_param, controllerset[key], folder.addFolder(key));
+      build_gui_controllers(param, gui_param, uniformset[key], controllerset[key], folder.addFolder(key));
     }
   });
 }

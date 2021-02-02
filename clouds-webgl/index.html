@@ -37,19 +37,19 @@
 
     const mouse = shaders.add_mouse_to_density.uniforms.mouse.value;
     console.log(controllers, controllers.simulation)
-    controllers.simulation.pressure_iterations.onFinishChange((p, v) => {
+    controllers.simulation.pressure_iterations.onFinishChange(v => {
       shaders.set_velocity.bind(
         'source', v > 0 ? shaders.subtract_gradient : shaders.buoyancy
       );
     });
 
-    controllers.simulation.viscosity_iterations.onFinishChange((p, v) => {
+    controllers.simulation.viscosity_iterations.onFinishChange(v => {
       shaders.add_additional_forces_to_velocity.bind(
         'two', v > 0 ? shaders.set_viscosity_velocity : shaders.advect_velocity
       );
     });
 
-    controllers.dynamics.vorticity_confinement.onFinishChange((p, v) => {
+    controllers.dynamics.vorticity_confinement.onFinishChange(v => {
       shaders.add_additional_forces_to_velocity.bind(
         'one', v > 0 ? shaders.add_buoyancy_and_vorticity : shaders.buoyancy
       );
