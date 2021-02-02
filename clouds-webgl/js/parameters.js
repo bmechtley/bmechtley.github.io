@@ -51,7 +51,7 @@ export const presets = {
 }
 
 export const parameters = {
-  render: {value: false},
+  render: {value: true},
   //presets: {value: 'flat', options: Object.keys(presets)},
   visualization: {value: 'density', options: ['density', 'velocity']},
   simulation: {
