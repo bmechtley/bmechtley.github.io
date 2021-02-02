@@ -413,7 +413,7 @@ void main() {
   vec2 uv = gl_FragCoord.xy / dim;
   vec2 scale = dim / vec2(max(dim.x, dim.y));
   float d = length(scale  * (uv - mouse.xy));
-  float s = mouse.z * (1. - smoothstep(0., radius, d));
+  float s = mouse.z * (1. - clamp(d / radius, 0., 1.));//smoothstep(0., radius, d));
   vec4 src = texture2D(source, uv);
   gl_FragColor = src + vec4(s) * multiplier;
 }

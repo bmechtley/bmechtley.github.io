@@ -107,7 +107,7 @@ export const parameters = {
 };
 
 export const uniforms = {}, guiparams = {}, controllers = {};
-const gui = new DAT.GUI();//{ load: presets });
+export const gui = new DAT.GUI({ load: presets });
 
 function build_gui_params_and_uniforms(paramset = parameters, uniformset = uniforms, guiparamset = guiparams) {
   Object.keys(paramset).map(key => {
