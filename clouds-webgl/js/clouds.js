@@ -821,7 +821,7 @@ export const add_shaders = function(shaders, uniforms, renderer, camera) {
 
   add_shader(copy, {
     dim: uniforms.simulation.dim,
-    source: shaders.add_mouse_to_velocity.texture.texture
+    source: shaders.subtract_gradient.texture.texture
   }, 'set_velocity');
 
   add_shader(colormap_2d_signed, {
